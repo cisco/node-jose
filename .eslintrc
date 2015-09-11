@@ -1,0 +1,14 @@
+{
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "window": true
+  },
+  "rules": {
+    "no-shadow": [0],
+    "no-underscore-dangle": [0],
+    "strict": [2, "global"],
+    "yoda": [0]
+  }
+}

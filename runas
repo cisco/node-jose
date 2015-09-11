@@ -1,0 +1,94 @@
+#! /usr/bin/env bash
+#
+# usage: 
+# assumes bash, homebrew, and nvm for managing node
+
+## Load NVM
+source $(brew --prefix nvm)/nvm.sh
+
+# CONSTANTS
+REFRESH_LIMIT=28800
+
+ENVIRON=${1:-default}
+shift 1
+
+# Retain 'my' prompt
+export CLICOLOR=1
+export PS1="RUNAS{$ENVIRON} [\[\033[0;92m\]\D{%F}T\t\[\033[0m\]] \H:\W\[\033[0;91m\]$\[\033[0m\] "
+RUN_ARGS=${*:-bash -i}
+
+if [ ! -d env ] ; then
+  echo "Creating 'env' directory"
+  mkdir env
+fi
+
+## Remember next and current environment
+NEXT_NODE=env/${ENVIRON}
+CURR_NODE=
+if [ -h node_modules ]; then
+    CURR_NODE=$(readlink -n node_modules)
+fi
+
+# Setup "switch to" and "revert to" commands
+SWITCH_CMD=
+REVERT_CMD=
+if [ "${NEXT_NODE}" != "${CURR_NODE}" ] ; then
+    echo "Preserving existing '${CURR_NODE}' ..."
+    SWITCH_CMD="ln -sfn ${NEXT_NODE} node_modules"
+    if [ ! -z "${CURR_NODE}" ] ; then
+      REVERT_CMD="ln -sfn ${CURR_NODE} node_modules"
+    else
+      rm -f node_modules
+    fi
+fi
+
+## setp environment
+RETCODE=
+
+nvm use ${ENVIRON}
+RETCODE=$?
+if [ 0 -ne ${RETCODE} ]; then
+  # environment doesn't exist!
+  exit ${RETCODE}
+fi
+
+# create/update if needed
+UPDATE_CMD="npm update -d"
+UPDATE_TIME=$(date +%s)
+if [ ! -d ${NEXT_NODE} ] ; then
+  echo "Creating '${NEXT_NODE}'"
+  mkdir -p ${NEXT_NODE}
+  UPDATE_CMD="npm install -d"
+elif [ -f ${NEXT_NODE}/.updated ] ; then
+  UPDATE_LAST=$(cat ${NEXT_NODE}/.updated)
+  UPDATE_LAST=$(( ${UPDATE_LAST} + ${REFRESH_LIMIT} ))
+  if [ ${UPDATE_LAST} -gt ${UPDATE_TIME} ] ; then
+    UPDATE_CMD="true"
+  fi
+fi
+
+if [ ! -z "${SWITCH_CMD}" ] ; then
+  ${SWITCH_CMD}
+fi
+
+if [ ! -z "${UPDATE_CMD}" ] ; then
+  echo "updating '${NEXT_NODE}'"
+  ${UPDATE_CMD} &> /dev/null && \
+      echo ${UPDATE_TIME} > ${NEXT_NODE}/.updated
+  RETCODE=$?
+fi
+
+# run arguments
+if [ 0 -eq ${RETCODE} ] ; then
+  echo "running '${RUN_ARGS}' under ${ENVIRON}"
+  ${RUN_ARGS}
+  RETCODE=$?
+fi
+
+## if the environment was switched, revert it
+if [ ! -z "${REVERT_CMD}" ]; then
+  echo "... reverting to '${CURR_NODE}'"
+  ${REVERT_CMD}
+fi
+
+exit ${RETCODE}

@@ -1,0 +1,16 @@
+# self + revision control
+.npmignore
+.gitignore
+.git
+.hg
+.hgtags
+
+# build environment
+.editorconfig
+.eslintrc
+gulpfile.js
+
+runas
+env/
+coverage/
+test/
