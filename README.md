@@ -67,11 +67,13 @@ Processing a JWE or JWS relies on a KeyStore.
 
 ### Obtaining a KeyStore ###
 To create an empty keystore:
+
 ```
 keystore = jose.JWK.createKeyStore();
 ```
 
 To import a JWK-set as a keystore:
+
 ```
 // {input} is a String or JSON object representing the JWK-set
 jose.JWK.asKeyStore(input).
@@ -84,11 +86,13 @@ jose.JWK.asKeyStore(input).
 ### Exporting a KeyStore ###
 
 To export the public keys of a keystore as a JWK-set:
+
 ```
 output = keystore.toJSON();
 ```
 
 To export **all** the keys of a keystore:
+
 ```
 output = keystore.toJSON(true);
 ```
@@ -96,6 +100,7 @@ output = keystore.toJSON(true);
 ### Retrieving Keys ###
 
 To retrieve a key from a keystore:
+
 ```
 // by 'kid'
 key = keystore.get(kid);
@@ -123,11 +128,13 @@ key = keystore.get({ kid: kid, kty: 'RSA', use: 'enc' });
 ### Searching for Keys ###
 
 To retrieve all the keys from a keystore:
+
 ```
 everything = keystore.all();
 ```
 
 `all()` can be filtered much like `get()`:
+
 ```
 // filter by 'kid'
 everything = keystore.all({ kid: kid });
@@ -148,6 +155,7 @@ everything = keystore.all({ kid: kid, kty: 'RSA', alg: 'RSA-OAEP' });
 ### Managing Keys ###
 
 To import an existing Key (as a JSON object or Key instance):
+
 ```
 // input is either a:
 // *  jose.JWK.Key to copy from; or
@@ -161,6 +169,7 @@ keystore.add(input).
 ```
 
 To generate a new Key:
+
 ```
 // first argument is the key type (kty)
 // second is the key size (in bits) or named curve ('crv') for "EC"
@@ -192,6 +201,7 @@ kestyore.remove(key);
 ### Importing and Exporting a Single Key ###
 
 To import a single Key (as a JSON Object, or String serialized JSON Object):
+
 ```
 jose.JWK.asKey(input).
         then(function(result) {
@@ -215,6 +225,7 @@ var output = key.toJSON(true);
 ### Signing Content ###
 
 At its simplest, to create a JWS:
+
 ```
 // {input} is a Buffer
 jose.JWS.createSign(key).
@@ -228,6 +239,7 @@ jose.JWS.createSign(key).
 The JWS is signed using the preferred algorithm appropriate for the given Key.  The preferred algorithm is the first item returned by `key.algorithms("sign")`.
 
 To create a JWS using another serialization format:
+
 ```
 jose.JWS.createSign({ format: 'flattened' }, key).
         update(input).
@@ -255,6 +267,7 @@ jose.JWS.createSign({ alg: 'PS256' }, key).
 ```
 
 To create a JWS for a specified content type:
+
 ```
 jose.JWS.createSign({ fields: { cty: 'jwk+json' } }, key).
         update(input).
@@ -265,6 +278,7 @@ jose.JWS.createSign({ fields: { cty: 'jwk+json' } }, key).
 ```
 
 To create a JWS from String content:
+
 ```
 jose.JWS.createSign(key).
         update(input, "utf8").
@@ -275,6 +289,7 @@ jose.JWS.createSign(key).
 ```
 
 To create a JWS with multiple signatures:
+
 ```
 // {keys} is an Array of jose.JWK.Key instances
 jose.JWS.createSign(keys).
@@ -288,6 +303,7 @@ jose.JWS.createSign(keys).
 ### Verifying a JWS ###
 
 To verify a JWS, and retrieve the payload:
+
 ```
 jose.JWS.createVerify(keystore).
         verify(input).
@@ -300,6 +316,7 @@ jose.JWS.createVerify(keystore).
 ```
 
 To verify using an implied Key:
+
 ```
 // {key} can be:
 // *  jose.JWK.Key
@@ -316,6 +333,7 @@ jose.JWS.createVerify(key).
 ### Encrypting Content ###
 
 At its simplest, to create a JWE:
+
 ```
 // {input} is a Buffer
 jose.JWE.createEncrypt(key).
@@ -333,6 +351,7 @@ How the JWE content is encrypted depends on the provided Key.
 
 
 To create a JWE using a different serialization format:
+
 ```
 jose.JWE.createEncrypt({ format: 'compact' }, key).
         update(input).
@@ -350,6 +369,7 @@ jose.JWE.createEncrypt({ format: 'flattened' }, key).
 ```
 
 To create a JWE and compressing the content before encrypting:
+
 ```
 jose.JWE.createEncrypt({ zip: true }, key).
         update(input).
@@ -360,6 +380,7 @@ jose.JWE.createEncrypt({ zip: true }, key).
 ```
 
 To create a JWE for a specific content type:
+
 ```
 jose.JWE.createEncrypt({ fields: { cty : 'jwk+json' } }, key).
         update(input).
@@ -370,6 +391,7 @@ jose.JWE.createEncrypt({ fields: { cty : 'jwk+json' } }, key).
 ```
 
 To create a JWE with multiple recipients:
+
 ```
 // {keys} is an Array of jose.JWK.Key instances
 jose.JWE.createEncrypt(keys).
@@ -383,6 +405,7 @@ jose.JWE.createEncrypt(keys).
 ### Decrypting a JWE ###
 
 To decrypt a JWE, and retrieve the plaintext:
+
 ```
 jose.JWE.createDecrypt(keystore).
         verify(input).
@@ -395,6 +418,7 @@ jose.JWE.createDecrypt(keystore).
 ```
 
 To decrypt a JWE using an implied key:
+
 ```
 jose.JWE.createDecrypt(key).
         verify(input).
@@ -408,6 +432,7 @@ jose.JWE.createDecrypt(key).
 ### Converting to Buffer ###
 
 To convert a [Typed Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), or Array of Numbers to a Buffer:
+
 ```
 buff = jose.util.asBuffer(input);
 ```
@@ -415,11 +440,13 @@ buff = jose.util.asBuffer(input);
 ### URI-Safe Base64 ###
 
 To convert from a Buffer to a base64uri-encoded String:
+
 ```
 var output = jose.util.base64url.encode(input);
 ```
 
 To convert a String to a base64uri-encoded String:
+
 ```
 // explicit encoding
 output = jose.util.base64url.encode(input, "utf8");
@@ -429,11 +456,13 @@ output = jose.util.base64url.encode(input);
 ```
 
 To convert a base64uri-encoded String to a Buffer:
+
 ```
 var output = jose.util.base64url.decode(input);
 ```
 
 To convert a base64uri-encoded String to a String:
+
 ```
 output = jose.util.base64url.decode(input, "utf8");
 ```
