@@ -30,16 +30,22 @@ A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for
 
 ## Installing ##
 
-To install the latest from the repository:
+To install the latest from [NPM](https://npmjs.com/):
+
+```
+  npm install node-jose
+```
+
+Or to install a specific release:
+
+```
+  npm install node-jose@0.3.0
+```
+
+Alternatively, the latest unpublished code can be installed directly from the repository:
 
 ```
   npm install git+ssh://git@github.com:cisco/node-jose.git
-```
-
-Or to install a specific release from the repository:
-
-```
-  npm install git+ssh://git@github.com:cisco/node-jose.git#0.3.0
 ```
 
 ## Basics ##
@@ -51,6 +57,8 @@ var jose = require('node-jose');
 ```
 
 This library uses [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for nearly every operation.
+
+This library supports [Browserify](http://browserify.org/).  To use in a web browser, `require('node-kms')` and bundle with the rest of your app.
 
 The content to be signed/encrypted or returned from being verified/decrypted are [Buffer](https://nodejs.org/api/buffer.html) objects.
 
