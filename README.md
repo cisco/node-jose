@@ -168,11 +168,29 @@ To import an existing Key (as a JSON object or Key instance):
 // input is either a:
 // *  jose.JWK.Key to copy from; or
 // *  JSON object representing a JWK; or
-// *  String serialization of a JWK
 keystore.add(input).
         then(function(result) {
           // {result} is a jose.JWK.Key
           key = result;
+        });
+```
+
+To import and existing Key from a PEM or DER:
+
+```
+// input is either a:
+// *  String serialization of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
+// *  Buffer of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
+// form is either a:
+// * "json" for a JSON stringified JWK
+// * "pkcs8" for a DER encoded (unencrypted!) PKCS8 private key
+// * "spki" for a DER encoded SPKI public key
+// * "pkix" for a DER encoded PKIX X.509 certificate
+// * "x509" for a DER encoded PKIX X.509 certificate
+// * "pem" for a PEM encoded of PKCS8 / SPKI / PKIX
+keystore.add(input, form).
+        then(function(result) {
+          // {result} is a jose.JWK.Key
         });
 ```
 
@@ -208,10 +226,29 @@ kestyore.remove(key);
 
 ### Importing and Exporting a Single Key ###
 
-To import a single Key (as a JSON Object, or String serialized JSON Object):
+To import a single Key:
 
 ```
+// where input is either a:
+// *  jose.JWK.Key instance
+// *  JSON Object representation of a JWK
 jose.JWK.asKey(input).
+        then(function(result) {
+          // {result} is a jose.JWK.Key
+          // {result.keystore} is a unique jose.JWK.KeyStore
+        });
+
+// where input is either a:
+// *  String serialization of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
+// *  Buffer of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
+// form is either a:
+// * "json" for a JSON stringified JWK
+// * "pkcs8" for a DER encoded (unencrypted!) PKCS8 private key
+// * "spki" for a DER encoded SPKI public key
+// * "pkix" for a DER encoded PKIX X.509 certificate
+// * "x509" for a DER encoded PKIX X.509 certificate
+// * "pem" for a PEM encoded of PKCS8 / SPKI / PKIX
+jose.JWK.asKey(input, form).
         then(function(result) {
           // {result} is a jose.JWK.Key
           // {result.keystore} is a unique jose.JWK.KeyStore
@@ -219,11 +256,13 @@ jose.JWK.asKey(input).
 ```
 
 To export the public portion of a Key as a JWK:
+
 ```
 var output = key.toJSON();
 ```
 
 To export the public **and** private portions of a Key:
+
 ```
 var output = key.toJSON(true);
 ```
