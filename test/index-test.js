@@ -67,4 +67,12 @@ describe("Public API", function() {
     assert.ok(util.utf8.decode);
     assert.ok(util.utf8.encode);
   });
+
+  it("exports parse", function() {
+    var parse = jose.parse;
+
+    assert.strictEqual(typeof parse, "function");
+    assert.strictEqual(typeof parse.compact, "function");
+    assert.strictEqual(typeof parse.json, "function");
+  });
 });
