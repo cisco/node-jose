@@ -30,7 +30,7 @@ var fixtures = {
 
 describe("parse", function() {
   describe("basic", function() {
-    it("parses JWS Compact Serialization", function() {
+    it("parses JWS Compact Serialization (as String)", function() {
       var fix = fixtures.jws.basic;
       var input = fix.output.compact;
       var output = jose.parse(input);
@@ -38,6 +38,26 @@ describe("parse", function() {
       assert.strictEqual(output.format, "compact");
       assert.deepEqual(output.header, fix.signing.protected);
       assert.strictEqual(output.input, input);
+
+      assert.strictEqual(typeof output.perform, "function");
+      var promise = jose.JWK.asKey(fix.input.key);
+      promise = promise.then(function(key) {
+        return output.perform(key);
+      });
+      promise = promise.then(function(result) {
+        assert.strictEqual(result.payload.toString("utf8"),
+                           fix.input.payload);
+      });
+      return promise;
+    });
+    it("parses JWS Compact Serialization (as Buffer)", function() {
+      var fix = fixtures.jws.basic;
+      var input = new Buffer(fix.output.compact, "ascii");
+      var output = jose.parse(input);
+      assert.strictEqual(output.type, "JWS");
+      assert.strictEqual(output.format, "compact");
+      assert.deepEqual(output.header, fix.signing.protected);
+      assert.strictEqual(output.input, input.toString("ascii"));
 
       assert.strictEqual(typeof output.perform, "function");
       var promise = jose.JWK.asKey(fix.input.key);
@@ -91,7 +111,7 @@ describe("parse", function() {
       return promise;
     });
 
-    it("parses JWE Compact Serialization", function() {
+    it("parses JWE Compact Serialization (as String)", function() {
       var fix = fixtures.jwe.basic;
       var input = fix.output.compact;
       var output = jose.parse(input);
@@ -99,6 +119,26 @@ describe("parse", function() {
       assert.strictEqual(output.format, "compact");
       assert.deepEqual(output.header, fix.encrypting_content.protected);
       assert.strictEqual(output.input, input);
+
+      assert.strictEqual(typeof output.perform, "function");
+      var promise = jose.JWK.asKey(fix.input.key);
+      promise = promise.then(function(key) {
+        return output.perform(key);
+      });
+      promise = promise.then(function(result) {
+        assert.strictEqual(result.plaintext.toString("utf8"),
+                           fix.input.plaintext);
+      });
+      return promise;
+    });
+    it("parses JWE Compact Serialization (as Buffer)", function() {
+      var fix = fixtures.jwe.basic;
+      var input = new Buffer(fix.output.compact, "ascii");
+      var output = jose.parse(input);
+      assert.strictEqual(output.type, "JWE");
+      assert.strictEqual(output.format, "compact");
+      assert.deepEqual(output.header, fix.encrypting_content.protected);
+      assert.strictEqual(output.input, input.toString("ascii"));
 
       assert.strictEqual(typeof output.perform, "function");
       var promise = jose.JWK.asKey(fix.input.key);
