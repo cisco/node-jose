@@ -349,6 +349,41 @@ describe("jwk/keystore", function() {
     });
   });
 
+  describe("temp", function() {
+    var keystore;
+    before(function() {
+      var jwk = {
+        "kty": "DUMMY",
+        "kid": "someid",
+        "use": "sig",
+        "alg": "HS256",
+        "pub": util.base64url.encode(new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5", "hex")),
+        "prv": util.base64url.encode(new Buffer("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex"))
+      };
+      keystore = createInstance();
+      return keystore.add(jwk);
+    });
+    it("it creates a child keystore", function() {
+      var tks = keystore.temp();
+      assert.deepEqual(tks.all(), keystore.all());
+
+      var jwk = {
+        "kty": "DUMMY",
+        "kid": "diffid",
+        "use": "enc",
+        "alg": "A256GCM",
+        "pub": util.base64url.encode(new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5", "hex")),
+        "prv": util.base64url.encode(new Buffer("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex"))
+      };
+      var promise = tks.add(jwk);
+      promise = promise.then(function(key) {
+        assert.strictEqual(tks.get("diffid"), key);
+        assert.ok(!keystore.get("diffid"));
+      });
+      return promise;
+    });
+  });
+
   describe("query", function() {
 
   });
