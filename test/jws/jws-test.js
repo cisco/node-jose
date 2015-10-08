@@ -89,6 +89,7 @@ describe("jws", function() {
             // But let's make it clear that result.payload needs to be
             // converted before actually being a string.
             var payload = result.payload.toString();
+            assert.deepEqual(result.key, input.key);
             assert.deepEqual(payload, input.payload);
           });
       });
@@ -103,6 +104,7 @@ describe("jws", function() {
             // But let's make it clear that result.payload needs to be
             // converted before actually being a string.
             var payload = result.payload.toString();
+            assert.deepEqual(result.key, input.key);
             assert.deepEqual(payload, input.payload);
           });
       });
@@ -117,6 +119,7 @@ describe("jws", function() {
             // But let's make it clear that result.payload needs to be
             // converted before actually being a string.
             var payload = result.payload.toString();
+            assert.deepEqual(result.key, input.key);
             assert.deepEqual(payload, input.payload);
           });
       });
