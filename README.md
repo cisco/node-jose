@@ -320,6 +320,7 @@ jose.JWS.createVerify(keystore).
           // *  header: the combined 'protected' and 'unprotected' header members
           // *  payload: Buffer of the signed content
           // *  signature: Buffer of the verified signature
+          // *  key: The key used to verify the signature
         });
 ```
 
