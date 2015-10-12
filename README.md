@@ -58,7 +58,7 @@ var jose = require('node-jose');
 
 This library uses [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for nearly every operation.
 
-This library supports [Browserify](http://browserify.org/).  To use in a web browser, `require('node-kms')` and bundle with the rest of your app.
+This library supports [Browserify](http://browserify.org/).  To use in a web browser, `require('node-jose')` and bundle with the rest of your app.
 
 The content to be signed/encrypted or returned from being verified/decrypted are [Buffer](https://nodejs.org/api/buffer.html) objects.
 
@@ -448,6 +448,8 @@ buff = jose.util.asBuffer(input);
 
 ### URI-Safe Base64 ###
 
+This exposes [base64url](https://github.com/brianloveswords/base64url)'s `encode` and `toBuffer` methods as `encode` and `decode` (respectively).
+
 To convert from a Buffer to a base64uri-encoded String:
 
 ```
@@ -460,7 +462,7 @@ To convert a String to a base64uri-encoded String:
 // explicit encoding
 output = jose.util.base64url.encode(input, "utf8");
 
-// implied "binary" encoding
+// implied "utf8" encoding
 output = jose.util.base64url.encode(input);
 ```
 
@@ -468,12 +470,6 @@ To convert a base64uri-encoded String to a Buffer:
 
 ```
 var output = jose.util.base64url.decode(input);
-```
-
-To convert a base64uri-encoded String to a String:
-
-```
-output = jose.util.base64url.decode(input, "utf8");
 ```
 
 ### Random Bytes ###
