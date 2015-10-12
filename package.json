@@ -25,6 +25,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
+    "base64url": "^1.0.4",
     "es6-promise": "^2.0.1",
     "jsbn": "git+https://github.com/andyperlitch/jsbn.git",
     "lodash.assign": "^3.2.0",

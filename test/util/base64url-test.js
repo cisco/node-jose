@@ -37,8 +37,8 @@ describe("util/base64url", function() {
     assert.equal(output, "4oC5aGVsbG8gd29ybGQh4oC6");
   });
 
-  it("should encode a (binary) string", function() {
-    var input = "\xe2\x80\xb9hello world!\xe2\x80\xba";
+  it("should encode a (utf8) string", function() {
+    var input = "‹hello world!›";
     var output = utils.base64url.encode(input);
     assert.equal(output, "4oC5aGVsbG8gd29ybGQh4oC6");
   });
@@ -84,27 +84,11 @@ describe("util/base64url", function() {
     assert.deepEqual(output, expected);
   });
 
-  it("should decode a string to a string", function() {
-    var input, output;
-
-    input = "4oC5aGVsbG8gd29ybGQh4oC6";
-    output = utils.base64url.decode(input, "binary");
-    assert.equal(output, "\xe2\x80\xb9hello world!\xe2\x80\xba");
-
-    input = "4oC5aGVsbG8gd29ybGQh4oC6";
-    output = utils.base64url.decode(input, "utf8");
-    assert.equal(output, "‹hello world!›");
-
-    input = "4oC5aGVsbG8gd29ybGQh4oC6";
-    output = utils.base64url.decode(input, "hex");
-    assert.equal(output, "e280b968656c6c6f20776f726c6421e280ba");
-  });
-
   it("should decode the rainbow!", function() {
     var input, output;
 
     input = "Pfv_Oeu-Ndt9Mcs8Lbr7Kaq6JZp5IYo4HXn3GWm2FVl1EUk0DTjzCSiyBRhxAQgw";
-    output = utils.base64url.decode(input, "hex");
+    output = utils.base64url.decode(input).toString("hex");
     assert.equal(output, "3dfbff39ebbe35db7d31cb3c2dbafb29aaba259a79218a381d79f71969b61559751149340d38f30928b2051871010830");
   });
 });
