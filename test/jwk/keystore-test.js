@@ -385,7 +385,7 @@ describe("jwk/keystore", function() {
   });
 
   describe("query", function() {
-
+    // TODO: testit!
   });
 
   describe("export", function() {
@@ -481,6 +481,21 @@ describe("jwk/keystore", function() {
         alg: "A128GCM"
       };
 
+      it("returns the provided JWK.Key instance", function() {
+        var ks = createInstance(),
+            key = new JWK.BaseKey(props.kty, ks, props, DUMMY_FACTORY.config),
+            promise = Promise.resolve(key);
+        promise = promise.then(function(json) {
+          return JWK.store.KeyStore.asKey(json);
+        });
+        promise = promise.then(function(jwk) {
+          assert.ok(JWK.store.KeyStore.isKey(jwk));
+          assert.strictEqual(jwk, key);
+        });
+
+        return promise;
+      });
+
       it("coerces JSON Object to JWK.Key instance", function() {
         var promise = Promise.resolve(props);
         promise = promise.then(function(json) {
@@ -505,19 +520,137 @@ describe("jwk/keystore", function() {
         return promise;
       });
 
-      it("returns the provided JWK.Key instance", function() {
-        var ks = createInstance(),
-            key = new JWK.BaseKey(props.kty, ks, props, DUMMY_FACTORY.config),
-            promise = Promise.resolve(key);
-        promise = promise.then(function(json) {
-          return JWK.store.KeyStore.asKey(json);
-        });
-        promise = promise.then(function(jwk) {
-          assert.ok(JWK.store.KeyStore.isKey(jwk));
-          assert.strictEqual(jwk, key);
-        });
+      describe("EC integration", function() {
+        var pkcs8 = new Buffer("MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1Mo+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK", "base64"),
+            spki = new Buffer("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNEzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==", "base64"),
+            pkix = new Buffer("MIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAUBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3u5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9mdCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7", "base64"),
+            pem = {
+              public: "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNE\nzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END PUBLIC KEY-----\n",
+              private: "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1M\no+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TM\nCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK\n-----END PRIVATE KEY-----\n",
+              cert: "-----BEGIN CERTIFICATE-----\nMIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYT\nAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQK\nDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1r\nbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjEL\nMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIx\nHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAU\nBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZ\nVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc\n1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3\nu5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB\n/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9m\ndCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7\n-----END CERTIFICATE-----\n"
+            };
+        it("coerces PKCS8 String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkcs8, "pkcs8");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
 
-        return promise;
+          return promise;
+        });
+        it("coerces SPKI String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(spki, "spki");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PKIX String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkix, "pkix");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces X509 String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkix, "x509");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PRIVATE KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.private, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PUBLIC KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.public, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces CERTIFICATE PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.cert, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+      });
+      describe("RSA integration", function() {
+        var pkcs8 = new Buffer("MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZcGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJrL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdghu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93NsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpIIvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKoJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYhlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFIIQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0eX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqeHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8fNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6ttx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL7vAlvNHSlkaSX3SmqzkGtA==", "base64"),
+            spki = new Buffer("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8KPlrvJEQjm9Q2y7Luqz7iB6nLCxm1xdh8JQYeJtDnsD59Zf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT2SlvShst2aGPP30GA7aUGb7Wteu7krjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKkIUWFM6IMc6axyCKr3xxCrx162YrVCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegkC3IaJWx0j9Few+Uk6mpWH7KUjATEXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo1HyZ7nB6AuhHE6EQues/hwtUFWqaArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa8wIDAQAB", "base64"),
+            pkix = new Buffer("MIIDvzCCAqegAwIBAgIJALVU3dROl55XMA0GCSqGSIb3DQEBCwUAMHYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE3MDkwNloXDTE2MDkyOTE3MDkwNlowdjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAUBgNVBAMMDWttcy5jaXNjby5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAGjUDBOMB0GA1UdDgQWBBTnnpV83nEHQ1f3Q3PN5lX8YbLODTAfBgNVHSMEGDAWgBTnnpV83nEHQ1f3Q3PN5lX8YbLODTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB043leHgz4tKqAt6r8aYoZQIxLG03Nz0WL2YJSltgBcy/q3L6iAZYsJ42SEDfyEgk9UBIi8sfZEqp/VHmX8hqmKJJn0s6GNFxUpVe9MLKpaAEACnOr5rDX9abVIZ2XnhqNcEEeWzyunSVy/zj7Yom3yRiPGLLjics90RsOSTa5GaQli51McmWA+4+UhrY9vPNL4v0DBk4jijslsvN66EgPBsUyc0VcQ7fagDcxrvFEo/TQyGHbNrCZR5oY9Ub2D56AUM+ETciEHFy7ICNU/BLlHY4z6BHOMCENESXAvXyXpxs9IEjYrVa1y58yR7Zy9doZW7v7/y+64NaFuRmlXzXc", "base64"),
+            pem = {
+              public: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8KPlrvJEQjm9Q2y7Luq\nz7iB6nLCxm1xdh8JQYeJtDnsD59Zf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT\n2SlvShst2aGPP30GA7aUGb7Wteu7krjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKk\nIUWFM6IMc6axyCKr3xxCrx162YrVCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegk\nC3IaJWx0j9Few+Uk6mpWH7KUjATEXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo\n1HyZ7nB6AuhHE6EQues/hwtUFWqaArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa\n8wIDAQAB\n-----END PUBLIC KEY-----",
+              private: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1\nDbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2\ner9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7Ey\nSlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q\n2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k\n5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx\n2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZc\nGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJr\nL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb\n5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB\n5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdgh\nu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX\n7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93N\nsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpII\nvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKo\nJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYh\nlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFII\nQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0e\nX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqe\nHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G\n1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8\nfNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl\n8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6t\ntx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb\n9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL\n7vAlvNHSlkaSX3SmqzkGtA==\n-----END PRIVATE KEY-----",
+              cert: "-----BEGIN CERTIFICATE-----\nMIIDvzCCAqegAwIBAgIJALVU3dROl55XMA0GCSqGSIb3DQEBCwUAMHYxCzAJBgNV\nBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYD\nVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQD\nDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE3MDkwNloXDTE2MDkyOTE3MDkwNlow\ndjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52\nZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcx\nFjAUBgNVBAMMDWttcy5jaXNjby5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw\nggEKAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6x\nuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6\niYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJ\naLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2\nWF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lU\nbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAGjUDBOMB0GA1UdDgQWBBTnnpV8\n3nEHQ1f3Q3PN5lX8YbLODTAfBgNVHSMEGDAWgBTnnpV83nEHQ1f3Q3PN5lX8YbLO\nDTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB043leHgz4tKqAt6r8\naYoZQIxLG03Nz0WL2YJSltgBcy/q3L6iAZYsJ42SEDfyEgk9UBIi8sfZEqp/VHmX\n8hqmKJJn0s6GNFxUpVe9MLKpaAEACnOr5rDX9abVIZ2XnhqNcEEeWzyunSVy/zj7\nYom3yRiPGLLjics90RsOSTa5GaQli51McmWA+4+UhrY9vPNL4v0DBk4jijslsvN6\n6EgPBsUyc0VcQ7fagDcxrvFEo/TQyGHbNrCZR5oY9Ub2D56AUM+ETciEHFy7ICNU\n/BLlHY4z6BHOMCENESXAvXyXpxs9IEjYrVa1y58yR7Zy9doZW7v7/y+64NaFuRml\nXzXc\n-----END CERTIFICATE-----"
+            };
+        it("coerces PKCS8 String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkcs8, "pkcs8");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces SPKI String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(spki, "spki");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PKIX String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkix, "pkix");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces X509 String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pkix, "x509");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PRIVATE KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.private, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces PUBLIC KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.public, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces CERTIFICATE PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.cert, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
       });
     });
 
