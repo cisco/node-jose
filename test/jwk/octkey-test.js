@@ -523,9 +523,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["HS256"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "encrypt");
-      assert.deepEqual(algs, ["A256GCM", "A128CBC-HS256"]);
+      assert.deepEqual(algs, ["A256GCM", "A128CBC-HS256", "A128CBC+HS256"]);
       algs = JWK.OCTET.config.algorithms(keys, "decrypt");
-      assert.deepEqual(algs, ["A256GCM", "A128CBC-HS256"]);
+      assert.deepEqual(algs, ["A256GCM", "A128CBC-HS256", "A128CBC+HS256"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
       assert.deepEqual(algs, ["A256KW", "A256GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
@@ -542,9 +542,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["HS256", "HS384"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "encrypt");
-      assert.deepEqual(algs, ["A192CBC-HS384"]);
+      assert.deepEqual(algs, ["A192CBC-HS384", "A192CBC+HS384"]);
       algs = JWK.OCTET.config.algorithms(keys, "decrypt");
-      assert.deepEqual(algs, ["A192CBC-HS384"]);
+      assert.deepEqual(algs, ["A192CBC-HS384", "A192CBC+HS384"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
       assert.deepEqual(algs, ["PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
@@ -561,9 +561,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["HS256", "HS384", "HS512"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "encrypt");
-      assert.deepEqual(algs, ["A256CBC-HS512"]);
+      assert.deepEqual(algs, ["A256CBC-HS512", "A256CBC+HS512"]);
       algs = JWK.OCTET.config.algorithms(keys, "decrypt");
-      assert.deepEqual(algs, ["A256CBC-HS512"]);
+      assert.deepEqual(algs, ["A256CBC-HS512", "A256CBC+HS512"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
       assert.deepEqual(algs, ["PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
