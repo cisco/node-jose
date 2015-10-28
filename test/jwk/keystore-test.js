@@ -625,7 +625,7 @@ describe("jwk/keystore", function() {
             promise = promise.then(function(key){
               assert.equal(key.kty, "EC");
               assert.equal(key.length, entry.length);
-              ['crv', 'x','y','x5t'].forEach(function(prop){
+              ["crv", "x", "y", "x5t"].forEach(function(prop){
                 assert.equal(key.has(prop), true, "key.has(\"" + prop + "\")");
                 assert.isNotNull(key.get(prop));
                 assert.equal(key.get(prop).toString("hex"), entry[prop], "key.get(\"" + prop + "\")");
@@ -737,7 +737,7 @@ describe("jwk/keystore", function() {
             promise = promise.then(function(key){
               assert.equal(key.kty, "RSA");
               assert.equal(key.length, entry.length);
-              ['e','n','x5t'].forEach(function(prop){
+              ["e", "n", "x5t"].forEach(function(prop){
                 assert.equal(key.has(prop), true, "key.has(\"" + prop + "\")");
                 assert.isNotNull(key.get(prop));
                 assert.equal(key.get(prop).toString("hex"), entry[prop], "key.get(\"" + prop + "\")");
