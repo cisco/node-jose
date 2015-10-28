@@ -487,7 +487,7 @@ buff = jose.util.asBuffer(input);
 
 ### URI-Safe Base64 ###
 
-This exposes [base64url](https://github.com/brianloveswords/base64url)'s `encode` and `toBuffer` methods as `encode` and `decode` (respectively).
+This exposes [urlsafe-base64](https://github.com/RGBboy/urlsafe-base64)'s `encode` and `decode` methods as `encode` and `decode` (respectively).
 
 To convert from a Buffer to a base64uri-encoded String:
 
