@@ -585,6 +585,56 @@ describe("jwk/keystore", function() {
 
           return promise;
         });
+
+        var testCerts = [
+          {
+            crv: "P-256",
+            length: 256,
+            pem: "-----BEGIN CERTIFICATE-----\nMIIB0TCCAXegAwIBAgIJAOIa9y5lvLCuMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRn\naXRzIFB0eSBMdGQwHhcNMTUxMDI4MTgyMzM2WhcNMTUxMTI3MTgyMzM2WjBFMQsw\nCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJu\nZXQgV2lkZ2l0cyBQdHkgTHRkMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEGeQ2\ngjyuKuKzY46RlXq3YFm3+1I1dh5qJyjT0JHL1cbJcWCkX1hbwGcHLuL1Ta6qsVLX\nwfQa55T39lqIIds7NqNQME4wHQYDVR0OBBYEFF42p46deJNeby5P4+Ek91GPYXt7\nMB8GA1UdIwQYMBaAFF42p46deJNeby5P4+Ek91GPYXt7MAwGA1UdEwQFMAMBAf8w\nCgYIKoZIzj0EAwIDSAAwRQIgK8sUDXrdzwAm8tEbV6u0VGjxaEu20B8bhGgxTMKA\nvpECIQDkPcth66+tl1jQ4ETvhU3Ywx0rToQIEmbJRn5Yo99z+A==\n-----END CERTIFICATE-----",
+            x5t: "3lbJdwihFwh2KqAENvtZHpgGYps",
+            x: "19e436823cae2ae2b3638e91957ab76059b7fb5235761e6a2728d3d091cbd5c6",
+            y: "c97160a45f585bc067072ee2f54daeaab152d7c1f41ae794f7f65a8821db3b36"
+          },
+          {
+            crv: "P-384",
+            length: 384,
+            pem: "-----BEGIN CERTIFICATE-----\nMIICDTCCAZSgAwIBAgIJAKYjYGW6WkVkMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRn\naXRzIFB0eSBMdGQwHhcNMTUxMDI4MTgyMzM5WhcNMTUxMTI3MTgyMzM5WjBFMQsw\nCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJu\nZXQgV2lkZ2l0cyBQdHkgTHRkMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE4clzVD3q\nKFW91bJ61je+U6+35jWR7QK/HfUm6Q7ZO93BBBGsNnuKbe8VPGke2sL3ci4j3bxy\nvJ7DWUhuFGykOoJp7c8a/mYHWPiXPIHJNuu4lWWq0NzvQCAiE+FAy+YDo1AwTjAd\nBgNVHQ4EFgQUTh5igdnB8pJH4jzPg6ycT/7nL6QwHwYDVR0jBBgwFoAUTh5igdnB\n8pJH4jzPg6ycT/7nL6QwDAYDVR0TBAUwAwEB/zAKBggqhkjOPQQDAgNnADBkAjA/\nJjs9THbvH9O7+p4VrLdIqlicWBcBlv8Rw7Cuytj0b4yiRcbhf6y8WMoFol+W8pEC\nMF7A7y4MEbNYOmxeCGrZtNZzZAzWnovTmAS18T19HWfHGprc3AzcLK2AnJ1Myc+M\nsg==\n-----END CERTIFICATE-----",
+            x5t: "suAvZH7y9LNqox5Y9Lt-QSBQwwg",
+            x: "e1c973543dea2855bdd5b27ad637be53afb7e63591ed02bf1df526e90ed93bddc10411ac367b8a6def153c691edac2f7",
+            y: "722e23ddbc72bc9ec359486e146ca43a8269edcf1afe660758f8973c81c936ebb89565aad0dcef40202213e140cbe603"
+          },
+          {
+            crv: "P-521",
+            length: 521,
+            pem: "-----BEGIN CERTIFICATE-----\nMIICWTCCAbqgAwIBAgIJAJjQ+ASg4bQCMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT\nAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRn\naXRzIFB0eSBMdGQwHhcNMTUxMDI4MTgyMzQxWhcNMTUxMTI3MTgyMzQxWjBFMQsw\nCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJu\nZXQgV2lkZ2l0cyBQdHkgTHRkMIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQB23Gr\n27hPSl4XKyPkaO4AehUSU55WznhyAfY75ZefZ7H+R4bx+pJEBgKBN31BgSYH9iUF\n5uUG588t+O+ig7D/MWAB8LnUkxihpV6qVW5C7zrJTBKX5jg8VkQHu7vpUJmqppbj\nx2HEGqWVwdQlj5vQiX9FYGUnn7SR+PC4LVf1wi8SzdSjUDBOMB0GA1UdDgQWBBS/\n+T5g2xPKTvpS7DF7RM+GPruDDTAfBgNVHSMEGDAWgBS/+T5g2xPKTvpS7DF7RM+G\nPruDDTAMBgNVHRMEBTADAQH/MAoGCCqGSM49BAMCA4GMADCBiAJCAdQx+xviVWP2\nZMabRMOFctOdBl4RxKgahAsiL34lGMkvz8pjvQhoofPmdKk8roQxOWQHKLMIr5k8\nEQW99RyMMxUAAkIBkF5T9y2/SbpNcHMI/9k9rYXYc+7Ix/7l8sJIdJjU5nImUY4J\nYOahtIojKOX6C7CAzzGSaOhdqRfTC/vQ7tMNEz8=\n-----END CERTIFICATE-----",
+            x5t: "bdfIxLQ6r5IgLczVVRC0c_elBhY",
+            x: "01db71abdbb84f4a5e172b23e468ee007a1512539e56ce787201f63be5979f67b1fe4786f1fa9244060281377d41812607f62505e6e506e7cf2df8efa283b0ff3160",
+            y: "01f0b9d49318a1a55eaa556e42ef3ac94c1297e6383c564407bbbbe95099aaa696e3c761c41aa595c1d4258f9bd0897f456065279fb491f8f0b82d57f5c22f12cdd4"
+          }
+
+        ];
+
+        testCerts.map(function(entry){
+          it("coerces a 'EC:" + entry.crv + "' CERTIFICATE PEM String to JWK.Key instance and calculates a proper x5t", function(){
+            var promise = Promise.resolve();
+            promise = promise.then(function(){
+              var keystore = JWK.store.KeyStore.createKeyStore();
+              return keystore.add(entry.pem, "pem");
+            });
+
+            promise = promise.then(function(key){
+              assert.equal(key.kty, "EC");
+              assert.equal(key.length, entry.length);
+              ['crv', 'x','y','x5t'].forEach(function(prop){
+                assert.equal(key.has(prop), true, "key.has(\"" + prop + "\")");
+                assert.isNotNull(key.get(prop));
+                assert.equal(key.get(prop).toString("hex"), entry[prop], "key.get(\"" + prop + "\")");
+              });
+            });
+
+            return promise;
+          });
+        });
       });
       describe("RSA integration", function() {
         var pkcs8 = new Buffer("MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZcGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJrL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdghu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93NsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpIIvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKoJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYhlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFIIQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0eX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqeHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8fNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6ttx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL7vAlvNHSlkaSX3SmqzkGtA==", "base64"),
@@ -650,6 +700,52 @@ describe("jwk/keystore", function() {
           });
 
           return promise;
+        });
+
+        var testCerts = [
+          {
+            length: 1024,
+            pem: "-----BEGIN CERTIFICATE-----\nMIICWDCCAcGgAwIBAgIJANGa4MfB9TSKMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX\naWRnaXRzIFB0eSBMdGQwHhcNMTUxMDI4MTQxMzI1WhcNMTUxMTI3MTQxMzI1WjBF\nMQswCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50\nZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB\ngQC+luHIOf/z3ITksJAxkvnbSK2U5cGWBkSJP4zLSFDM7dWi5KSWNZvtWFEFhUAy\nAiyb7cjj3VMSWOnisqjFyMEeIHX/rD7CpnGVLIahTPftKJSvuJHrItU46SrdYoCw\nKKG0bhQU/R5rm4uD6i/5q6yFwZf1AW+HbL1SnpWt7zwd6QIDAQABo1AwTjAdBgNV\nHQ4EFgQU/9AFtc4VtYZjsZAUSZiLq62i8CgwHwYDVR0jBBgwFoAU/9AFtc4VtYZj\nsZAUSZiLq62i8CgwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOBgQCZIJmm\nr+uC5fdo2CcN+mC/dxCBIRPhL2ygckViO0L9U4J5y1YMO9isgWFvBiC++m4dynVg\nROtA6t2ORyAWRT79TSn05ATrBtcP9WBN21Yd+B997Gr9mMCNFrxzTPFJ18H/ZatA\nXbgMN9t8rzOtI1VH8t0siSNDiqmoNJDjrqT2sw==\n-----END CERTIFICATE-----",
+            x5t: "Ps-NZCLZNIV7n3yXDeSw_iWXwBw",
+            e: "010001",
+            n: "be96e1c839fff3dc84e4b0903192f9db48ad94e5c1960644893f8ccb4850ccedd5a2e4a496359bed585105854032022c9bedc8e3dd531258e9e2b2a8c5c8c11e2075ffac3ec2a671952c86a14cf7ed2894afb891eb22d538e92add6280b028a1b46e1414fd1e6b9b8b83ea2ff9abac85c197f5016f876cbd529e95adef3c1de9"
+          },
+          {
+            length: 2048,
+            pem: "-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIJAOxKOTiKDSERMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX\naWRnaXRzIFB0eSBMdGQwHhcNMTUxMDI4MTQxMzUxWhcNMTUxMTI3MTQxMzUxWjBF\nMQswCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50\nZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\nCgKCAQEAvtJcnQRc77P5qRn3mEDBVcI7s6iXAnh31KGg8OtlOwtOgNvlH6oAIK9i\nZsBhLpLZX4nQLLJWcqrDbyD2rN+idlabn8sXcES311YDZcysgd7roUdI+3pwBGZ/\nm1hsNNXt1OAq+Ih/LO+f3vjXnzoblcAF1a0YnATu3Q9V3XDP04vE3o85zsSJMtXF\nWMz7QmvD4xo6TJR9qDUZ3psfqvUjeozTY4+XZt4Hhy/m+Cuu1oKT9wdUSF5t/uF5\nWV05iRQo4D/46yxMtN+L1tJpqSfQa3LGLJGPnLKxufEFMij1YuwSha5XdufiOt0Y\nwjLe1FYbFD6id4hN0uod2ebtGB5AtQIDAQABo1AwTjAdBgNVHQ4EFgQUHEn1jX/W\nqc+pXOkb4UxGL6ZbL28wHwYDVR0jBBgwFoAUHEn1jX/Wqc+pXOkb4UxGL6ZbL28w\nDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAomA2XRa7dCUVJc6eeErh\n9Ti7t1EJGtABMmZcvep5erareRLHiKcHavtaj2u2f6QaQh3/GmclclKCCT88C/Xe\nR5SwUtZjKw3ymARBfvQCvfxVCpy3r6h4o3/b4DiqHrqX8XwUtFNzTkfrqlIzmntq\nvT9pE9NvFEtiZmsoH8q+Q3ntsIKHVb5Noi4q0+LyxcjDiVUbnG5IXa534v+B6mAN\nVygG68cdCDXbHgK+9U8gg8EgWf0++uoChXYWucAMsQK2qJ5vKHjGcSyPwQXlukWR\n7wXr7qEjtSpUzPe3Vrsr9OBsfhRT5oZA35Ev9wLWTeMcVWqe3Gx5w6aZafvZNzrz\npQ==\n-----END CERTIFICATE-----",
+            x5t: "8kpt82VqMd_YS8irOCxJOg6kTDA",
+            e: "010001",
+            n: "bed25c9d045cefb3f9a919f79840c155c23bb3a897027877d4a1a0f0eb653b0b4e80dbe51faa0020af6266c0612e92d95f89d02cb25672aac36f20f6acdfa276569b9fcb177044b7d7560365ccac81deeba14748fb7a7004667f9b586c34d5edd4e02af8887f2cef9fdef8d79f3a1b95c005d5ad189c04eedd0f55dd70cfd38bc4de8f39cec48932d5c558ccfb426bc3e31a3a4c947da83519de9b1faaf5237a8cd3638f9766de07872fe6f82baed68293f70754485e6dfee179595d39891428e03ff8eb2c4cb4df8bd6d269a927d06b72c62c918f9cb2b1b9f1053228f562ec1285ae5776e7e23add18c232ded4561b143ea277884dd2ea1dd9e6ed181e40b5"
+          },
+          {
+            length: 4096,
+            pem: "-----BEGIN CERTIFICATE-----\nMIIFXTCCA0WgAwIBAgIJAIa1PteikpgXMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV\nBAYTAlVTMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX\naWRnaXRzIFB0eSBMdGQwHhcNMTUxMDI4MTQxMzU5WhcNMTUxMTI3MTQxMzU5WjBF\nMQswCQYDVQQGEwJVUzETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50\nZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIIC\nCgKCAgEA9cCXgJhbwfA9O7DVEAjj6VpkSfmzQSo72x6pD7HMdD3ctR9A7Fbi/KsI\nhSbAlOxvDFUGvxdMcuGkulz4zg91ImD9ITOMrF4lUJcEMhrZq2XLzGALkwriX1+d\nCbCkd/hcfjtTzXQ92qG5iSsizuXNJSZaicBB05xANgI4YsosTeU2TgTXAI7K4t6c\nZ1mlCr/JBuJvi6sva1Oq/z+nofC3rb8DEQnkqrKrvTuzAibKgp5jBEEB1QW7jHD3\n5w8yx8yB5DokVdLCHvn6Ud2h+ZrrN7vuNeoy5uZu92iAugwzZwbT+E8a7KmiY5VL\n5jEfFTQumePDQjAlA5zO5dKyIn4/TyKfuJmIQBDxZXvx7mJQJpqNkTj4IotfXEPC\nfMq78fT4SOHFVkqw4JJf1HE0DLEk9ejnC/0GGDWLE8jRXlwj72hcHEXGVepjtusL\ntvgXzAvF6kbdqBAXvjlikfSZSZSieXZCM1CSAIrJ4tpLb67ZDGkKNqai55l66vzu\nPqTPenqtxNr81DrDG8s2BtHhoGstK+1SJXdiMrCSsc/awsUn7MoBoXD2Pq+eI2Rt\npWv+ZnPfnm+A6OhLpztYrEACY6/hv1hPAjg2O5RCaiS/fkJuMpRXB/mOw3VbTmG+\nS8Z6v3EnyDkc5zD5pNrI0e0QOjQq0z/RxrYKXw2EEhF7CNPhkasCAwEAAaNQME4w\nHQYDVR0OBBYEFCcq0Y/3BFmESZrebwaLL9r76nH0MB8GA1UdIwQYMBaAFCcq0Y/3\nBFmESZrebwaLL9r76nH0MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIB\nADZfWIxQYBPFjub8ZB5NNL/8Ro9oYmGdliCtw/MKqkuURzYBd02fNgdLc/SgcGJ7\nluap/REB8i2QvniD4yhprZMdP7nb6762Xmz2GmN0O5R058J+Sd4hrZQhFvRnZXEN\nHqH+bc8qMtFdHqLkwWWOpLJEpvUgZK+WiiFSh1ALnzrxFSxLd3us/ZS/m9nhcJhI\nO6mDMK/JfggkRAbmJGitPSVKCJl5STw6HsGou/Q1q2se1Yq/Rf5jVj92spzOQm4a\nc0rCQwmNEvjH7LAToy8VNnUJ/N32/nAt0AXVRdLiRBg/Wjjb2DWx/nlkhOe2tunN\no88PHCU4vh8pnDHk6pdSc1Oa9pRu4Uin5M5/D3HObpWd9+pEiyzZ/kZ6tx9fms/j\nJWRlbpGmVa6+AwVrwufenDV5ng2yXqpdcVv2yN0dGJOSZTflb+m1KPOi5oYpSkOR\nCScLL+orL47nWhzS76qZzJy4Zcq+VceOLZrcYx+m8gAqqSZr//2HOCEIWDUFm9C6\nyCFY3FB3sVcuagw7KZIHOnVcRLjpnFBhnLuMMmLifccW0hzdLrRwIKQ052A5dv9b\nkxjRcHxIOvm8M68IJt7PbrxoqxMO7MXR2YpZ4AihRbDBq5LIP1HHI21f/pkA341Z\nQA9cuNRolfYDiA3gE2F9c/7Et0S0cmLoGY7ln2NCQuHh\n-----END CERTIFICATE-----",
+            x5t: "sgnaAcCu-ZEFEGEPUuvuc4KWr90",
+            e: "010001",
+            n: "f5c09780985bc1f03d3bb0d51008e3e95a6449f9b3412a3bdb1ea90fb1cc743ddcb51f40ec56e2fcab088526c094ec6f0c5506bf174c72e1a4ba5cf8ce0f752260fd21338cac5e25509704321ad9ab65cbcc600b930ae25f5f9d09b0a477f85c7e3b53cd743ddaa1b9892b22cee5cd25265a89c041d39c4036023862ca2c4de5364e04d7008ecae2de9c6759a50abfc906e26f8bab2f6b53aaff3fa7a1f0b7adbf031109e4aab2abbd3bb30226ca829e63044101d505bb8c70f7e70f32c7cc81e43a2455d2c21ef9fa51dda1f99aeb37bbee35ea32e6e66ef76880ba0c336706d3f84f1aeca9a263954be6311f15342e99e3c3423025039ccee5d2b2227e3f4f229fb899884010f1657bf1ee6250269a8d9138f8228b5f5c43c27ccabbf1f4f848e1c5564ab0e0925fd471340cb124f5e8e70bfd0618358b13c8d15e5c23ef685c1c45c655ea63b6eb0bb6f817cc0bc5ea46dda81017be396291f4994994a2797642335092008ac9e2da4b6faed90c690a36a6a2e7997aeafcee3ea4cf7a7aadc4dafcd43ac31bcb3606d1e1a06b2d2bed5225776232b092b1cfdac2c527ecca01a170f63eaf9e23646da56bfe6673df9e6f80e8e84ba73b58ac400263afe1bf584f0238363b94426a24bf7e426e32945707f98ec3755b4e61be4bc67abf7127c8391ce730f9a4dac8d1ed103a342ad33fd1c6b60a5f0d8412117b08d3e191ab"
+          }
+        ];
+
+        testCerts.map(function(entry){
+          it("coerces a 'RSA:" + entry.length + "' CERTIFICATE PEM String to JWK.Key instance and calculates a proper x5t", function(){
+            var promise = Promise.resolve();
+            promise = promise.then(function(){
+              var keystore = JWK.store.KeyStore.createKeyStore();
+              return keystore.add(entry.pem, "pem");
+            });
+
+            promise = promise.then(function(key){
+              assert.equal(key.kty, "RSA");
+              assert.equal(key.length, entry.length);
+              ['e','n','x5t'].forEach(function(prop){
+                assert.equal(key.has(prop), true, "key.has(\"" + prop + "\")");
+                assert.isNotNull(key.get(prop));
+                assert.equal(key.get(prop).toString("hex"), entry[prop], "key.get(\"" + prop + "\")");
+              });
+            });
+
+            return promise;
+          });
         });
       });
     });
