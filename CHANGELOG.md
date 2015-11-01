@@ -1,3 +1,18 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/cisco/node-jose/compare/0.4.0...0.5.0) (2015-10-31)
+
+
+### Update
+
+* Support extra fields and x5t generation when importing a cert ([0d52aa5dabe6af29a08c2e299fc6be9ff5e81fca](https://github.com/cisco/node-jose/commit/0d52aa5dabe6af29a08c2e299fc6be9ff5e81fca))
+* Support deprecated `A*CBC+HS*` algorithms (aka the "plus" algorithms) ([d682e2920eeb9ff6599d7115f2dfbd705104603f](https://github.com/cisco/node-jose/commit/d682e2920eeb9ff6599d7115f2dfbd705104603f))
+
+### Fix
+
+* base64url does not work on IE  ([1ab757265ff2a160e49e870231590b2a47a4537b](https://github.com/cisco/node-jose/commit/1ab757265ff2a160e49e870231590b2a47a4537b)), closes [#16](https://github.com/cisco/node-jose/issues/16)
+* When an assumed key is provided, use it over any others ([9df51df13c153958661b7f76c7f1f2c3d322c109](https://github.com/cisco/node-jose/commit/9df51df13c153958661b7f76c7f1f2c3d322c109)), fixes [#14](https://github.com/cisco/node-jose/issues/14)
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/cisco/node-jose/compare/0.3.1...0.4.0) (2015-10-12)
 
