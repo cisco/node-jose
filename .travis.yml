@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - '0.10'
+  - '0.12'
+  - 'iojs'
+  - '4'
+  - '5'
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+env:
+  matrix:
+    env:
+      - TASKS=test:nodejs 
+      - EXTRAS=""
+  global:
+    - CXX=g++-4.8
+
+script:
+  - ./node_modules/.bin/gulp $TASKS $EXTRAS
