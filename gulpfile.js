@@ -170,16 +170,39 @@ var KARMA_CONFIG = {
       base: "SauceLabs",
       browserName: "firefox"
     },
-    "SL_Safari": {
+    "SL_Safari_7": {
       base: "SauceLabs",
       platform: "OS X 10.9",
       browserName: "safari",
       version: "7"
     },
-    "SL_IE": {
+    "SL_Safari_8": {
+      base: "SauceLabs",
+      platform: "OS X 10.10",
+      browserName: "safari",
+      version: "8"
+    },
+    "SL_Safari_9": {
+      base: "SauceLabs",
+      platform: "OS X 10.11",
+      browserName: "safari",
+      version: "9"
+    },
+    "SL_IE_10": {
       base: "SauceLabs",
       browserName: "internet explorer",
       version: "10"
+    },
+    "SL_IE_11": {
+      base: "SauceLabs",
+      browserName: "internet explorer",
+      platform: "Windows 8.1",
+      version: "11"
+    },
+    "SL_EDGE": {
+      base: "SauceLabs",
+      browserName: "microsoftedge",
+      platform: "Windows 10"
     }
   },
   captureTimeout: 600000,
@@ -191,7 +214,7 @@ var KARMA_CONFIG = {
 };
 var KARMA_BROWSERS = {
   local: ["Chrome", "Firefox"],
-  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_IE", "SL_Safari"]
+  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_7", "SL_Safari_8", "SL_Safari_9", "SL_IE_10", "SL_IE_11"]
 };
 // allow for IE on windows
 if (/^win/.test(process.platform)) {
@@ -219,8 +242,14 @@ gulp.task("test:browser:single", function(done) {
   }
   if (browsers.length) {
     config.browsers = config.browsers.filter(function(b) {
-      b = b.replace("SL_", "");
-      return -1 !== browsers.indexOf(b);
+      b = b.replace("SL_", "").toLowerCase();
+      var found = false,
+          asked;
+      for (var idx = 0; !found && browsers.length > idx; idx++) {
+        asked = browsers[idx].toLowerCase();
+        found = (0 === b.indexOf(asked));
+      }
+      return found;
     });
   }
 
