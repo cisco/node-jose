@@ -40,6 +40,12 @@ describe("jwk/basekey", function() {
 
       return pk;
     },
+    thumbprint: function(json) {
+      var fields = {};
+      fields.pub = json.public.pub;
+      fields.kty = "DUMMY";
+      return fields;
+    },
     algorithms: function(keys, mode) {
       var supported;
       switch (mode) {
@@ -625,6 +631,70 @@ describe("jwk/basekey", function() {
     });
   });
 
+  describe("thumbprints", function() {
+    it("returns a promise for a 'default' thumbprint", function() {
+      var inst;
+
+      inst = createInstance({
+        pub: "Lc3EY3_96tfej0F7Afa0TQ",
+        prv: "SBh6LBt1DBTeyHTvwDgSjg"
+      });
+      var p = inst.thumbprint();
+      p = p.then(function(print) {
+        assert.equal(print.toString("hex"),
+                     "37e91104e7e5b0b923926844c710a100aa48fa14554e85fc901a5ebc99cd13e6");
+      });
+      return p;
+    });
+    it("returns a promise for a specified thumbprint", function() {
+      var inst;
+
+      inst = createInstance({
+        pub: "Lc3EY3_96tfej0F7Afa0TQ",
+        prv: "SBh6LBt1DBTeyHTvwDgSjg"
+      });
+      var p = inst.thumbprint("SHA-1");
+      p = p.then(function(print) {
+        assert.equal(print.toString("hex"),
+                     "d14514ab53c383798343e3577ad12947e84fad40");
+      });
+      return p;
+    });
+    it("fails on invalid hash algoritm", function() {
+      var inst;
+
+      inst = createInstance({
+        pub: "Lc3EY3_96tfej0F7Afa0TQ",
+        prv: "SBh6LBt1DBTeyHTvwDgSjg"
+      });
+      var p = inst.thumbprint("SHA3");
+      p = p.then(function(print) {
+        assert.ok(false, "unexpected success");
+      }, function(err) {
+        assert.ok(err);
+      });
+      return p;
+    });
+    it("returns the same thumbprint as before", function() {
+      var inst;
+
+      inst = createInstance({
+        pub: "Lc3EY3_96tfej0F7Afa0TQ",
+        prv: "SBh6LBt1DBTeyHTvwDgSjg"
+      });
+      var p = inst.thumbprint();
+      p = p.then(function(print) {
+        assert.equal(print.toString("hex"),
+                     "37e91104e7e5b0b923926844c710a100aa48fa14554e85fc901a5ebc99cd13e6");
+        return inst.thumbprint();
+      });
+      p = p.then(function(print) {
+        assert.equal(print.toString("hex"),
+                     "37e91104e7e5b0b923926844c710a100aa48fa14554e85fc901a5ebc99cd13e6");
+      });
+      return p;
+    });
+  });
   describe("algorithms and supports", function() {
     it("returns all supported algorithms", function() {
       var inst;

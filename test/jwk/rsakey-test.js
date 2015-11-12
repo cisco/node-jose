@@ -142,6 +142,23 @@ describe("jwk/RSA", function() {
       assert.deepEqual(actual, undefined);
     });
   });
+  describe("#thumbprint", function() {
+    var json = {
+      public: {
+        "n": "i8exGrwNz69aIKhpblb7DrouMBJJohuzhGPezA1EWZ8klqNt7kxKhd3fA1MN1Nn9QTIX4NefJxmOwzXhq6qLtfOa7ZnXUS-pWrs3pm9oFOf1qF1DbeEDTaTbkvxlO7AFUs_LR1-wHyztH0O-Rl17WqUUjcoA07QYwHCKm1cP_kE4yCkyT0EPNkreCnwQEs-1xvZkyAo_zLjESN8y_Ck9FTTTAWmuEbUhtE1_QmlCfFaoUsBJ5OJG6eCTmr1MQ47T4flKDq6-PFr4JCFyMrmnungxpsg4lp-s1sUgg5qRUyga6ze854pmAgQKzj61lhs8g7k1J5HR6S0PL7xQl5pW6Q",
+        "e": "AQAB"
+      }
+    };
+    it("returns required fields (minus kty)", function() {
+      var expected = {
+        "n": "i8exGrwNz69aIKhpblb7DrouMBJJohuzhGPezA1EWZ8klqNt7kxKhd3fA1MN1Nn9QTIX4NefJxmOwzXhq6qLtfOa7ZnXUS-pWrs3pm9oFOf1qF1DbeEDTaTbkvxlO7AFUs_LR1-wHyztH0O-Rl17WqUUjcoA07QYwHCKm1cP_kE4yCkyT0EPNkreCnwQEs-1xvZkyAo_zLjESN8y_Ck9FTTTAWmuEbUhtE1_QmlCfFaoUsBJ5OJG6eCTmr1MQ47T4flKDq6-PFr4JCFyMrmnungxpsg4lp-s1sUgg5qRUyga6ze854pmAgQKzj61lhs8g7k1J5HR6S0PL7xQl5pW6Q",
+        "kty": "RSA",
+        "e": "AQAB"
+      };
+      var actual = JWK.RSA.config.thumbprint(json);
+      assert.deepEqual(actual, expected);
+    });
+  });
   describe("#wrapKey", function() {
     it("returns key value", function() {
       var keys = clone(keyPair);
@@ -339,6 +356,10 @@ describe("jwk/RSA", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "5696ddb7881bfafc92c02a70e8dcafc38ade1f9508f643d293ae282d59848eb8");
       });
 
       return promise;
@@ -359,6 +380,11 @@ describe("jwk/RSA", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
+        assert.deepEqual(key.toJSON(true), json);
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "5696ddb7881bfafc92c02a70e8dcafc38ade1f9508f643d293ae282d59848eb8");
       });
 
       return promise;

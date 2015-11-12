@@ -133,6 +133,26 @@ describe("jwk/EC", function() {
       assert.deepEqual(actual, undefined);
     });
   });
+  describe("#thumbprint", function() {
+    var json = {
+      public: {
+        "kty": "EC",
+        "crv": "P-256",
+        "x": "uiOfViX69jYwnygrkPkuM0XqUlvW65WEs_7rgT3eaak",
+        "y": "v8S-ifVFkNLoe1TSUrNFQVj6jRbK1L8V-eZa-ngsZLM"
+      }
+    };
+    it("returns required fields (minus kty)", function() {
+      var expected = {
+        "crv": "P-256",
+        "kty": "EC",
+        "x": "uiOfViX69jYwnygrkPkuM0XqUlvW65WEs_7rgT3eaak",
+        "y": "v8S-ifVFkNLoe1TSUrNFQVj6jRbK1L8V-eZa-ngsZLM"
+      };
+      var actual = JWK.EC.config.thumbprint(json);
+      assert.deepEqual(actual, expected);
+    });
+  });
 
   describe("#wrapKey", function() {
     it("returns key value", function() {
@@ -323,6 +343,10 @@ describe("jwk/EC", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "c840ce5ed3b9c62facb05e82ac8e70b4fa4c47c456a5f98ae0cbe5a3e2ebcea5");
       });
 
       return promise;
@@ -342,6 +366,10 @@ describe("jwk/EC", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "c840ce5ed3b9c62facb05e82ac8e70b4fa4c47c456a5f98ae0cbe5a3e2ebcea5");
       });
     });
   });
