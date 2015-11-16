@@ -163,12 +163,15 @@ describe("jwe", function() {
             .then(function(result) {
               // result.plaintext is a buffer, assert.equal will invoke its
               // toString() method implicitly
-              assert.equal(result.plaintext, input.plaintext);
+              assert.equal(result.payload, input.plaintext);
 
               // But let's make it clear that result.plaintext needs to be
               // converted before actually being a string.
-              var plaintext = result.plaintext.toString();
+              var plaintext = result.payload.toString();
               assert.deepEqual(plaintext, input.plaintext);
+
+              // Verify that plaintext and payload are the same thing
+              assert.equal(result.plaintext, result.payload);
             });
         });
       }
@@ -185,6 +188,9 @@ describe("jwe", function() {
               // converted before actually being a string.
               var plaintext = result.plaintext.toString();
               assert.deepEqual(plaintext, input.plaintext);
+
+              // Verify that plaintext and payload are the same thing
+              assert.equal(result.plaintext, result.payload);
             });
         });
       }
@@ -201,6 +207,9 @@ describe("jwe", function() {
               // converted before actually being a string.
               var plaintext = result.plaintext.toString();
               assert.deepEqual(plaintext, input.plaintext);
+
+              // Verify that plaintext and payload are the same thing
+              assert.equal(result.plaintext, result.payload);
             });
         });
       }

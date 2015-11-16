@@ -461,7 +461,8 @@ jose.JWE.createDecrypt(keystore).
           // {result} is a Object with:
           // *  header: the combined 'protected' and 'unprotected' header members
           // *  key: Key used to decrypt
-          // *  plaintext: Buffer of the decrypted content
+          // *  payload: Buffer of the decrypted content
+          // *  plaintext: Buffer of the decrypted content (alternate)
         });
 ```
 
