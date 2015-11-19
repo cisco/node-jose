@@ -1,3 +1,18 @@
+<a name="0.5.1"></a>
+## [0.5.1](/https://github.com/cisco/node-jose/compare/0.5.0...0.5.1) (2015-11-19)
+
+
+### Fix
+
+* 'stack exceeded' error on node.js v0.10 ([4ad481210adae7cdc2a06a6c25ddcefe33eff395](https://github.com/cisco/node-jose/commit/4ad481210adae7cdc2a06a6c25ddcefe33eff395))
+* address errors with setImmediate in IE ([caa32813dfb059955f0069f76cfee44c40c35c55](https://github.com/cisco/node-jose/commit/caa32813dfb059955f0069f76cfee44c40c35c55))
+
+### Build
+
+* add CGMKW test ([3643a9c5bc476c9ff2423858c772401b0b06557d](https://github.com/cisco/node-jose/commit/3643a9c5bc476c9ff2423858c772401b0b06557d))
+* expand the saucelabs platforms ([5eef84db07cfb8069853b2ee072d5888aaf16106](https://github.com/cisco/node-jose/commit/5eef84db07cfb8069853b2ee072d5888aaf16106))
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/cisco/node-jose/compare/0.4.0...0.5.0) (2015-10-31)
 
