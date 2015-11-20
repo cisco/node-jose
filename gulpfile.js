@@ -7,6 +7,11 @@
 
 var ARGV = require("yargs").
     usage("$0 [options] task [task ...]").
+    option("coverage", {
+      type: "boolean",
+      describe: "include coverage",
+      default: false
+    }).
     option("browsers", {
       type: "string",
       describe: "browsers to run tests in",
@@ -84,20 +89,27 @@ function doTestsNodejs() {
 }
 
 gulp.task("test:nodejs:single", function() {
+  // Constructing the environment descriptor
+  var environ = require("util").format(
+    "%s %s (%s %s)",
+    (process.release && process.release.name) || "node",
+    process.version,
+    process.platform,
+    process.arch
+  );
+  if (ARGV.coverage) {
+    return gulp.src(SOURCES).
+                pipe(istanbul()).
+                pipe(istanbul.hookRequire()).
+                on("finish", function() {
+                  doTestsNodejs().
+                  pipe(istanbul.writeReports({
+                    dir: "./coverage/" + environ,
+                    reporters: ["html", "text-summary"]
+                  }));
+                });
+  }
   return doTestsNodejs();
-});
-
-gulp.task("cover:nodejs", function() {
-  return gulp.src(SOURCES).
-              pipe(istanbul()).
-              pipe(istanbul.hookRequire()).
-              on("finish", function() {
-                doTestsNodejs().
-                pipe(istanbul.writeReports({
-                  dir: "./coverage/nodejs",
-                  reporters: ["html", "text-summary"]
-                }));
-              });
 });
 
 gulp.task("test:nodejs", function(cb) {
@@ -252,6 +264,25 @@ gulp.task("test:browser:single", function(done) {
       return found;
     });
   }
+  if (ARGV.coverage) {
+    config.browserify.transform = [
+      require("browserify-istanbul")({
+        ignore: [
+          "**/node_modules/**",
+          "**/test/**",
+          "**/env/**"
+        ]
+      })
+    ];
+    config.reporters.push("coverage");
+    config.coverageReporter = {
+      dir: "./coverage",
+      reporters: [
+        { type: "html" },
+        { type: "text-summary" }
+      ]
+    };
+  }
 
   karma.server.start(config, done);
 });
@@ -273,11 +304,6 @@ gulp.task("test", function(cb) {
   runSequence("test:lint",
               "test:browser:single",
               "test:nodejs:single",
-              cb);
-});
-gulp.task("coverage", function(cb) {
-  runSequence("test:lint",
-              "cover:nodejs",
               cb);
 });
 gulp.task("clean", ["clean:coverage", "clean:dist"]);
