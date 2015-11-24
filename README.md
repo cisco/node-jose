@@ -456,7 +456,7 @@ To decrypt a JWE, and retrieve the plaintext:
 
 ```
 jose.JWE.createDecrypt(keystore).
-        verify(input).
+        decrypt(input).
         then(function(result) {
           // {result} is a Object with:
           // *  header: the combined 'protected' and 'unprotected' header members
@@ -469,7 +469,7 @@ To decrypt a JWE using an implied key:
 
 ```
 jose.JWE.createDecrypt(key).
-        verify(input).
+        decrypt(input).
         then(function(result) {
           // ....
         });
