@@ -1,3 +1,21 @@
+<a name="0.5.2"></a>
+## [0.5.2](https://github.com/cisco/node-jose/compare/0.5.1...0.5.2) (2015-11-30)
+
+
+### Fix
+
+* polyfill should not override native Promise ([7ff0d4e6828e9b21ed12f98118a630d195ed7c9b](https://github.com/cisco/node-jose/commit/7ff0d4e6828e9b21ed12f98118a630d195ed7c9b))
+
+### Doc
+
+* fix wrong decryption sample code in README.md ([733d23f012b90a1b15f5474b7d25b7523d1a6e66](https://github.com/cisco/node-jose/commit/733d23f012b90a1b15f5474b7d25b7523d1a6e66))
+
+### Build
+
+* add code coverage for node + browsers ([4638bd52f81d2163df0aea71e09c4bd564dcee14](https://github.com/cisco/node-jose/commit/4638bd52f81d2163df0aea71e09c4bd564dcee14))
+* add code coverage for node + browsers ([df7d8cd0e28e6f381194fb27ea9b5df3a2968b60](https://github.com/cisco/node-jose/commit/df7d8cd0e28e6f381194fb27ea9b5df3a2968b60))
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/cisco/node-jose/compare/0.5.0...0.5.1) (2015-11-19)
 
