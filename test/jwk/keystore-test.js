@@ -521,12 +521,17 @@ describe("jwk/keystore", function() {
       });
 
       describe("EC integration", function() {
+        // ensure EC is registered
+        require("../../lib/jwk/eckey.js");
+
         var pkcs8 = new Buffer("MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1Mo+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK", "base64"),
             spki = new Buffer("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNEzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==", "base64"),
             pkix = new Buffer("MIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAUBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3u5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9mdCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7", "base64"),
             pem = {
-              public: "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNE\nzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END PUBLIC KEY-----\n",
-              private: "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1M\no+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TM\nCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK\n-----END PRIVATE KEY-----\n",
+              rawPrivateParams: "-----BEGIN EC PARAMETERS-----\nBggqhkjOPQMBBw==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIJDUxX9BJpsF49W9TKPofckq2npNlYXRhsM+PApuYxdcoAoGCCqGSM49\nAwEHoUQDQgAEWVXns1zCDbbGWVnXQRUvT4342FNEzAiTy1tDz5mfhJqzbqR5D8qy\njjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END EC PRIVATE KEY-----\n",
+              rawPrivate: "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIJDUxX9BJpsF49W9TKPofckq2npNlYXRhsM+PApuYxdcoAoGCCqGSM49\nAwEHoUQDQgAEWVXns1zCDbbGWVnXQRUvT4342FNEzAiTy1tDz5mfhJqzbqR5D8qy\njjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END EC PRIVATE KEY-----\n",
+              spki: "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNE\nzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END PUBLIC KEY-----\n",
+              pkcs8: "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1M\no+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TM\nCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK\n-----END PRIVATE KEY-----\n",
               cert: "-----BEGIN CERTIFICATE-----\nMIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYT\nAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQK\nDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1r\nbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjEL\nMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIx\nHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAU\nBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZ\nVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc\n1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3\nu5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB\n/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9m\ndCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7\n-----END CERTIFICATE-----\n"
             };
         it("coerces PKCS8 String to JWK.Key istance", function() {
@@ -561,16 +566,32 @@ describe("jwk/keystore", function() {
 
           return promise;
         });
-        it("coerces PRIVATE KEY PEM String to JWK.Key instance", function() {
-          var promise = JWK.store.KeyStore.asKey(pem.private, "pem");
+        it("coerces (raw) PRIVATE KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.rawPrivate, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
           });
 
           return promise;
         });
-        it("coerces PUBLIC KEY PEM String to JWK.Key instance", function() {
-          var promise = JWK.store.KeyStore.asKey(pem.public, "pem");
+        it("coerces (raw) PRIVATE KEY PEM (with EC PARAMETERS) String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.rawPrivateParams, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces (PKCS8) PRIVATE KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.pkcs8, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces (SPKI) PUBLIC KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.spki, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
           });
@@ -637,12 +658,16 @@ describe("jwk/keystore", function() {
         });
       });
       describe("RSA integration", function() {
+        // ensure RSA is registered
+        require("../../lib/jwk/rsakey.js");
+
         var pkcs8 = new Buffer("MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZcGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJrL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdghu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93NsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpIIvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKoJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYhlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFIIQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0eX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqeHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8fNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6ttx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL7vAlvNHSlkaSX3SmqzkGtA==", "base64"),
             spki = new Buffer("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8KPlrvJEQjm9Q2y7Luqz7iB6nLCxm1xdh8JQYeJtDnsD59Zf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT2SlvShst2aGPP30GA7aUGb7Wteu7krjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKkIUWFM6IMc6axyCKr3xxCrx162YrVCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegkC3IaJWx0j9Few+Uk6mpWH7KUjATEXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo1HyZ7nB6AuhHE6EQues/hwtUFWqaArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa8wIDAQAB", "base64"),
             pkix = new Buffer("MIIDvzCCAqegAwIBAgIJALVU3dROl55XMA0GCSqGSIb3DQEBCwUAMHYxCzAJBgNVBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE3MDkwNloXDTE2MDkyOTE3MDkwNlowdjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAUBgNVBAMMDWttcy5jaXNjby5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAGjUDBOMB0GA1UdDgQWBBTnnpV83nEHQ1f3Q3PN5lX8YbLODTAfBgNVHSMEGDAWgBTnnpV83nEHQ1f3Q3PN5lX8YbLODTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB043leHgz4tKqAt6r8aYoZQIxLG03Nz0WL2YJSltgBcy/q3L6iAZYsJ42SEDfyEgk9UBIi8sfZEqp/VHmX8hqmKJJn0s6GNFxUpVe9MLKpaAEACnOr5rDX9abVIZ2XnhqNcEEeWzyunSVy/zj7Yom3yRiPGLLjics90RsOSTa5GaQli51McmWA+4+UhrY9vPNL4v0DBk4jijslsvN66EgPBsUyc0VcQ7fagDcxrvFEo/TQyGHbNrCZR5oY9Ub2D56AUM+ETciEHFy7ICNU/BLlHY4z6BHOMCENESXAvXyXpxs9IEjYrVa1y58yR7Zy9doZW7v7/y+64NaFuRmlXzXc", "base64"),
             pem = {
-              public: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8KPlrvJEQjm9Q2y7Luq\nz7iB6nLCxm1xdh8JQYeJtDnsD59Zf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT\n2SlvShst2aGPP30GA7aUGb7Wteu7krjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKk\nIUWFM6IMc6axyCKr3xxCrx162YrVCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegk\nC3IaJWx0j9Few+Uk6mpWH7KUjATEXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo\n1HyZ7nB6AuhHE6EQues/hwtUFWqaArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa\n8wIDAQAB\n-----END PUBLIC KEY-----",
-              private: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1\nDbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2\ner9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7Ey\nSlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q\n2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k\n5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx\n2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZc\nGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJr\nL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb\n5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB\n5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdgh\nu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX\n7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93N\nsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpII\nvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKo\nJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYh\nlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFII\nQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0e\nX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqe\nHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G\n1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8\nfNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl\n8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6t\ntx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb\n9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL\n7vAlvNHSlkaSX3SmqzkGtA==\n-----END PRIVATE KEY-----",
+              rawPrivate: "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEAs8KPlrvJEQjm9Q2y7Luqz7iB6nLCxm1xdh8JQYeJtDnsD59Z\nf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT2SlvShst2aGPP30GA7aUGb7Wteu7\nkrjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKkIUWFM6IMc6axyCKr3xxCrx162YrV\nCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegkC3IaJWx0j9Few+Uk6mpWH7KUjATE\nXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo1HyZ7nB6AuhHE6EQues/hwtUFWqa\nArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa8wIDAQABAoIBACILax5lGkN7qCIp\nIgXr1QHaM+CvM2xZNe/lGN+sR8w2XBrpVw3+5WdLQpo2lN3V2TJX1IzdpCiGL90c\nij1Uh8rNKiKi2yAolPS1PPpfDdWCay+xIak8Fdx2RsGjrMW7XaHX1wYQ8M2OCzU3\nFmM591PF0uBghHMy0uDQkDSFKav4W+cjl9/Fpg5frHvJV8Ktxfez1Pzi79jdCIcz\nJmeHwakU1mCL6l0Oko//xAuS5hCaAeRfn6r2XLbewDH/pl6Skd2XPO06uzit8a8w\nZZ4l6NPdEFx0PNkQ0KQu9xuj3AnYIbuC8FLwTl6DGp9J+KHrfGW8JaPvNMxhrPHC\nRncQUwECgYEA5XPdc79Rtj10xT8BF+xT1qKkrfunAh/v9fJ7LupwkMCHVXHCpcq2\ni5gFYj/N3YE3DG3CT3rUjo0kyjPdzbEwY9GB4wwf87cOqtd4UhS/Mt67+j4jWldF\nXJFZsoeLF1UaLzAwxqXsegSP60qSCL31MaZhcwWjCaLPONmenNCgExMCgYEAyI7b\nBfgjKm9KF7CRWqhchcND9uoyq7CCqCdKxdUJqOP8rqVCyWMoMqd+p/MmtW62jQTm\njMEU5DB+QfUGrYkZzkGpcigoYd42IZRkXWRfh2SYMZnuYsyaN9/Co4a2daDRzXOw\n4LBW0HHoak7va/UACYJWfrXqkFRSCEN17lu29KECgYBQsLFVDhfnNa+F2gVBa3uE\nRIgTIyd1KNQTMuW89vcFAJ/XHX1tHl+ZsalbBsMXvWQle8fUeYacZuhkL182AbTZ\ntYiu1sm5xEtlKwcGHoOqmQeUFhwKnhwnVHotvVrdprDhnVnZ0enacxZFkWDPsDW0\n8yTb9USDk/y5qlYMIZXZfwKBgAxvBtcc5hk4YxCK6sgDDhFg5LLHHDMWs1L3dKRF\nK98jm0O8jSJtGk3honGJGoo+/eRKPHzXb5MiCoHOTgauLEJkQbwJD0/Z9eMpDvvX\nQDDlpKXWlDfd1WXHYoq+zEsImFkzZfDYHdm4Zh9JG4DG5KSyRuh+ILen8pn+jK4l\nU3dhAoGAK/Z+yu5jqpkMGECsKhl+rbcddc0sgV54HuoLaW7bDtbBAtFhS4cTS4Nn\nK7kDEZZrfJZHn+ZIE6aPMdfdhgRY2/YDBrcjtscoA+qw8DLDt6/ncFw8smhgDrHG\nPBUAQzqzQVMX2dxuKsfApGgUw5kKC+7wJbzR0pZGkl90pqs5BrQ=\n-----END RSA PRIVATE KEY-----",
+              spki: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs8KPlrvJEQjm9Q2y7Luq\nz7iB6nLCxm1xdh8JQYeJtDnsD59Zf+qesbhtrIiaM93TH552ErC845Xpdnq/cMDT\n2SlvShst2aGPP30GA7aUGb7Wteu7krjyuomDQc2kScIxm6B7YMXQSJOxMkpTNWKk\nIUWFM6IMc6axyCKr3xxCrx162YrVCCx6yWi1aCS2UH4MfDiaBcbNKRJeKtgjqegk\nC3IaJWx0j9Few+Uk6mpWH7KUjATEXLTjdlhdcECkcQHZ96MCy6obaGmPZOR1CFTo\n1HyZ7nB6AuhHE6EQues/hwtUFWqaArPZVG13uMklvlhx4dyPzkxbwFFhMdq3F1wa\n8wIDAQAB\n-----END PUBLIC KEY-----",
+              pkcs8: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzwo+Wu8kRCOb1\nDbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6xuG2siJoz3dMfnnYSsLzjlel2\ner9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6iYNBzaRJwjGboHtgxdBIk7Ey\nSlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJaLVoJLZQfgx8OJoFxs0pEl4q\n2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2WF1wQKRxAdn3owLLqhtoaY9k\n5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lUbXe4ySW+WHHh3I/OTFvAUWEx\n2rcXXBrzAgMBAAECggEAIgtrHmUaQ3uoIikiBevVAdoz4K8zbFk17+UY36xHzDZc\nGulXDf7lZ0tCmjaU3dXZMlfUjN2kKIYv3RyKPVSHys0qIqLbICiU9LU8+l8N1YJr\nL7EhqTwV3HZGwaOsxbtdodfXBhDwzY4LNTcWYzn3U8XS4GCEczLS4NCQNIUpq/hb\n5yOX38WmDl+se8lXwq3F97PU/OLv2N0IhzMmZ4fBqRTWYIvqXQ6Sj//EC5LmEJoB\n5F+fqvZctt7AMf+mXpKR3Zc87Tq7OK3xrzBlniXo090QXHQ82RDQpC73G6PcCdgh\nu4LwUvBOXoMan0n4oet8Zbwlo+80zGGs8cJGdxBTAQKBgQDlc91zv1G2PXTFPwEX\n7FPWoqSt+6cCH+/18nsu6nCQwIdVccKlyraLmAViP83dgTcMbcJPetSOjSTKM93N\nsTBj0YHjDB/ztw6q13hSFL8y3rv6PiNaV0VckVmyh4sXVRovMDDGpex6BI/rSpII\nvfUxpmFzBaMJos842Z6c0KATEwKBgQDIjtsF+CMqb0oXsJFaqFyFw0P26jKrsIKo\nJ0rF1Qmo4/yupULJYygyp36n8ya1braNBOaMwRTkMH5B9QatiRnOQalyKChh3jYh\nlGRdZF+HZJgxme5izJo338KjhrZ1oNHNc7DgsFbQcehqTu9r9QAJglZ+teqQVFII\nQ3XuW7b0oQKBgFCwsVUOF+c1r4XaBUFre4REiBMjJ3Uo1BMy5bz29wUAn9cdfW0e\nX5mxqVsGwxe9ZCV7x9R5hpxm6GQvXzYBtNm1iK7WybnES2UrBwYeg6qZB5QWHAqe\nHCdUei29Wt2msOGdWdnR6dpzFkWRYM+wNbTzJNv1RIOT/LmqVgwhldl/AoGADG8G\n1xzmGThjEIrqyAMOEWDkssccMxazUvd0pEUr3yObQ7yNIm0aTeGicYkaij795Eo8\nfNdvkyIKgc5OBq4sQmRBvAkPT9n14ykO+9dAMOWkpdaUN93VZcdiir7MSwiYWTNl\n8Ngd2bhmH0kbgMbkpLJG6H4gt6fymf6MriVTd2ECgYAr9n7K7mOqmQwYQKwqGX6t\ntx11zSyBXnge6gtpbtsO1sEC0WFLhxNLg2cruQMRlmt8lkef5kgTpo8x192GBFjb\n9gMGtyO2xygD6rDwMsO3r+dwXDyyaGAOscY8FQBDOrNBUxfZ3G4qx8CkaBTDmQoL\n7vAlvNHSlkaSX3SmqzkGtA==\n-----END PRIVATE KEY-----",
               cert: "-----BEGIN CERTIFICATE-----\nMIIDvzCCAqegAwIBAgIJALVU3dROl55XMA0GCSqGSIb3DQEBCwUAMHYxCzAJBgNV\nBAYTAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYD\nVQQKDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQD\nDA1rbXMuY2lzY28uY29tMB4XDTE1MDkzMDE3MDkwNloXDTE2MDkyOTE3MDkwNlow\ndjELMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52\nZXIxHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcx\nFjAUBgNVBAMMDWttcy5jaXNjby5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw\nggEKAoIBAQCzwo+Wu8kRCOb1DbLsu6rPuIHqcsLGbXF2HwlBh4m0OewPn1l/6p6x\nuG2siJoz3dMfnnYSsLzjlel2er9wwNPZKW9KGy3ZoY8/fQYDtpQZvta167uSuPK6\niYNBzaRJwjGboHtgxdBIk7EySlM1YqQhRYUzogxzprHIIqvfHEKvHXrZitUILHrJ\naLVoJLZQfgx8OJoFxs0pEl4q2COp6CQLcholbHSP0V7D5STqalYfspSMBMRctON2\nWF1wQKRxAdn3owLLqhtoaY9k5HUIVOjUfJnucHoC6EcToRC56z+HC1QVapoCs9lU\nbXe4ySW+WHHh3I/OTFvAUWEx2rcXXBrzAgMBAAGjUDBOMB0GA1UdDgQWBBTnnpV8\n3nEHQ1f3Q3PN5lX8YbLODTAfBgNVHSMEGDAWgBTnnpV83nEHQ1f3Q3PN5lX8YbLO\nDTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQB043leHgz4tKqAt6r8\naYoZQIxLG03Nz0WL2YJSltgBcy/q3L6iAZYsJ42SEDfyEgk9UBIi8sfZEqp/VHmX\n8hqmKJJn0s6GNFxUpVe9MLKpaAEACnOr5rDX9abVIZ2XnhqNcEEeWzyunSVy/zj7\nYom3yRiPGLLjics90RsOSTa5GaQli51McmWA+4+UhrY9vPNL4v0DBk4jijslsvN6\n6EgPBsUyc0VcQ7fagDcxrvFEo/TQyGHbNrCZR5oY9Ub2D56AUM+ETciEHFy7ICNU\n/BLlHY4z6BHOMCENESXAvXyXpxs9IEjYrVa1y58yR7Zy9doZW7v7/y+64NaFuRml\nXzXc\n-----END CERTIFICATE-----"
             };
         it("coerces PKCS8 String to JWK.Key istance", function() {
@@ -677,16 +702,24 @@ describe("jwk/keystore", function() {
 
           return promise;
         });
-        it("coerces PRIVATE KEY PEM String to JWK.Key instance", function() {
-          var promise = JWK.store.KeyStore.asKey(pem.private, "pem");
+        it("coerces (raw) PRIVATE KEY PEM String to JWK.Key istance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.rawPrivate, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
           });
 
           return promise;
         });
-        it("coerces PUBLIC KEY PEM String to JWK.Key instance", function() {
-          var promise = JWK.store.KeyStore.asKey(pem.public, "pem");
+        it("coerces (PKCS8) PRIVATE KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.pkcs8, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces (SPKI) PUBLIC KEY PEM String to JWK.Key instance", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.spki, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
           });
