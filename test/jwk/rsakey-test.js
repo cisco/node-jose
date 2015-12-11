@@ -347,17 +347,17 @@ describe("jwk/RSA", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
-        var priv_pem = key.toPEM(true);
-        assert.isString(priv_pem);
-        assert.match(priv_pem, /^-----BEGIN RSA PRIVATE KEY-----\r\n/);
-        assert.match(priv_pem, /\r\n-----END RSA PRIVATE KEY-----\r\n$/);
+        var privPEM = key.toPEM(true);
+        assert.isString(privPEM);
+        assert.match(privPEM, /^-----BEGIN RSA PRIVATE KEY-----\r\n/);
+        assert.match(privPEM, /\r\n-----END RSA PRIVATE KEY-----\r\n$/);
 
-        var pub_pem = key.toPEM();
-        assert.isString(pub_pem);
-        assert.match(pub_pem, /^-----BEGIN PUBLIC KEY-----\r\n/);
-        assert.match(pub_pem, /\r\n-----END PUBLIC KEY-----\r\n$/);
+        var pubPEM = key.toPEM();
+        assert.isString(pubPEM);
+        assert.match(pubPEM, /^-----BEGIN PUBLIC KEY-----\r\n/);
+        assert.match(pubPEM, /\r\n-----END PUBLIC KEY-----\r\n$/);
 
-        assert.equal(pub_pem, key.toPEM(false));
+        assert.equal(pubPEM, key.toPEM(false));
       });
 
       return promise;
