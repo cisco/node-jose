@@ -241,6 +241,18 @@ describe("jwk/RSA", function() {
       algs = JWK.RSA.config.algorithms(keys, "verify");
       assert.deepEqual(algs, []);
     });
+    it("exports PEM for public key", function() {
+      var pem = JWK.RSA.config.convertToPEM(keyPair.public, false);
+      assert.isString(pem);
+      assert.match(pem, /^-----BEGIN PUBLIC KEY-----\r\n/);
+      assert.match(pem, /\r\n-----END PUBLIC KEY-----\r\n$/);
+    });
+    it("exports PEM for private key", function() {
+      var pem = JWK.RSA.config.convertToPEM(keyPair.private, true);
+      assert.isString(pem);
+      assert.match(pem, /^-----BEGIN RSA PRIVATE KEY-----\r\n/);
+      assert.match(pem, /\r\n-----END RSA PRIVATE KEY-----\r\n$/);
+    });
   });
   describe("keystore integration", function() {
     it("generates a 'RSA' JWK", function() {
@@ -347,17 +359,6 @@ describe("jwk/RSA", function() {
           kid: "someid"
         });
         assert.deepEqual(key.toJSON(true), json);
-        var privPEM = key.toPEM(true);
-        assert.isString(privPEM);
-        assert.match(privPEM, /^-----BEGIN RSA PRIVATE KEY-----\r\n/);
-        assert.match(privPEM, /\r\n-----END RSA PRIVATE KEY-----\r\n$/);
-
-        var pubPEM = key.toPEM();
-        assert.isString(pubPEM);
-        assert.match(pubPEM, /^-----BEGIN PUBLIC KEY-----\r\n/);
-        assert.match(pubPEM, /\r\n-----END PUBLIC KEY-----\r\n$/);
-
-        assert.equal(pubPEM, key.toPEM(false));
       });
 
       return promise;
