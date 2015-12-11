@@ -21,7 +21,8 @@
   "author": "Cisco Systems, Inc. <https://www.cisco.com>",
   "contributors": [
     "Matthew A. Miller <linuxwolf@outer-planes.net>",
-    "Ian W. Remmel <design@ianwremmel.com>"
+    "Ian W. Remmel <design@ianwremmel.com>",
+    "Joe Hildebrand <joe-github@cursive.net>"
   ],
   "license": "Apache-2.0",
   "dependencies": {
