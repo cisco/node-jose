@@ -358,20 +358,6 @@ describe("jwk/RSA", function() {
         assert.match(pub_pem, /\r\n-----END PUBLIC KEY-----\r\n$/);
 
         assert.equal(pub_pem, key.toPEM(false));
-
-        // do we get the same result for DER?
-        var priv_der = key.toDER(true);
-        assert.ok(Buffer.isBuffer(priv_der));
-        var priv_pem_der = new Buffer(priv_pem.replace(/^-----.*/mg, ""),
-                                      "base64");
-        assert.deepEqual(priv_der, priv_pem_der);
-
-        var pub_der = key.toDER();
-        assert.ok(Buffer.isBuffer(pub_der));
-        var pub_pem_der = new Buffer(pub_pem.replace(/^-----.*/mg, ""),
-                                      "base64");
-        assert.deepEqual(pub_der, pub_pem_der);
-        assert.deepEqual(pub_der, key.toDER(false));
       });
 
       return promise;
