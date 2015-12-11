@@ -1,3 +1,16 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/cisco/node-jose/compare/0.5.2...0.6.0) (2015-12-12)
+
+
+### Update
+
+* export EC keys as PEM ([71d382ef06112dd6f71f7feec8c017b72695d20f](https://github.com/cisco/node-jose/commit/71d382ef06112dd6f71f7feec8c017b72695d20f))
+* export RSA keys as PEM ([e6ef2ef9aeddb0afc92d55222ae7669c87a3f6f1](https://github.com/cisco/node-jose/commit/e6ef2ef9aeddb0afc92d55222ae7669c87a3f6f1))
+* import EC and RSA keys from "raw" PEM ([f7a6dcab643209347b7bf68cb014d12e1698e8ff](https://github.com/cisco/node-jose/commit/f7a6dcab643209347b7bf68cb014d12e1698e8ff))
+* import EC and RSA "raw" private keys from DER ([f3cd2679317cec5a8a80f0634f777e4bc8ace4cd](http://github.com/cisco/node-jose/commits/f3cd2679317cec5a8a80f0634f777e4bc8ace4cd))
+* harmonize output from JWE.decrypt and JWS.verify ([ed0ea52e4fc4cc70920f2ce39bda11b09c45f214](http://github.com/cisco/node-jose/commits/ed0ea52e4fc4cc70920f2ce39bda11b09c45f214))
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/cisco/node-jose/compare/0.5.1...0.5.2) (2015-11-30)
 
@@ -22,7 +35,7 @@
 
 ### Fix
 
-* 'stack exceeded' error on node.js v0.10 ([4ad481210adae7cdc2a06a6c25ddcefe33eff395](https://github.com/cisco/node-jose/commit/4ad481210adae7cdc2a06a6c25ddcefe33eff395))
+* 'stack exceeded' error on node.js 0.10 ([4ad481210adae7cdc2a06a6c25ddcefe33eff395](https://github.com/cisco/node-jose/commit/4ad481210adae7cdc2a06a6c25ddcefe33eff395))
 * address errors with setImmediate in IE ([caa32813dfb059955f0069f76cfee44c40c35c55](https://github.com/cisco/node-jose/commit/caa32813dfb059955f0069f76cfee44c40c35c55))
 
 ### Build
