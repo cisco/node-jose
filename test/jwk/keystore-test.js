@@ -570,6 +570,11 @@ describe("jwk/keystore", function() {
           var promise = JWK.store.KeyStore.asKey(pem.rawPrivate, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
+            return jwk.toPEM(true);
+          });
+          promise = promise.then(function(pem) {
+            assert.match(pem, /^-----BEGIN EC PRIVATE KEY-----\r\n/);
+            assert.match(pem, /\r\n-----END EC PRIVATE KEY-----\r\n$/);
           });
 
           return promise;
@@ -594,6 +599,11 @@ describe("jwk/keystore", function() {
           var promise = JWK.store.KeyStore.asKey(pem.spki, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
+            return jwk.toPEM(false);
+          });
+          promise = promise.then(function(pem) {
+            assert.match(pem, /^-----BEGIN PUBLIC KEY-----\r\n/);
+            assert.match(pem, /\r\n-----END PUBLIC KEY-----\r\n$/);
           });
 
           return promise;

@@ -233,6 +233,18 @@ describe("jwk/EC", function() {
       algs = JWK.EC.config.algorithms(keys, "verify");
       assert.deepEqual(algs, []);
     });
+    it("exports PEM for public key", function() {
+      var pem = JWK.EC.config.convertToPEM(keyPair.public, false);
+      assert.isString(pem);
+      assert.match(pem, /^-----BEGIN PUBLIC KEY-----\r\n/);
+      assert.match(pem, /\r\n-----END PUBLIC KEY-----\r\n$/);
+    });
+    it("exports PEM for private key", function() {
+      var pem = JWK.EC.config.convertToPEM(keyPair.private, true);
+      assert.isString(pem);
+      assert.match(pem, /^-----BEGIN EC PRIVATE KEY-----\r\n/);
+      assert.match(pem, /\r\n-----END EC PRIVATE KEY-----\r\n$/);
+    });
   });
   describe("keystore integration", function() {
     it("generates a 'EC' JWK", function() {
