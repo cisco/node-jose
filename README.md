@@ -183,7 +183,9 @@ To import and existing Key from a PEM or DER:
 // *  Buffer of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
 // form is either a:
 // * "json" for a JSON stringified JWK
+// * "private" for a DER encoded 'raw' private key
 // * "pkcs8" for a DER encoded (unencrypted!) PKCS8 private key
+// * "public" for a DER encoded SPKI public key (alternate to 'spki')
 // * "spki" for a DER encoded SPKI public key
 // * "pkix" for a DER encoded PKIX X.509 certificate
 // * "x509" for a DER encoded PKIX X.509 certificate
