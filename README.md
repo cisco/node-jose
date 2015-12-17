@@ -15,6 +15,7 @@ A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for
   - [Searching for Keys](#searching-for-keys)
   - [Managing Keys](#managing-keys)
   - [Importing and Exporting a Single Key](#importing-and-exporting-a-single-key)
+  - [Obtaining a Key's Thumbprint](#obtaining-a-keys-thumbprint)
 - [Signatures](#signatures)
   - [Signing Content](#signing-content)
   - [Verifying a JWS](#verifying-a-jws)
@@ -268,6 +269,25 @@ To export the public **and** private portions of a Key:
 ```
 var output = key.toJSON(true);
 ```
+
+### Obtaining a Key's Thumbprint ###
+
+To get or calculate a [RFC 7638](https://tools.ietf.org/html/rfc7638) thumbprint for a key:
+
+```
+// where hash is a supported algorithm, currently one of:
+// * SHA-1
+// * SHA-256
+// * SHA-384
+// * SHA-512
+key.thumbprint(hash).
+    then(function(print) {
+      // {print} is a Buffer containing the thumbprint binary value
+    });
+```
+
+When importing or generating a key that does not have a "kid" defined, a
+"SHA-256" thumbprint is calculated and used as the "kid".
 
 ## Signatures ##
 

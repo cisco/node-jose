@@ -396,6 +396,13 @@ describe("jwk/keystore", function() {
     var inst = JWK.store.KeyStore.createKeyStore(),
         keys = [
           {
+            kty: "oct",
+            kid: "somevalue",
+            k: "SBh6LBt1DBTeyHTvwDgSjg",
+            use: "enc",
+            alg: "A128GCM"
+          },
+          {
             "kty": "RSA",
             "kid": "somekey",
             "use": "sig",
@@ -407,13 +414,6 @@ describe("jwk/keystore", function() {
             "dp": "lbOdOJNFrWTKldMjXRfu7Jag8lTeETyhvH7Dx1p5zqPUCN1ETMhYUK3DuxEqjan8qmZrmbN8yAO4lTG6BHKsdCdd1R23kyI15hmZ7Lsih7uTt8Z0XBZMVYT3ZtsIW0XCgAwkvPD3j75Ha7oeToSfMbmiD94RpKq0jBQZEosadEk",
             "dq": "OcG2RrJMyNoRH5ukA96ebUbvJNSZ0RSk_vCuN19y6GsG5k65TChrX9Cp_SHDBWwjPldM0CZmuSB76Yv0GVJS84GdgmeW0r94KdDA2hmy-vRHUi-VLzIBwKNbJbJd6_b_hJVjnwGobw1j2FtjWjXbq-lIFVTe18rPtmTdLqVNOgE",
             "qi": "YYCsHYc8qLJ1aIWnVJ9srXBC3VPWhB98tjOdK-xafhi19TeDL3OxazFV0f0FuxEGOmYeHyF4nh72wK3kRBrcosNQkAlK8oMH3Cg_AnMYehFRmDSKUFjDjXH5bVBfFk72FkmEywEaQgOiYs34P4RAEBdZohh6UTZm0-bajOkVEOE"
-          },
-          {
-            kty: "oct",
-            kid: "somevalue",
-            k: "SBh6LBt1DBTeyHTvwDgSjg",
-            use: "enc",
-            alg: "A128GCM"
           }
         ];
 
@@ -428,6 +428,7 @@ describe("jwk/keystore", function() {
     });
 
     it("toJSON() exports the keys (public fields only)", function() {
+      // TODO: make this test less sensitive to ordering
       var actual = inst.toJSON();
       var expected = {
         keys: keys.map(function(k) {
@@ -437,6 +438,7 @@ describe("jwk/keystore", function() {
       assert.deepEqual(actual, expected);
     });
     it("toJSON() exports the keys (with private fields)", function() {
+      // TODO: make this test less sensitive to ordering
       var actual = inst.toJSON(true);
       var expected = {
         keys: keys.map(function(k) {

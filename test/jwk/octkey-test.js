@@ -99,6 +99,22 @@ describe("jwk/oct", function() {
     });
   });
 
+  describe("#thumbprint", function() {
+    var json = {
+      private: {
+        "k": "Obdi7uR-5mc3Zbo0HtI-CQ"
+      }
+    };
+    it("returns required fields (minus kty)", function() {
+      var expected = {
+        k: "Obdi7uR-5mc3Zbo0HtI-CQ",
+        kty: "oct"
+      };
+      var actual = JWK.OCTET.config.thumbprint(json);
+      assert.deepEqual(actual, expected);
+    });
+  });
+
   describe("#encryptKey", function() {
     it("returns key value", function() {
       var keys = {
@@ -683,6 +699,10 @@ describe("jwk/oct", function() {
           use: "sig",
           alg: "HS256"
         });
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "fdce868cfc9f1d400ac42190a55f2ee6f12ca04363c3b207f3c4c3c01e343e48");
       });
 
       return promise;
@@ -704,6 +724,10 @@ describe("jwk/oct", function() {
           use: "enc",
           alg: "A128GCMKW"
         });
+        return key.thumbprint();
+      });
+      promise = promise.then(function(print) {
+        assert.equal(print.toString("hex"), "9006be7d413efbcdeb16d180fa7f84de2cbc7a0463f1a2d50c09a221b5b34cd9");
       });
 
       return promise;
