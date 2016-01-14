@@ -1,3 +1,14 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/cisco/node-jose/compare/0.6.0...0.7.0) (2016-01-14)
+
+
+### Update
+
+* implement JWK thumbprint support [RFC 7638] ([e57384cbf84cc30d8cc0be2b1f881107c4c74577](https://github.com/cisco/node-jose/commit/e57384cbf84cc30d8cc0be2b1f881107c4c74577))
+* support Microsoft Edge ([5ea3c881045388992511f61c9bfc17c8ab62f066](https://github.com/cisco/node-jose/commit/5ea3c881045388992511f61c9bfc17c8ab62f066))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/cisco/node-jose/compare/0.5.2...0.6.0) (2015-12-12)
 
@@ -7,8 +18,8 @@
 * export EC keys as PEM ([71d382ef06112dd6f71f7feec8c017b72695d20f](https://github.com/cisco/node-jose/commit/71d382ef06112dd6f71f7feec8c017b72695d20f))
 * export RSA keys as PEM ([e6ef2ef9aeddb0afc92d55222ae7669c87a3f6f1](https://github.com/cisco/node-jose/commit/e6ef2ef9aeddb0afc92d55222ae7669c87a3f6f1))
 * import EC and RSA keys from "raw" PEM ([f7a6dcab643209347b7bf68cb014d12e1698e8ff](https://github.com/cisco/node-jose/commit/f7a6dcab643209347b7bf68cb014d12e1698e8ff))
-* import EC and RSA "raw" private keys from DER ([f3cd2679317cec5a8a80f0634f777e4bc8ace4cd](http://github.com/cisco/node-jose/commits/f3cd2679317cec5a8a80f0634f777e4bc8ace4cd))
-* harmonize output from JWE.decrypt and JWS.verify ([ed0ea52e4fc4cc70920f2ce39bda11b09c45f214](http://github.com/cisco/node-jose/commits/ed0ea52e4fc4cc70920f2ce39bda11b09c45f214))
+* import EC and RSA "raw" private keys from DER ([f3cd2679317cec5a8a80f0634f777e4bc8ace4cd](https://github.com/cisco/node-jose/commit/f3cd2679317cec5a8a80f0634f777e4bc8ace4cd))
+* harmonize output from JWE.decrypt and JWS.verify ([ed0ea52e4fc4cc70920f2ce39bda11b09c45f214](https://github.com/cisco/node-jose/commit/ed0ea52e4fc4cc70920f2ce39bda11b09c45f214))
 
 
 <a name="0.5.2"></a>
