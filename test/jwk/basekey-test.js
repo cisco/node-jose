@@ -629,6 +629,31 @@ describe("jwk/basekey", function() {
         "alg": "A128GCM"
       });
     });
+    it("ignores isPrivate if not a Boolean", function() {
+      var props = {
+        kid: "somevalue",
+        pub: "Lc3EY3_96tfej0F7Afa0TQ",
+        prv: "SBh6LBt1DBTeyHTvwDgSjg",
+        use: "enc",
+        alg: "A128GCM"
+      };
+      var inst = createInstance(props);
+
+      assert.deepEqual(inst.toObject("42"), {
+        "kty": "DUMMY",
+        "kid": "somevalue",
+        "pub": util.base64url.decode("Lc3EY3_96tfej0F7Afa0TQ"),
+        "use": "enc",
+        "alg": "A128GCM"
+      });
+      assert.deepEqual(inst.toJSON("42"), {
+        "kty": "DUMMY",
+        "kid": "somevalue",
+        "pub": "Lc3EY3_96tfej0F7Afa0TQ",
+        "use": "enc",
+        "alg": "A128GCM"
+      });
+    });
   });
 
   describe("thumbprints", function() {
