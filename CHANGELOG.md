@@ -1,3 +1,14 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/cisco/node-jose/compare/0.7.0...0.7.1) (2016-02-09)
+
+
+### Fix
+
+* fix throws and rejects to be error objects and consistent ([89325da4b183817a7c412af98f2aa2b9dce97ff9](https://github.com/cisco/node-jose/commit/89325da4b183817a7c412af98f2aa2b9dce97ff9))
+* only honor isPrivate in JWK.toJSON() if it is actually a Boolean ([9f2f813fc5a10e0d477d5c06e4e719027b6cddbb](https://github.com/cisco/node-jose/commit/9f2f813fc5a10e0d477d5c06e4e719027b6cddbb))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/cisco/node-jose/compare/0.6.0...0.7.0) (2016-01-14)
 
