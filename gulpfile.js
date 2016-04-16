@@ -284,13 +284,15 @@ gulp.task("test:browser:single", function(done) {
     };
   }
 
-  karma.server.start(config, done);
+  var server = new karma.Server(config, done);
+  server.start();
 });
 
 gulp.task("test:browser:watch", function(done) {
   var config = clone(KARMA_CONFIG);
 
-  karma.server.start(config, done);
+  var server = new karma.Server(config, done);
+  server.start();
 });
 
 gulp.task("test:browser", function(cb) {
