@@ -398,6 +398,72 @@ jose.JWS.createVerify(key).
         });
 ```
 
+#### Handling `crit` Header Members ####
+
+To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
+
+* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWS if the member is present. 
+* `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
+* `Object`: An object with the following `Function` members:
+  * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
+  * "complete" -- takes the JWE decrypt output (immediately after decrypting) and returns a Promise for the processing of the member.
+
+**NOTE** If the handler function returns a promise, the fulfilled value is ignored.  It is expected these handler functions will modify the provided value directly.
+
+To simply accept a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": true
+  }
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To perform additional (pre-verify) processing on a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": function(jws) {
+      // {jws} is the JWS verify output, pre-verification
+      jws.header.exp = new Date(jws.header.exp);
+    }
+  }
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To perform additional (post-verify) processing on a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": {
+      complete: function(jws) {
+        // {jws} is the JWS verify output, post-verification
+        jws.header.exp = new Date(jws.header.exp);
+      }
+    }
+  }
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+
 ## Encryption ##
 
 ### Encrypting Content ###
@@ -482,6 +548,7 @@ jose.JWE.createDecrypt(keystore).
         then(function(result) {
           // {result} is a Object with:
           // *  header: the combined 'protected' and 'unprotected' header members
+          // *  protected: an array of the member names from the "protected" member 
           // *  key: Key used to decrypt
           // *  payload: Buffer of the decrypted content
           // *  plaintext: Buffer of the decrypted content (alternate)
@@ -495,6 +562,71 @@ jose.JWE.createDecrypt(key).
         decrypt(input).
         then(function(result) {
           // ....
+        });
+```
+
+#### Handling `crit` Header Members ####
+
+To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
+
+* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWE if the member is present. 
+* `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
+* `Object`: An object with the following `Function` members:
+  * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
+  * "complete" -- takes the JWE decrypt output (immediately after decrypting) and returns a Promise for the processing of the member.
+
+**NOTE** If the handler function returns a promise, the fulfilled value is ignored.  It is expected these handler functions will modify the provided value directly.
+
+To simply accept a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": true
+  }
+};
+jose.JWE.createDecrypt(key, opts).
+        decrypt(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To perform additional (pre-decrypt) processing on a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": function(jwe) {
+      // {jwe} is the JWE decrypt output, pre-decryption
+      jwe.header.exp = new Date(jwe.header.exp);
+    }
+  }
+};
+jose.JWE.createDecrypt(key, opts).
+        decrypt(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To perform additional (post-decrypt) processing on a `crit` header member:
+
+```
+var opts = {
+  handlers: {
+    "exp": {
+      complete: function(jwe) {
+        // {jwe} is the JWE decrypt output, post-decryption
+        jwe.header.exp = new Date(jwe.header.exp);
+      }
+    }
+  }
+};
+jose.JWE.createDecrypt(key, opts).
+        decrypt(input).
+        then(function(result) {
+          // ...
         });
 ```
 
