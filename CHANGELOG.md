@@ -1,3 +1,21 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/cisco/node-jose/compare/0.7.1...0.8.0) (2016-04-18)
+
+
+### Update
+
+* support 'crit' header member ([2a05a6700b5828a32d5b51e707b4c171a08d3ec4](https://github.com/cisco/node-jose/commits/2a05a6700b5828a32d5b51e707b4c171a08d3ec4))
+
+### Fix
+
+* failures on different browser platforms ([d06fe17ae791f14d777e2492cefffd79404e199f](https://github.com/cisco/node-jose/commits/d06fe17ae791f14d777e2492cefffd79404e199f))
+
+### Build
+
+* integrate travis-ci ([7dc80e735579c0f612256db7dd242b415520707f](https://github.com/cisco/node-jose/commits/7dc80e735579c0f612256db7dd242b415520707f))
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/cisco/node-jose/compare/0.7.0...0.7.1) (2016-02-09)
 
