@@ -166,7 +166,7 @@ describe("algorithms/aes-gcm", function() {
     var decryptFailer = function(){
       var runner = function() {
         var size = algSize(alg);
-        var key = new Buffer(size, "binary"),
+        var key = new Buffer(size),
             iv = new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
             tag,
             plaintext = new Buffer("00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff", "hex"),

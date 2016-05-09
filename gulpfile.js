@@ -182,12 +182,6 @@ var KARMA_CONFIG = {
       base: "SauceLabs",
       browserName: "firefox"
     },
-    "SL_Safari_7": {
-      base: "SauceLabs",
-      platform: "OS X 10.9",
-      browserName: "safari",
-      version: "7"
-    },
     "SL_Safari_8": {
       base: "SauceLabs",
       platform: "OS X 10.10",
