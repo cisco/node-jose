@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "es6-promise": "^3.1.2",
-    "jsbn": "git+https://github.com/andyperlitch/jsbn.git",
+    "jsbn": "^0.1.0",
     "lodash.assign": "^4.0.8",
     "lodash.clone": "^4.3.2",
     "lodash.fill": "^3.2.2",
@@ -39,8 +39,8 @@
     "lodash.pick": "^4.2.0",
     "lodash.uniq": "^4.2.1",
     "long": "^3.1.0",
-    "node-forge": "git+https://github.com/linuxwolf/forge.git#master",
-    "urlsafe-base64": "git+https://github.com/linuxwolf/urlsafe-base64.git#encoding",
+    "node-forge": "https://github.com/linuxwolf/forge/archive/browserify.tar.gz",
+    "urlsafe-base64": "https://github.com/linuxwolf/urlsafe-base64/archive/encoding.tar.gz",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
