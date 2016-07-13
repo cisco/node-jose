@@ -1,3 +1,19 @@
+<a name="0.8.1"></a>
+# [0.8.1](https://github.com/cisco/node-jose/compare/0.8.0...0.8.1) (2016-07-13)
+
+### Fix
+
+* Documentation typo ([c8e27f517ce444ac13a8602f4e83da664c6fb34e](https://github.com/cisco/node-jose/commit/c8e27f517ce444ac13a8602f4e83da664c6fb34e))
+* Issues with latest browserify-buffer ([476e4d7fe743a50b6fd62ef1259d2db03d2313eb](https://github.com/cisco/node-jose/commit/476e4d7fe743a50b6fd62ef1259d2db03d2313eb))
+* Typo in lib/algorithms/constants ([480721085b405c24349d5ead321c01d92941bdd2](https://github.com/cisco/node-jose/commit/480721085b405c24349d5ead321c01d92941bdd2))
+* Remove warnings from webpack ([5056b6e29168ff147a948da908f305f90b60c45e](https://github.com/cisco/node-jose/commit/5056b6e29168ff147a948da908f305f90b60c45e))
+
+### Build
+
+* Further restrict what is published ([8e8f779cf84fe4d359123fa502276dfcad47ba0b](https://github.com/cisco/node-jose/commit/8e8f779cf84fe4d359123fa502276dfcad47ba0b))
+* Reconcile git-prefixed dependencies ([2b6bd1ec3f61ae301c9d631c1ff623b480ddd31b](https://github.com/cisco/node-jose/commit/2b6bd1ec3f61ae301c9d631c1ff623b480ddd31b))
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/cisco/node-jose/compare/0.7.1...0.8.0) (2016-04-18)
 
