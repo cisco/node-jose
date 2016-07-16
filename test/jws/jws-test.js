@@ -9,7 +9,6 @@ var forEach = require("lodash.foreach");
 var chai = require("chai");
 
 var JWS = require("../../lib/jws");
-
 var JWK = require("../../lib/jwk");
 
 var assert = chai.assert;
@@ -22,6 +21,37 @@ var fixtures = {
 };
 
 describe("jws", function() {
+  describe("createVerify", function() {
+    var key = {
+      "kty": "oct",
+      "kid": "xV-UT6IYtLwpff7SYQUH2PgbB_dKmndejyFpJc56-Ec",
+      "k": "vFfSurgM7hZIkirsjn8IFhJ3optS_GCecC-_qGfhMRQ"
+    };
+
+    before(function() {
+      return JWK.asKey(key).
+             then(function(result) {
+               key = result;
+             });
+    });
+
+    it("creates a verify using a keystore", function() {
+      var vfy = JWS.createVerify(key.keystore);
+      assert.strictEqual(vfy.keystore, key.keystore);
+      assert.isUndefined(vfy.defaultKey);
+    });
+    it("creates a verify using an assumed key", function() {
+      var vfy = JWS.createVerify(key);
+      assert.strictEqual(vfy.keystore, key.keystore);
+      assert.strictEqual(vfy.defaultKey, key);
+    });
+    it("creates a verify with an empty keystore", function() {
+      var vfy = JWS.createVerify();
+      assert.ok(vfy.keystore);
+      assert.isUndefined(vfy.defaultKey);
+    });
+  });
+
   forEach(fixtures, function(fixture) {
     var input = fixture.input;
     var output = fixture.output;

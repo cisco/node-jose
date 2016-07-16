@@ -398,6 +398,20 @@ jose.JWS.createVerify(key).
         });
 ```
 
+To verify using a key embedded in the JWS:
+
+```
+jose.JWS.createVerify().
+        verify(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+The key can be embedded using either 'jwk' or 'x5c', and can be located in either the JWS Unprotected Header or JWS Protected Header.
+
+**NOTE:** `verify()` will use the embedded key (if found) instead of any other key.
+
 #### Handling `crit` Header Members ####
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
