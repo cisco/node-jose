@@ -1,5 +1,21 @@
+# Release Notes
+
+<a name="0.9.0"></a>
+## [0.9.0](https://github.com/cisco/node-jose/compare/0.8.1...0.9.0) (2016-07-17)
+
+
+### Update
+
+* find keys embedded in JWS header ([445381dd628936a9a3d4b8ff59794f96a0f34adb](cisco/node-jose/commit/445381dd628936a9a3d4b8ff59794f96a0f34adb)), closes [#65](cisco/node-jose/issues/65)
+
+### Fix
+
+* incorrect member name for unprotected JWS header  ([6c6028c1619a500cb098b68fed0b83c52029823f](cisco/node-jose/commit/6c6028c1619a500cb098b68fed0b83c52029823f))
+
+
+
 <a name="0.8.1"></a>
-# [0.8.1](https://github.com/cisco/node-jose/compare/0.8.0...0.8.1) (2016-07-13)
+## [0.8.1](https://github.com/cisco/node-jose/compare/0.8.0...0.8.1) (2016-07-13)
 
 ### Fix
 
@@ -15,7 +31,7 @@
 
 
 <a name="0.8.0"></a>
-# [0.8.0](https://github.com/cisco/node-jose/compare/0.7.1...0.8.0) (2016-04-18)
+## [0.8.0](https://github.com/cisco/node-jose/compare/0.7.1...0.8.0) (2016-04-18)
 
 
 ### Update
@@ -44,7 +60,7 @@
 
 
 <a name="0.7.0"></a>
-# [0.7.0](https://github.com/cisco/node-jose/compare/0.6.0...0.7.0) (2016-01-14)
+## [0.7.0](https://github.com/cisco/node-jose/compare/0.6.0...0.7.0) (2016-01-14)
 
 
 ### Update
@@ -55,7 +71,7 @@
 
 
 <a name="0.6.0"></a>
-# [0.6.0](https://github.com/cisco/node-jose/compare/0.5.2...0.6.0) (2015-12-12)
+## [0.6.0](https://github.com/cisco/node-jose/compare/0.5.2...0.6.0) (2015-12-12)
 
 
 ### Update
@@ -101,7 +117,7 @@
 
 
 <a name="0.5.0"></a>
-# [0.5.0](https://github.com/cisco/node-jose/compare/0.4.0...0.5.0) (2015-10-31)
+## [0.5.0](https://github.com/cisco/node-jose/compare/0.4.0...0.5.0) (2015-10-31)
 
 
 ### Update
@@ -116,7 +132,7 @@
 
 
 <a name="0.4.0"></a>
-# [0.4.0](https://github.com/cisco/node-jose/compare/0.3.1...0.4.0) (2015-10-12)
+## [0.4.0](https://github.com/cisco/node-jose/compare/0.3.1...0.4.0) (2015-10-12)
 
 
 ### Breaking
@@ -130,7 +146,7 @@
 
 
 <a name="0.3.1"></a>
-# [0.3.1](https://github.com/cisco/node-jose/compare/0.3.0...0.3.1) (2015-10-06)
+## [0.3.1](https://github.com/cisco/node-jose/compare/0.3.0...0.3.1) (2015-10-06)
 
 
 ### Fix
@@ -155,6 +171,6 @@
 
 
 <a name="0.3.0"></a>
-# [0.3.0] (2015-09-11)
+## [0.3.0] (2015-09-11)
 
 Initial public release.
