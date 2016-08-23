@@ -25,7 +25,7 @@ var ARGV = require("yargs").
     help("help").
     argv;
 
-var browserify = require("browserify"),
+var webpack = require("webpack-stream"),
     clone = require("lodash.clone"),
     gulp = require("gulp"),
     karma = require("karma"),
@@ -119,30 +119,21 @@ gulp.task("test:nodejs", function(cb) {
 });
 
 // ### BROWSER TASKS ###
-function doBrowserify(suffix, steps) {
-  var source = require("vinyl-source-stream"),
-      buffer = require("vinyl-buffer"),
-      sourcemaps = require("gulp-sourcemaps");
-
+function doBrowserify(suffix, plugins) {
   var pkg = require("./package.json");
 
   suffix = suffix || ".js";
-  steps = steps || [];
+  plugins = plugins || [];
 
-  var stream = browserify({
-    entries: require("path").resolve(pkg.main),
-    standalone: "jose"
-  }).bundle().
-  pipe(source(pkg.name + suffix)).
-  pipe(buffer());
-
-  steps.forEach(function(s) {
-    stream = stream.pipe(s);
-  });
-
-  return stream.pipe(sourcemaps.init({ loadMaps: true })).
-                pipe(sourcemaps.write("./")).
-                pipe(gulp.dest("./dist"));
+  return gulp.src(require("path").resolve(pkg.main)).
+         pipe(webpack({
+           output: {
+             filename: pkg.name + suffix
+           },
+           plugins: plugins,
+           devtool: "source-map"
+         })).
+         pipe(gulp.dest("./dist"));
 }
 
 gulp.task("bundle", function() {
@@ -150,15 +141,15 @@ gulp.task("bundle", function() {
 });
 
 gulp.task("minify", function() {
-  var uglify = require("gulp-uglify");
-
   return doBrowserify(".min.js", [
-    uglify()
+    new webpack.webpack.optimize.UglifyJsPlugin({
+      minimize: true
+    })
   ]);
 });
 
 var KARMA_CONFIG = {
-  frameworks: ["mocha", "browserify"],
+  frameworks: ["mocha"],
   basePath: ".",
   browserDisconnectTolerance: 1,
   browserDisconnectTimeout: 600000,
@@ -167,12 +158,19 @@ var KARMA_CONFIG = {
     mocha: MOCHA_CONFIG
   },
   preprocessors: {
-    "test/**/*-test.js": ["browserify"]
+    "test/**/*-test.js": ["webpack"]
+  },
+  webpack: {
+    module: {
+      loaders: [
+        {
+          test: /\.json$/,
+          loader: "json"
+        }
+      ]
+    }
   },
   reporters: ["mocha"],
-  browserify: {
-    debug: true
-  },
   customLaunchers: {
     "SL_Chrome": {
       base: "SauceLabs",
@@ -213,14 +211,14 @@ var KARMA_CONFIG = {
   },
   captureTimeout: 600000,
   sauceLabs: {
-    testName: "node-jose",
+    testName: require("./package.json").name,
     commandTimeout: 300
   },
   files: [TESTS]
 };
 var KARMA_BROWSERS = {
   local: ["Chrome", "Firefox"],
-  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_7", "SL_Safari_8", "SL_Safari_9", "SL_IE_10", "SL_IE_11", "SL_EDGE"]
+  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_8", "SL_Safari_9", "SL_IE_10", "SL_IE_11", "SL_EDGE"]
 };
 // allow for IE on windows
 if (/^win/.test(process.platform)) {
