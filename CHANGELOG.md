@@ -1,16 +1,25 @@
 # Release Notes
 
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/cisco/node-jose/compare/0.9.0...0.9.1) (2016-08-23)
+
+
+### Build
+
+* upgrade build environment  ([8f625984d668c160db0fea7ba48413b3e9320766](https://github.com/cisco/node-jose/commit/8f625984d668c160db0fea7ba48413b3e9320766))
+
+
 <a name="0.9.0"></a>
 ## [0.9.0](https://github.com/cisco/node-jose/compare/0.8.1...0.9.0) (2016-07-17)
 
 
 ### Update
 
-* find keys embedded in JWS header ([445381dd628936a9a3d4b8ff59794f96a0f34adb](cisco/node-jose/commit/445381dd628936a9a3d4b8ff59794f96a0f34adb)), closes [#65](cisco/node-jose/issues/65)
+* find keys embedded in JWS header ([445381dd628936a9a3d4b8ff59794f96a0f34adb](https://github.com/cisco/node-jose/commit/445381dd628936a9a3d4b8ff59794f96a0f34adb)), closes [#65](https://github.com/cisco/node-jose/issues/65)
 
 ### Fix
 
-* incorrect member name for unprotected JWS header  ([6c6028c1619a500cb098b68fed0b83c52029823f](cisco/node-jose/commit/6c6028c1619a500cb098b68fed0b83c52029823f))
+* incorrect member name for unprotected JWS header  ([6c6028c1619a500cb098b68fed0b83c52029823f](https://github.com/cisco/node-jose/commit/6c6028c1619a500cb098b68fed0b83c52029823f))
 
 
 
