@@ -1,25 +1,29 @@
 language: node_js
-node_js:
-  - '0.10'
-  - '0.12'
-  - 'iojs'
-  - '4'
-  - '5'
-  - '6'
-
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
+node_js:
+- '0.10'
+- '0.12'
+- iojs
+- '4'
+- '5'
+- '6'
 env:
   matrix:
+  - CXX=g++-4.8 TASKS=test:nodejs EXTRAS=
+matrix:
+  include:
+  - node_js: 6
     env:
-      - TASKS=test:nodejs 
-      - EXTRAS=""
-  global:
-    - CXX=g++-4.8
-
+    - CXX=g++-4.8 TASKS=test:browser EXTRAS="--sauce"
+    addons:
+      sauce_connect: true
+      # SL username from repo settings
+      jwt:
+        secure: Q8t9TLBSeRJaLZ7+XAv4kkRsfNtsS6i/L4L10+zJE4pWYCGytlIBR4+FbdRI9VN047FKvjgzK7A4K7rKV5k1YmGILAHOdCwAQYUaKCA35i7xUtX7zFZyzXheNWMwf2nolsQn14tY3nfivB4rHfq5e/SWE+lHoL+kgBeCMAtfSeZoDlYATtHjhDUIEO//X6/1SuT04rz05kGHy8iw9qhURpdatOmnbl5IFjTgvCio5IGSiWYSw56icknwaLDn3Jqt0RXxsTuYFuEa0wW5z6qgvFeHqMID+tnxf2wolzfMBL3fiijApRHWhNJv9tvcmwFP8yup/3iM4JiM9d9IrSz4XlrjNFW3oK+3Giv8yRr516Abl4eY2WPYuHlLksFboR0p2SSnAgrcCYN+1b7long0Wo0n0U4AQ8DRWdFcTD6I0F+R7aNv+bvpxHQnoGuS2H+HAV78KDoXX0Y8/FLVYMLNspCwfraTLop7fR8ANCYDnVKw74FJ4Cn6Q9jV0Lb7NmIfMxoJrAzCoNtYrYUaDG4BA1oGmpJ3UPqkU/lKCrkNYhIXBOR/4c1LzkVRRo1DNe6JLVxfBT2CtxxfdBjOz9EsS8Qu5Bl3m3Bxx7OWcv4JovjJYPibuiwYupCBZOqwxIeuluVPusF1QEEI3A8hK9cMeWMyJRRGP15dyDHTElaEIF4=
 script:
-  - ./node_modules/.bin/gulp $TASKS $EXTRAS
+- ./node_modules/.bin/gulp $TASKS $EXTRAS
