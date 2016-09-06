@@ -22,6 +22,16 @@ var ARGV = require("yargs").
       describe: "use SauceLabs for tests/reporting",
       default: false
     }).
+    option("sauce-connect", {
+      type: "boolean",
+      describe: "start sauce-connect deamon (if --sauce is true)",
+      default: true
+    }).
+    option("sauce-tunnel", {
+      type: "string",
+      describe: "the tunnel identifier (if --sauce is true)",
+      default: null
+    }).
     help("help").
     argv;
 
@@ -148,6 +158,26 @@ gulp.task("minify", function() {
   ]);
 });
 
+// Setup Sauce Labs variables
+function setupSauce(config) {
+  var start = ARGV["sauce-connect"],
+      tunnel = ARGV["sauce-tunnel"] || null;
+
+  // check for Travis-CI
+  if (Boolean(process.env.TRAVIS)) {
+    start = false;
+    tunnel = process.env.TRAVIS_JOB_NUMBER;
+  }
+
+  config.sauceLabs = merge(config.sauceLabs, {
+    tunnelIdentifier: tunnel,
+    startConnect: start,
+    username: process.env.SAUCE_USERNAME,
+    accessKey: process.env.SAUCE_ACCESS_KEY
+  });
+  return config;
+}
+
 var KARMA_CONFIG = {
   frameworks: ["mocha"],
   basePath: ".",
@@ -168,7 +198,10 @@ var KARMA_CONFIG = {
           loader: "json"
         }
       ]
-    }
+    },
+  },
+  webpackMiddleware: {
+    noInfo: true
   },
   reporters: ["mocha"],
   customLaunchers: {
@@ -230,17 +263,26 @@ if (/^darwin/.test(process.platform)) {
 }
 
 gulp.task("test:browser:single", function(done) {
+  // check to see if disabled in envars -- short-circuit
+  if (Boolean(process.env.DISABLE_BROWSER)) {
+    done();
+    return;
+  }
+
   var browsers = ARGV.browsers.split(/\s*,\s*/g).
                  filter(function (v) { return v; });
 
   var config = merge({}, KARMA_CONFIG, {
     singleRun: true
   });
-  if (ARGV.sauce) {
+  if ((ARGV.sauce || Boolean(process.env.TRAVIS)) &&
+      "" !== process.env.SAUCE_USERNAME &&
+      "" !== process.env.SAUCE_ACCESS_KEY) {
     config = merge(config, {
       reporters: ["mocha", "saucelabs"],
       browsers: KARMA_BROWSERS.saucelabs
     });
+    config = setupSauce(config);
   } else {
     config.browsers = KARMA_BROWSERS.local;
   }
