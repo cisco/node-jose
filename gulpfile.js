@@ -22,6 +22,16 @@ var ARGV = require("yargs").
       describe: "use SauceLabs for tests/reporting",
       default: false
     }).
+    option("sauce-connect", {
+      type: "boolean",
+      describe: "start sauce-connect deamon (if --sauce is true)",
+      default: true
+    }).
+    option("sauce-tunnel", {
+      type: "string",
+      describe: "the tunnel identifier (if --sauce is true)",
+      default: null
+    }).
     help("help").
     argv;
 
@@ -148,6 +158,25 @@ gulp.task("minify", function() {
   ]);
 });
 
+// Setup Sauce Labs variables
+function setupSauce(config) {
+  var start = ARGV["sauce-connect"],
+      tunnel = ARGV["sauce-tunnel"] || null;
+
+  // check for Travis-CI
+  if (Boolean(process.env.CI) &&
+      Boolean(process.env.TRAVIS)) {
+    start = false;
+    tunnel = process.env.TRAVIS_JOB_NUMBER;
+  }
+
+  config.sauceLabs = merge(config.sauceLabs, {
+    tunnelIdentifier: tunnel,
+    startConnect: start
+  });
+  return config;
+}
+
 var KARMA_CONFIG = {
   frameworks: ["mocha"],
   basePath: ".",
@@ -168,7 +197,10 @@ var KARMA_CONFIG = {
           loader: "json"
         }
       ]
-    }
+    },
+  },
+  webpackMiddleware: {
+    noInfo: true
   },
   reporters: ["mocha"],
   customLaunchers: {
@@ -236,11 +268,14 @@ gulp.task("test:browser:single", function(done) {
   var config = merge({}, KARMA_CONFIG, {
     singleRun: true
   });
-  if (ARGV.sauce) {
+  if ((Boolean(process.env.USE_SAUCE || ARGV.sauce) &&
+      "" !== process.env.SAUCE_USERNAME &&
+      "" !== process.env.SAUCE_ACCESS_KEY) {
     config = merge(config, {
       reporters: ["mocha", "saucelabs"],
       browsers: KARMA_BROWSERS.saucelabs
     });
+    config = setupSauce(config);
   } else {
     config.browsers = KARMA_BROWSERS.local;
   }
