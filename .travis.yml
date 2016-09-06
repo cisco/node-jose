@@ -20,10 +20,10 @@ matrix:
   - node_js: 6
     env:
     - CXX=g++-4.8 TASKS=test:browser
+    - SAUCE_USERNAME=linuxwolf
     addons:
-      sauce_connect:
-        username: linuxwolf
       jwt:
-        secure: MQZnSalVEObbPqThQd7n+2JEiDjQS2fsGc0aQkUniSakZt0Pyllqu0AHeCh1JP6XlocH5ZySGXEkAtdDUJfSuAHgTG9sviffrv4tgT0mCA5gm8ZSkq2To+irF2rVWgh8xuzSwMS9mL+f5dBRoWT0r3RDMuV9mrUXNKFG/o02DQ0DXDZOU1UV5aO6DYt4ARlVMTmzqoiNwQ12yi4lipFBvcxpD1zAjBURIA0D8Hh1MCuPq2NESSQiQqHAS0a45QQolyUP4QLPXSrlOm/uTMr47pKYV94sv9MPhBODuu2vNBwZOZ66LHaioFJdYlwRZ/QtmofmkhmMSzOCFBmGuGxJKFhC2ceXXSmSXoG4do+m66gmFSIxQvxpFyIbs0W51JSF8Yehuu+JLnQvHlMnueEgzO2fhRnwknG2EuvqabgWwt5z/upnXp35pmBHfVBm9WUVQQsy3bHpq8cMm3ah8gkGCcaPxXzhalbB7lugUXmlPqLBRqGz5PZNroCKneQwMrq1lvfoeXTPGPUtGXoGPmpn+GZ8uNilpjBuO5qMrgoMh+FM2vWbjxzsXYeysEQgVfNR3wW0YMsOJrSXmhOBoAG/lNWAh2fonb79rf68yaJtC5mM90nHFbYgOEPC6zk8KCRjKKE1qV9jq8/bYDyE3fW91MD/sHwVGqfxAVEYzgiW348=
+        secure: Kls1iZHWFVTMA+FclMBBsGnfG52fzQhkY6UMMxLHFRTHD0jcuuzU6mdw9rNib1KKKB4vcW36qyjlw2kvNaEfmMIDmzAQT4VruN6f7Fvvs/4LmBSDValmHFZD3OrFFCFh12srOKKnzbd75XEHMR3j/NjVGA2LtwNBACLquAH8uS2p6Oh7T6zmfLdTqupeLnnUXAfR4RGV7knjgi8Hpk7uHGB+I80Acr90fRs8SMrh7cIiXfTe5o4R0vIGEcMeAd5fK11dXQdd7t6aMw+qf/IVnVOqBPfPBcgC1+yAGW8BogyLzwqdWFoBWzPOqc+op0teEAvjIC5gHSY+6vHMArMPRzpudInISNwCsxrMEWlJ8Tlb+u/1htxLxaeBpQZaNYayxCMEdF2VR+U3H/ntNake/eW9WwjlHdI61tYp++XuWxjFrUC7ElYscIe/Tr4ZGw4NtENBeJPTVhtRZSDyET3QMmbwCmi6gDkQqoi02hE8sF5pDi1hrHUp4uE5nBc5392z9SMxi3ENylkeSZvD8145IP3ucWvf7cEPq0YwOK7B/j22VGcU9Qt+37u/DnezOBUYQW+nDyTOJh+/fCbi7m5B+fumyYTi41h04lEbvDRalui6GVolE7qrFFQSbVQrOb5qBJaIM29g/lZV7vH6oIwAEVnKilecp9RXITdJgfsjOOc=
+      sauce_connect: true
 script:
 - ./node_modules/.bin/gulp $TASKS
