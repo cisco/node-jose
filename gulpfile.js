@@ -197,7 +197,10 @@ var KARMA_CONFIG = {
           loader: "json"
         }
       ]
-    }
+    },
+  },
+  webpackMiddleware: {
+    noInfo: true
   },
   reporters: ["mocha"],
   customLaunchers: {
@@ -265,7 +268,7 @@ gulp.task("test:browser:single", function(done) {
   var config = merge({}, KARMA_CONFIG, {
     singleRun: true
   });
-  if (ARGV.sauce &&
+  if ((Boolean(process.env.USE_SAUCE || ARGV.sauce) &&
       "" !== process.env.SAUCE_USERNAME &&
       "" !== process.env.SAUCE_ACCESS_KEY) {
     config = merge(config, {

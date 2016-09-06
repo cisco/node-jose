@@ -14,16 +14,15 @@ node_js:
 - '6'
 env:
   matrix:
-  - CXX=g++-4.8 TASKS=test:nodejs EXTRAS=
+  - CXX=g++-4.8 TASKS=test:nodejs
 matrix:
   include:
   - node_js: 6
     env:
-    - CXX=g++-4.8 TASKS=test:browser EXTRAS="--sauce"
+    - CXX=g++-4.8 TASKS=test:browser
     addons:
-      sauce_connect:
-        username: linuxwolf
+      sauce_connect: true
       jwt:
         secure: MQZnSalVEObbPqThQd7n+2JEiDjQS2fsGc0aQkUniSakZt0Pyllqu0AHeCh1JP6XlocH5ZySGXEkAtdDUJfSuAHgTG9sviffrv4tgT0mCA5gm8ZSkq2To+irF2rVWgh8xuzSwMS9mL+f5dBRoWT0r3RDMuV9mrUXNKFG/o02DQ0DXDZOU1UV5aO6DYt4ARlVMTmzqoiNwQ12yi4lipFBvcxpD1zAjBURIA0D8Hh1MCuPq2NESSQiQqHAS0a45QQolyUP4QLPXSrlOm/uTMr47pKYV94sv9MPhBODuu2vNBwZOZ66LHaioFJdYlwRZ/QtmofmkhmMSzOCFBmGuGxJKFhC2ceXXSmSXoG4do+m66gmFSIxQvxpFyIbs0W51JSF8Yehuu+JLnQvHlMnueEgzO2fhRnwknG2EuvqabgWwt5z/upnXp35pmBHfVBm9WUVQQsy3bHpq8cMm3ah8gkGCcaPxXzhalbB7lugUXmlPqLBRqGz5PZNroCKneQwMrq1lvfoeXTPGPUtGXoGPmpn+GZ8uNilpjBuO5qMrgoMh+FM2vWbjxzsXYeysEQgVfNR3wW0YMsOJrSXmhOBoAG/lNWAh2fonb79rf68yaJtC5mM90nHFbYgOEPC6zk8KCRjKKE1qV9jq8/bYDyE3fW91MD/sHwVGqfxAVEYzgiW348=
 script:
-- ./node_modules/.bin/gulp $TASKS $EXTRAS
+- ./node_modules/.bin/gulp $TASKS
