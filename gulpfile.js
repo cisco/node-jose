@@ -171,7 +171,9 @@ function setupSauce(config) {
 
   config.sauceLabs = merge(config.sauceLabs, {
     tunnelIdentifier: tunnel,
-    startConnect: start
+    startConnect: start,
+    username: process.env.SAUCE_USERNAME,
+    accessKey: process.env.SAUCE_ACCESS_KEY
   });
   return config;
 }
