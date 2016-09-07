@@ -28,6 +28,7 @@ var ARGV = require("yargs").
 var webpack = require("webpack-stream"),
     clone = require("lodash.clone"),
     gulp = require("gulp"),
+    gutil = require("gulp-util"),
     karma = require("karma"),
     merge = require("lodash.merge"),
     mocha = require("gulp-mocha"),
@@ -168,7 +169,10 @@ var KARMA_CONFIG = {
           loader: "json"
         }
       ]
-    }
+    },
+  },
+  webpackMiddleware: {
+    noInfo: true
   },
   reporters: ["mocha"],
   customLaunchers: {
@@ -291,6 +295,32 @@ gulp.task("test:browser", function(cb) {
   runSequence("test:lint",
               "test:browser:single",
               cb);
+});
+
+// ## TRAVIS-CI TASKS ###
+gulp.task("travis:browser", function(cb) {
+  if ("true" !== process.env.TRAVIS) {
+    gutil.log("travis-ci environment not detected");
+    cb();
+    return;
+  }
+
+  gutil.log("pull request: ", process.env.TRAVIS_PULL_REQUEST);
+  gutil.log("job number:   ", process.env.TRAVIS_JOB_NUMBER);
+  if (process.env.SAUCE_USERNAME &&
+      process.env.SAUCE_ACCESS_KEY &&
+      "false" === process.env.TRAVIS_PULL_REQUEST) {
+    ARGV.sauce = true;
+    merge(KARMA_CONFIG.sauceLabs, {
+      startConnect: false,
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER || null
+    });
+  } else {
+    ARGV.sauce = false;
+    ARGV.browsers="Firefox";
+  }
+
+  runSequence("test:browser", cb);
 });
 
 // ### MAIN TASKS ###
