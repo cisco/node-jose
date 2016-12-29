@@ -1,5 +1,19 @@
 # Release Notes
 
+<a name="0.9.2"></a>
+## [0.9.2](https://github.com/cisco/node-jose/compare/0.9.1...0.9.2) (2016-12-29)
+
+
+### Build
+
+* include browser tests in travis-ci  ([4005f315f880add9aba33c1cbc7fb2c0a3a7a3d5](https://github.com/cisco/node-jose/commit/4005f315f880add9aba33c1cbc7fb2c0a3a7a3d5))
+
+### Fix
+
+* improper call to base64url.decode  ([e15d17c342c5374c8e953a2aa975c1a9daf1766a](https://github.com/cisco/node-jose/commit/e15d17c342c5374c8e953a2aa975c1a9daf1766a)), closes [#80](https://github.com/cisco/node-jose/issues/80)
+* node v6+ emits UnhandledPromiseRejectionWarning  ([6b5dbdfa9e9907ae547a6bce2a918fcc6c25368e](https://github.com/cisco/node-jose/commit/6b5dbdfa9e9907ae547a6bce2a918fcc6c25368e)), closes [#79](https://github.com/cisco/node-jose/issues/79)
+
+
 <a name="0.9.1"></a>
 ## [0.9.1](https://github.com/cisco/node-jose/compare/0.9.0...0.9.1) (2016-08-23)
 
