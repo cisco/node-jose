@@ -61,9 +61,9 @@ var jose = require('node-jose');
 
 This library uses [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for nearly every operation.
 
-This library supports [Browserify](http://browserify.org/).  To use in a web browser, `require('node-jose')` and bundle with the rest of your app.
+This library supports [Browserify](http://browserify.org/) and [Webpack](https://webpack.github.io/).  To use in a web browser, `require('node-jose')` and bundle with the rest of your app.
 
-The content to be signed/encrypted or returned from being verified/decrypted are [Buffer](https://nodejs.org/api/buffer.html) objects.
+The content to be signed/encrypted -- or returned from being verified/decrypted -- are [Buffer](https://nodejs.org/api/buffer.html) objects.
 
 ## Keys and Key Stores ##
 
