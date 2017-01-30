@@ -166,7 +166,7 @@ var KARMA_CONFIG = {
       loaders: [
         {
           test: /\.json$/,
-          loader: "json"
+          loader: "json-loader"
         }
       ]
     },
