@@ -27,7 +27,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "es6-promise": "^4.0.5",
-    "jsbn": "^0.1.0",
+    "jsbn": "^1.1.0",
     "lodash.assign": "^4.0.8",
     "lodash.clone": "^4.3.2",
     "lodash.fill": "^3.2.2",
