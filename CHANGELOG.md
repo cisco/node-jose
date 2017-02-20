@@ -1,3 +1,27 @@
+<a name="0.9.3"></a>
+## [0.9.3](https://github.com/cisco/node-jose/compare/0.9.2...v0.9.3) (2017-02-20)
+
+
+### Update
+
+* maintain dependencies via Greenkeeper ([2fde860746b009b6522fd9a990b4a62c34d034e4](https://github.com/cisco/node-jose/commit/2fde860746b009b6522fd9a990b4a62c34d034e4))
+* update jsbn to version 1.1.0  ([8a83b10c860e3c36aa581e890f5eeea7db23ec35](https://github.com/cisco/node-jose/commit/8a83b10c860e3c36aa581e890f5eeea7db23ec35))
+
+### Fix
+
+* Validate EC public key is on configured curve  ([f92cffb4a0398b4b1158be98423369233282e0af](https://github.com/cisco/node-jose/commit/f92cffb4a0398b4b1158be98423369233282e0af))
+
+### Doc
+
+* note webpack support ([b011c001958c2e346b522e87cdb107f01e584da9](https://github.com/cisco/node-jose/commit/b011c001958c2e346b522e87cdb107f01e584da9))
+
+### Build
+
+* additional tests on ECDH failures  ([af19f289811e75522bb8de662e76b1aef15a95fa](https://github.com/cisco/node-jose/commit/af19f289811e75522bb8de662e76b1aef15a95fa))
+* update gulp-mocha to latest version 🚀 ([1e44875e9c1cad370cc44808bddf5fab99226eb0](https://github.com/cisco/node-jose/commit/1e44875e9c1cad370cc44808bddf5fab99226eb0))
+* Update webpack to the latest version 🚀  ([bb513056143ad2ecf7b44862d3d7ac00e80852eb](https://github.com/cisco/node-jose/commit/bb513056143ad2ecf7b44862d3d7ac00e80852eb))
+
+
 # Release Notes
 
 <a name="0.9.2"></a>
