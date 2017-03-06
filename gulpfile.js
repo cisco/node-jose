@@ -159,7 +159,7 @@ var KARMA_CONFIG = {
     mocha: MOCHA_CONFIG
   },
   preprocessors: {
-    "test/**/*-test.js": ["webpack"]
+    "test/**/*-test.js": ["webpack", "sourcemap"]
   },
   webpack: {
     module: {
@@ -170,6 +170,7 @@ var KARMA_CONFIG = {
         }
       ]
     },
+    devtool: "inline-source-map"
   },
   webpackMiddleware: {
     noInfo: true
