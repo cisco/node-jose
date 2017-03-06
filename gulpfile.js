@@ -182,7 +182,8 @@ var KARMA_CONFIG = {
     },
     "SL_Firefox": {
       base: "SauceLabs",
-      browserName: "firefox"
+      browserName: "firefox",
+      version: "51"
     },
     "SL_Safari_8": {
       base: "SauceLabs",
