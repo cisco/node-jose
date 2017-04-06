@@ -3,8 +3,10 @@
 # usage: 
 # assumes bash, homebrew, and nvm for managing node
 
-## Load NVM
-source $(brew --prefix nvm)/nvm.sh
+## Attempt to load NVM
+if command -v brew >/dev/null 2>&1; then
+  source $(brew --prefix nvm)/nvm.sh
+fi
 
 # CONSTANTS
 REFRESH_LIMIT=28800
