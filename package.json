@@ -26,6 +26,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
+    "base64url": "^2.0.0",
     "es6-promise": "^4.0.5",
     "jsbn": "^1.1.0",
     "lodash.assign": "^4.0.8",
@@ -40,7 +41,6 @@
     "lodash.uniq": "^4.2.1",
     "long": "^3.1.0",
     "node-forge": "https://github.com/linuxwolf/forge/archive/browserify.tar.gz",
-    "urlsafe-base64": "https://github.com/linuxwolf/urlsafe-base64/archive/encoding.tar.gz",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
