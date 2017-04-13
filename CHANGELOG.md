@@ -1,3 +1,26 @@
+# Release Notes
+
+<a name="0.9.4"></a>
+## [0.9.4](https://github.com/cisco/node-jose/compare/0.9.3...0.9.4) (2017-04-13)
+
+
+### Update
+
+* Use native RSA/OpenSSL crypto whenever possible  ([0d1a8cdc351988d74ac42398c3d973902db3d808](https://github.com/cisco/node-jose/commit/0d1a8cdc351988d74ac42398c3d973902db3d808))
+* use npm-published base64url implementation  ([c6b30c91502ffef9b9d3addc8bdb1b8b0cc36e69](https://github.com/cisco/node-jose/commit/c6b30c91502ffef9b9d3addc8bdb1b8b0cc36e69)), closes [#96](https://github.com/cisco/node-jose/issues/96)
+* use npm-published node-forge implementation ([0f4e0ab57839eaf6dd40c46be511afe3aec9ca44](https://github.com/cisco/node-jose/commit/0f4e0ab57839eaf6dd40c46be511afe3aec9ca44)), closes [#96](https://github.com/cisco/node-jose/issues/96) * Use WebCrypto API for PBKDF2  ([5e5b9d376f334fa50bb69331e3065e2011c8e9c7](https://github.com/cisco/node-jose/commit/5e5b9d376f334fa50bb69331e3065e2011c8e9c7))
+
+### Build
+
+* sourcemaps for karma tests  ([a571bd107d87df12bd9f076ade2a875c01b4b24d](https://github.com/cisco/node-jose/commit/a571bd107d87df12bd9f076ade2a875c01b4b24d))
+* update karma-firefox-launcher to version 1.0.1  ([84f5f531783e4e50674532fa5c809dff4e6dc25c](https://github.com/cisco/node-jose/commit/84f5f531783e4e50674532fa5c809dff4e6dc25c))
+* update travis-ci for newer environments  ([55b91bb0b4bb158d9275dfc89c1de688e14163ed](https://github.com/cisco/node-jose/commit/55b91bb0b4bb158d9275dfc89c1de688e14163ed))
+* update yargs to version 7.0.1  ([af24f9e951b1078a088caf50acc13296c0076f68](https://github.com/cisco/node-jose/commit/af24f9e951b1078a088caf50acc13296c0076f68))
+
+### Doc
+
+* Fix wrong links to JWA and JWK specifications  ([538829dd4af480989422efec20a2c60f809d8d5c](https://github.com/cisco/node-jose/commit/538829dd4af480989422efec20a2c60f809d8d5c)), closes [#102](https://github.com/cisco/node-jose/issues/102)
+
 <a name="0.9.3"></a>
 ## [0.9.3](https://github.com/cisco/node-jose/compare/0.9.2...v0.9.3) (2017-02-20)
 
@@ -21,8 +44,6 @@
 * update gulp-mocha to latest version 🚀 ([1e44875e9c1cad370cc44808bddf5fab99226eb0](https://github.com/cisco/node-jose/commit/1e44875e9c1cad370cc44808bddf5fab99226eb0))
 * Update webpack to the latest version 🚀  ([bb513056143ad2ecf7b44862d3d7ac00e80852eb](https://github.com/cisco/node-jose/commit/bb513056143ad2ecf7b44862d3d7ac00e80852eb))
 
-
-# Release Notes
 
 <a name="0.9.2"></a>
 ## [0.9.2](https://github.com/cisco/node-jose/compare/0.9.1...0.9.2) (2016-12-29)
