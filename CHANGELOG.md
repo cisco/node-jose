@@ -8,7 +8,8 @@
 
 * Use native RSA/OpenSSL crypto whenever possible  ([0d1a8cdc351988d74ac42398c3d973902db3d808](https://github.com/cisco/node-jose/commit/0d1a8cdc351988d74ac42398c3d973902db3d808))
 * use npm-published base64url implementation  ([c6b30c91502ffef9b9d3addc8bdb1b8b0cc36e69](https://github.com/cisco/node-jose/commit/c6b30c91502ffef9b9d3addc8bdb1b8b0cc36e69)), closes [#96](https://github.com/cisco/node-jose/issues/96)
-* use npm-published node-forge implementation ([0f4e0ab57839eaf6dd40c46be511afe3aec9ca44](https://github.com/cisco/node-jose/commit/0f4e0ab57839eaf6dd40c46be511afe3aec9ca44)), closes [#96](https://github.com/cisco/node-jose/issues/96) * Use WebCrypto API for PBKDF2  ([5e5b9d376f334fa50bb69331e3065e2011c8e9c7](https://github.com/cisco/node-jose/commit/5e5b9d376f334fa50bb69331e3065e2011c8e9c7))
+* use npm-published node-forge implementation ([0f4e0ab57839eaf6dd40c46be511afe3aec9ca44](https://github.com/cisco/node-jose/commit/0f4e0ab57839eaf6dd40c46be511afe3aec9ca44)), closes [#96](https://github.com/cisco/node-jose/issues/96)
+* Use WebCrypto API for PBKDF2  ([5e5b9d376f334fa50bb69331e3065e2011c8e9c7](https://github.com/cisco/node-jose/commit/5e5b9d376f334fa50bb69331e3065e2011c8e9c7))
 
 ### Build
 
