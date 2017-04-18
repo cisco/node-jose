@@ -114,4 +114,39 @@ describe("jws/embedded", function() {
       return p;
     });
   });
+
+  describe("invalid", function() {
+    var badKey = {
+      "kty": "oct",
+      "kid": "dNr5z3PMFZKDp7Kh7uAxmpuSiOrm0E3WZDEscsoRXeE",
+      "alg": "HS256",
+      "k": "UHZVSbwjVqqFCcdQUvrnX7gLXBIfMEkecVeYE7tD7fo"
+    };
+    before(function() {
+      return JWK.asKey(badKey).
+             then(function(result) {
+               badKey = result;
+             });
+    });
+    it("failed to embed a symmetric key", function() {
+      var opts = {
+        format: "general",
+        protect: false
+      };
+      var jws = JWS.createSign(opts, {
+        key: badKey,
+        reference: "jwk"
+      });
+      jws.update("You shall not pass!", "utf8");
+
+      var p = jws.final();
+      p = p.then(function() {
+        assert.ok(false, "unexpected fail");
+      }, function(err) {
+        assert.instanceOf(err, Error);
+        assert.equal(err.message, "cannot embed key");
+      });
+      return p;
+    });
+  });
 });
