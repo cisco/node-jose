@@ -11,7 +11,7 @@ var JWE = require("../../lib/jwe");
 
 var assert = chai.assert;
 
-describe.only("jwe/embedded", function() {
+describe("jwe/embedded", function() {
   var keys  = {
     "oct": {
       "kty": "oct",
