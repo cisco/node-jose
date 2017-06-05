@@ -9,6 +9,8 @@
 .editorconfig
 .eslintrc
 gulpfile.js
+package-lock.json
+.travis.yml
 
 runas
 env/
