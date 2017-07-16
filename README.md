@@ -225,7 +225,7 @@ keystore.generate("oct", 256, props).
 
 To remove a Key from its Keystore:
 ```
-kestyore.remove(key);
+keystore.remove(key);
 // NOTE: key.keystore does not change!!
 ```
 
