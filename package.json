@@ -75,7 +75,7 @@
     "run-sequence": "^2.0.0",
     "watchify": "^3.7.0",
     "webpack": "^3.0.0",
-    "webpack-stream": "^3.2.0",
+    "webpack-stream": "^4.0.0",
     "yargs": "^8.0.1"
   },
   "browser": {
