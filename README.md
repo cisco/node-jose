@@ -1,6 +1,7 @@
 # node-jose #
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/cisco/node-jose.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/cisco/node-jose.svg?branch=master)](https://travis-ci.org/cisco/node-jose)
 
 A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers.  This library implements (wherever possible) all algorithms, formats, and options in [JWS](https://tools.ietf.org/html/rfc7515 "Jones, M., J. Bradley and N. Sakimura, 'JSON Web Signature (JWS)' RFC 7515, May 2015"), [JWE](https://tools.ietf.org/html/rfc7516 "Jones, M. and J. Hildebrand 'JSON Web Encryption (JWE)', RFC 7516, May 2015"), [JWK](https://tools.ietf.org/html/rfc7517 "Jones, M., 'JSON Web Key (JWK)', RFC 7517, May 2015"), and [JWA](https://tools.ietf.org/html/rfc7518 "Jones, M., 'JSON Web Algorithms (JWA)', RFC 7518, May 2015") and uses native cryptographic support ([WebCrypto API](http://www.w3.org/TR/WebCryptoAPI/) or node.js' "[crypto](https://nodejs.org/api/crypto.html)" module) where feasible.
 
@@ -19,11 +20,15 @@ A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for
   - [Importing and Exporting a Single Key](#importing-and-exporting-a-single-key)
   - [Obtaining a Key's Thumbprint](#obtaining-a-keys-thumbprint)
 - [Signatures](#signatures)
+  - [Keys Used for Signing and Verifying](#keys-used-for-signing-and-verifying)
   - [Signing Content](#signing-content)
   - [Verifying a JWS](#verifying-a-jws)
+    - [Handling `crit` Header Members](#handling-crit-header-members)
 - [Encryption](#encryption)
+  - [Keys Used for Encrypting and Decrypting](#keys-used-for-encrypting-and-decrypting)
   - [Encrypting Content](#encrypting-content)
   - [Decrypting a JWE](#decrypting-a-jwe)
+    - [Handling `crit` Header Members](#handling-crit-header-members-1)
 - [Useful Utilities](#useful-utilities)
   - [Converting to Buffer](#converting-to-buffer)
   - [URI-Safe Base64](#uri-safe-base64)
@@ -48,7 +53,7 @@ Or to install a specific release:
 Alternatively, the latest unpublished code can be installed directly from the repository:
 
 ```
-  npm install git+ssh://git@github.com:cisco/node-jose.git
+  npm install git+https://github.com/cisco/node-jose.git
 ```
 
 ## Basics ##
@@ -293,6 +298,19 @@ When importing or generating a key that does not have a "kid" defined, a
 
 ## Signatures ##
 
+### Keys Used for Signing and Verifying ###
+
+When signing content, the key is expected to meet one of the following:
+
+1. A secret key (e.g, `"kty":"oct"`)
+2. The **private** key from a PKI (`"kty":"EC"` or `"kty":"RSA"`) key pair
+
+When verifying content, the key is expected to meet one of the following:
+
+1. A secret key (e.g, `"kty":"oct"`)
+2. The **public** key from a PKI (`"kty":"EC"` or `"kty":"RSA"`) key pair
+
+
 ### Signing Content ###
 
 At its simplest, to create a JWS:
@@ -418,7 +436,7 @@ The key can be embedded using either 'jwk' or 'x5c', and can be located in eithe
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
 
-* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWS if the member is present. 
+* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWS if the member is present.
 * `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
 * `Object`: An object with the following `Function` members:
   * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
@@ -481,6 +499,20 @@ jose.JWS.createVerify(key, opts).
 
 
 ## Encryption ##
+
+
+### Keys Used for Encrypting and Decrypting ###
+
+When encrypting content, the key is expected to meet one of the following:
+
+1. A secret key (e.g, `"kty":"oct"`)
+2. The **public** key from a PKI (`"kty":"EC"` or `"kty":"RSA"`) key pair
+
+When decrypting content, the key is expected to meet one of the following:
+
+1. A secret key (e.g, `"kty":"oct"`)
+2. The **private** key from a PKI (`"kty":"EC"` or `"kty":"RSA"`) key pair
+
 
 ### Encrypting Content ###
 
@@ -564,7 +596,7 @@ jose.JWE.createDecrypt(keystore).
         then(function(result) {
           // {result} is a Object with:
           // *  header: the combined 'protected' and 'unprotected' header members
-          // *  protected: an array of the member names from the "protected" member 
+          // *  protected: an array of the member names from the "protected" member
           // *  key: Key used to decrypt
           // *  payload: Buffer of the decrypted content
           // *  plaintext: Buffer of the decrypted content (alternate)
@@ -585,7 +617,7 @@ jose.JWE.createDecrypt(key).
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
 
-* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWE if the member is present. 
+* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWE if the member is present.
 * `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
 * `Object`: An object with the following `Function` members:
   * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
