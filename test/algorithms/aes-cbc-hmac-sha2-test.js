@@ -71,7 +71,7 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
     it("performs " + v.alg + " (" + v.desc + ") decryption", decrunner);
 
     it('should not pass verification (truncated tag)', function() {
-      var tamperedTag = v.tag.substring(0, Math.floor(Math.random() * v.tag.length))
+      var tamperedTag = v.tag.substring(0, 6);
       var key = new Buffer(v.key, "hex"),
       pdata = new Buffer(v.plaintext, "hex"),
       cdata = new Buffer(v.ciphertext, "hex"),
@@ -89,7 +89,7 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
       });
     })
     it('should not pass verification, (empty tag)', function() {
-      var tamperedTag = ""
+      var tamperedTag = "";
       var key = new Buffer(v.key, "hex"),
       pdata = new Buffer(v.plaintext, "hex"),
       cdata = new Buffer(v.ciphertext, "hex"),
