@@ -184,7 +184,6 @@ var KARMA_CONFIG = {
     "SL_Firefox": {
       base: "SauceLabs",
       browserName: "firefox",
-      version: "51"
     },
     "SL_Safari_8": {
       base: "SauceLabs",
@@ -224,7 +223,7 @@ var KARMA_CONFIG = {
 };
 var KARMA_BROWSERS = {
   local: ["Chrome", "Firefox"],
-  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_8", "SL_Safari_9", "SL_IE_10", "SL_IE_11", "SL_EDGE"]
+  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_9", "SL_IE_11", "SL_EDGE"]
 };
 // allow for IE on windows
 if (/^win/.test(process.platform)) {
