@@ -1,3 +1,22 @@
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/cisco/node-jose/compare/0.9.5...0.10.0) (2017-09-29)
+
+
+### Update
+
+* alias JWS.createVerify to construct a sentence  ([2ed035a90c4ff74b210a8341292b3f9d6444a68d](https://github.com/cisco/node-jose/commit/2ed035a90c4ff74b210a8341292b3f9d6444a68d))
+* Provide PBKDF2-based algorithms publicly  ([0a6e324eb5d163d69a58c5cf592cde84057faa40](https://github.com/cisco/node-jose/commit/0a6e324eb5d163d69a58c5cf592cde84057faa40))
+
+### Fix
+
+* HMAC minimum length checks should be better enforced ([859539895b5f63f63c48e1d3871d1e052291af4e](https://github.com/cisco/node-jose/commit/859539895b5f63f63c48e1d3871d1e052291af4e))
+* prevent JWK.KeyStore#add from modifying jwk input  ([d1b8d882a1e4735434a317be8e6422bf259eed5d](https://github.com/cisco/node-jose/commit/d1b8d882a1e4735434a317be8e6422bf259eed5d))
+
+### Build
+
+* exclude old browsers from SL tests  ([20fe41ee982368123173995ba667c053608ff0bb](https://github.com/cisco/node-jose/commit/20fe41ee982368123173995ba667c053608ff0bb))
+
+
 # Release Notes
 
 <a name="0.9.5"></a>
