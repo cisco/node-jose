@@ -17,9 +17,10 @@ var jose = {
 
 var fixtures = {
   jws: {
-    "basic": cloneDeep(require("jose-cookbook/jws/4_1.rsa_v15_signature.json")),
+    "basic": cloneDeep(require("jose-cookbook/jws/4_2.rsa-pss_signature.json")),
     "full": cloneDeep(require("jose-cookbook/jws/4_6.protecting_specific_header_fields.json")),
-    "multi": cloneDeep(require("jose-cookbook/jws/4_8.multiple_signatures.json"))
+    "multi": cloneDeep(require("jose-cookbook/jws/4_8.multiple_signatures.json")),
+    "embedded": cloneDeep(require("../fixtures/jws.embedded_jwk.json"))
   },
   jwe: {
     "basic": cloneDeep(require("jose-cookbook/jwe/5_6.direct_encryption_using_aes-gcm.json")),
@@ -63,6 +64,28 @@ describe("parse/json", function() {
       var promise = jose.JWK.asKey(fix.input.key);
       promise = promise.then(function(key) {
         return output.perform(key);
+      });
+      promise = promise.then(function(result) {
+        assert.strictEqual(result.payload.toString("utf8"),
+                           fix.input.payload);
+      });
+      return promise;
+    });
+    it("parses JWS with Embedded JWK", function() {
+      var fix = fixtures.jws.embedded;
+      var input = fix.output.json_flat;
+      var output = parseJSON(input);
+      assert.strictEqual(output.type, "JWS");
+      assert.strictEqual(output.format, "json");
+      assert.deepEqual(output.all, [ fix.signing.protected ]);
+      assert.deepEqual(output.input, input);
+
+      assert.strictEqual(typeof output.perform, "function");
+      var promise = Promise.resolve();
+      promise = promise.then(function() {
+        return output.perform(null, {
+          allowEmbeddedKey: true
+        });
       });
       promise = promise.then(function(result) {
         assert.strictEqual(result.payload.toString("utf8"),

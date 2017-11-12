@@ -422,15 +422,26 @@ To verify using a key embedded in the JWS:
 
 ```javascript
 jose.JWS.createVerify().
-        verify(input).
+        verify(input, { allowEmbeddedKey: true }).
         then(function(result) {
           // ...
         });
 ```
 
+Alternatively, a cached `createVerify()` can be configured to allow an embedded key:
+
+```javascript
+var verifier = jose.JWS.createVerify({ allowEmbeddedKey: true });
+
+verifier.verify(input).
+         then(function(result) {
+           // ...
+         });
+```
+
 The key can be embedded using either 'jwk' or 'x5c', and can be located in either the JWS Unprotected Header or JWS Protected Header.
 
-**NOTE:** `verify()` will use the embedded key (if found) instead of any other key.
+**NOTE:** `verify()` will use the embedded key (if found and permitted) instead of any other key.
 
 #### Handling `crit` Header Members ####
 
