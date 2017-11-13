@@ -40,19 +40,19 @@ A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for
 
 To install the latest from [NPM](https://npmjs.com/):
 
-```
+```shell
   npm install node-jose
 ```
 
 Or to install a specific release:
 
-```
+```shell
   npm install node-jose@0.3.0
 ```
 
 Alternatively, the latest unpublished code can be installed directly from the repository:
 
-```
+```shell
   npm install git+https://github.com/cisco/node-jose.git
 ```
 
@@ -60,7 +60,7 @@ Alternatively, the latest unpublished code can be installed directly from the re
 
 Require the library as normal:
 
-```
+```javascript
 var jose = require('node-jose');
 ```
 
@@ -84,13 +84,13 @@ Processing a JWE or JWS relies on a KeyStore.
 ### Obtaining a KeyStore ###
 To create an empty keystore:
 
-```
+```javascript
 keystore = jose.JWK.createKeyStore();
 ```
 
 To import a JWK-set as a keystore:
 
-```
+```javascript
 // {input} is a String or JSON object representing the JWK-set
 jose.JWK.asKeyStore(input).
      then(function(result) {
@@ -103,13 +103,13 @@ jose.JWK.asKeyStore(input).
 
 To export the public keys of a keystore as a JWK-set:
 
-```
+```javascript
 output = keystore.toJSON();
 ```
 
 To export **all** the keys of a keystore:
 
-```
+```javascript
 output = keystore.toJSON(true);
 ```
 
@@ -117,14 +117,14 @@ output = keystore.toJSON(true);
 
 To retrieve a key from a keystore:
 
-```
+```javascript
 // by 'kid'
 key = keystore.get(kid);
 ```
 
 This retrieves the first key that matches the given {kid}.  If multiple keys have the same {kid}, you can further narrow what to retrieve:
 
-```
+```javascript
 // ... and by 'kty'
 key = keystore.get(kid, { kty: 'RSA' });
 
@@ -145,13 +145,13 @@ key = keystore.get({ kid: kid, kty: 'RSA', use: 'enc' });
 
 To retrieve all the keys from a keystore:
 
-```
+```javascript
 everything = keystore.all();
 ```
 
 `all()` can be filtered much like `get()`:
 
-```
+```javascript
 // filter by 'kid'
 everything = keystore.all({ kid: kid });
 
@@ -172,7 +172,7 @@ everything = keystore.all({ kid: kid, kty: 'RSA', alg: 'RSA-OAEP' });
 
 To import an existing Key (as a JSON object or Key instance):
 
-```
+```javascript
 // input is either a:
 // *  jose.JWK.Key to copy from; or
 // *  JSON object representing a JWK; or
@@ -185,7 +185,7 @@ keystore.add(input).
 
 To import and existing Key from a PEM or DER:
 
-```
+```javascript
 // input is either a:
 // *  String serialization of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
 // *  Buffer of a JSON JWK/(base64-encoded) PEM/(binary-encoded) DER
@@ -206,7 +206,7 @@ keystore.add(input, form).
 
 To generate a new Key:
 
-```
+```javascript
 // first argument is the key type (kty)
 // second is the key size (in bits) or named curve ('crv') for "EC"
 keystore.generate("oct", 256).
@@ -229,7 +229,7 @@ keystore.generate("oct", 256, props).
 ```
 
 To remove a Key from its Keystore:
-```
+```javascript
 keystore.remove(key);
 // NOTE: key.keystore does not change!!
 ```
@@ -238,7 +238,7 @@ keystore.remove(key);
 
 To import a single Key:
 
-```
+```javascript
 // where input is either a:
 // *  jose.JWK.Key instance
 // *  JSON Object representation of a JWK
@@ -267,13 +267,13 @@ jose.JWK.asKey(input, form).
 
 To export the public portion of a Key as a JWK:
 
-```
+```javascript
 var output = key.toJSON();
 ```
 
 To export the public **and** private portions of a Key:
 
-```
+```javascript
 var output = key.toJSON(true);
 ```
 
@@ -281,7 +281,7 @@ var output = key.toJSON(true);
 
 To get or calculate a [RFC 7638](https://tools.ietf.org/html/rfc7638) thumbprint for a key:
 
-```
+```javascript
 // where hash is a supported algorithm, currently one of:
 // * SHA-1
 // * SHA-256
@@ -315,7 +315,7 @@ When verifying content, the key is expected to meet one of the following:
 
 At its simplest, to create a JWS:
 
-```
+```javascript
 // {input} is a Buffer
 jose.JWS.createSign(key).
         update(input).
@@ -329,7 +329,7 @@ The JWS is signed using the preferred algorithm appropriate for the given Key.  
 
 To create a JWS using another serialization format:
 
-```
+```javascript
 jose.JWS.createSign({ format: 'flattened' }, key).
         update(input).
         final().
@@ -346,7 +346,7 @@ jose.JWS.createSign({ format: 'compact' }, key).
 ```
 
 To create a JWS using a specific algorithm:
-```
+```javascript
 jose.JWS.createSign({ alg: 'PS256' }, key).
         update(input).
         final().
@@ -357,7 +357,7 @@ jose.JWS.createSign({ alg: 'PS256' }, key).
 
 To create a JWS for a specified content type:
 
-```
+```javascript
 jose.JWS.createSign({ fields: { cty: 'jwk+json' } }, key).
         update(input).
         final().
@@ -368,7 +368,7 @@ jose.JWS.createSign({ fields: { cty: 'jwk+json' } }, key).
 
 To create a JWS from String content:
 
-```
+```javascript
 jose.JWS.createSign(key).
         update(input, "utf8").
         final().
@@ -379,7 +379,7 @@ jose.JWS.createSign(key).
 
 To create a JWS with multiple signatures:
 
-```
+```javascript
 // {keys} is an Array of jose.JWK.Key instances
 jose.JWS.createSign(keys).
         update(input).
@@ -393,7 +393,7 @@ jose.JWS.createSign(keys).
 
 To verify a JWS, and retrieve the payload:
 
-```
+```javascript
 jose.JWS.createVerify(keystore).
         verify(input).
         then(function(result) {
@@ -407,7 +407,7 @@ jose.JWS.createVerify(keystore).
 
 To verify using an implied Key:
 
-```
+```javascript
 // {key} can be:
 // *  jose.JWK.Key
 // *  JSON object representing a JWK
@@ -420,7 +420,7 @@ jose.JWS.createVerify(key).
 
 To verify using a key embedded in the JWS:
 
-```
+```javascript
 jose.JWS.createVerify().
         verify(input).
         then(function(result) {
@@ -446,7 +446,7 @@ To accept 'crit' field members, add the `handlers` member to the options Object.
 
 To simply accept a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": true
@@ -461,7 +461,7 @@ jose.JWS.createVerify(key, opts).
 
 To perform additional (pre-verify) processing on a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": function(jws) {
@@ -479,7 +479,7 @@ jose.JWS.createVerify(key, opts).
 
 To perform additional (post-verify) processing on a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": {
@@ -518,7 +518,7 @@ When decrypting content, the key is expected to meet one of the following:
 
 At its simplest, to create a JWE:
 
-```
+```javascript
 // {input} is a Buffer
 jose.JWE.createEncrypt(key).
         update(input).
@@ -536,7 +536,7 @@ How the JWE content is encrypted depends on the provided Key.
 
 To create a JWE using a different serialization format:
 
-```
+```javascript
 jose.JWE.createEncrypt({ format: 'compact' }, key).
         update(input).
         final().
@@ -554,7 +554,7 @@ jose.JWE.createEncrypt({ format: 'flattened' }, key).
 
 To create a JWE and compressing the content before encrypting:
 
-```
+```javascript
 jose.JWE.createEncrypt({ zip: true }, key).
         update(input).
         final().
@@ -565,7 +565,7 @@ jose.JWE.createEncrypt({ zip: true }, key).
 
 To create a JWE for a specific content type:
 
-```
+```javascript
 jose.JWE.createEncrypt({ fields: { cty : 'jwk+json' } }, key).
         update(input).
         final().
@@ -576,7 +576,7 @@ jose.JWE.createEncrypt({ fields: { cty : 'jwk+json' } }, key).
 
 To create a JWE with multiple recipients:
 
-```
+```javascript
 // {keys} is an Array of jose.JWK.Key instances
 jose.JWE.createEncrypt(keys).
         update(input).
@@ -590,7 +590,7 @@ jose.JWE.createEncrypt(keys).
 
 To decrypt a JWE, and retrieve the plaintext:
 
-```
+```javascript
 jose.JWE.createDecrypt(keystore).
         decrypt(input).
         then(function(result) {
@@ -605,7 +605,7 @@ jose.JWE.createDecrypt(keystore).
 
 To decrypt a JWE using an implied key:
 
-```
+```javascript
 jose.JWE.createDecrypt(key).
         decrypt(input).
         then(function(result) {
@@ -627,7 +627,7 @@ To accept 'crit' field members, add the `handlers` member to the options Object.
 
 To simply accept a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": true
@@ -642,7 +642,7 @@ jose.JWE.createDecrypt(key, opts).
 
 To perform additional (pre-decrypt) processing on a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": function(jwe) {
@@ -660,7 +660,7 @@ jose.JWE.createDecrypt(key, opts).
 
 To perform additional (post-decrypt) processing on a `crit` header member:
 
-```
+```javascript
 var opts = {
   handlers: {
     "exp": {
@@ -684,7 +684,7 @@ jose.JWE.createDecrypt(key, opts).
 
 To convert a [Typed Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays), [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), or Array of Numbers to a Buffer:
 
-```
+```javascript
 buff = jose.util.asBuffer(input);
 ```
 
@@ -694,13 +694,13 @@ This exposes [urlsafe-base64](https://github.com/RGBboy/urlsafe-base64)'s `encod
 
 To convert from a Buffer to a base64uri-encoded String:
 
-```
+```javascript
 var output = jose.util.base64url.encode(input);
 ```
 
 To convert a String to a base64uri-encoded String:
 
-```
+```javascript
 // explicit encoding
 output = jose.util.base64url.encode(input, "utf8");
 
@@ -710,7 +710,7 @@ output = jose.util.base64url.encode(input);
 
 To convert a base64uri-encoded String to a Buffer:
 
-```
+```javascript
 var output = jose.util.base64url.decode(input);
 ```
 
@@ -718,7 +718,7 @@ var output = jose.util.base64url.decode(input);
 
 To generate a Buffer of octets, regardless of platform:
 
-```
+```javascript
 // argument is size (in bytes)
 var rnd = jose.util.randomBytes(32);
 ```
