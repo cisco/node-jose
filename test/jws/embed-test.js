@@ -63,10 +63,26 @@ describe("jws/embedded", function() {
       });
       return p;
     });
-    it("verifies a JWS using an embedded 'jwk'", function() {
+    it("by default fails verify if 'allowEmbeddedKey' not true", function() {
       var p;
       var vfy = JWS.createVerify(JWK.createKeyStore());
       p = vfy.verify(signature);
+      p = p.then(
+        function (result) {
+          assert.ok(false, "unexpected success");
+        },
+        function (err) {
+          assert(err instanceof Error);
+      });
+      return p;
+    });
+    it("verifies a JWS using an embedded 'jwk'", function() {
+      var opts = {
+        allowEmbeddedKey: true
+      };
+      var p;
+      var vfy = JWS.createVerify(JWK.createKeyStore());
+      p = vfy.verify(signature, opts);
       p = p.then(function(result) {
         assert.deepEqual(result.payload, payload);
       });
@@ -104,9 +120,37 @@ describe("jws/embedded", function() {
       });
       return p;
     });
-    it("verifies a JWS using an embedded 'x5c'", function() {
+    it("by default fails verify if 'allowEmbeddedKey' not true", function() {
       var p;
       var vfy = JWS.createVerify(JWK.createKeyStore());
+      p = vfy.verify(signature);
+      p = p.then(
+        function (result) {
+          assert.ok(false, "unexpected success");
+        },
+        function (err) {
+          assert(err instanceof Error);
+      });
+      return p;
+    });
+    it("verifies a JWS using an embedded 'x5c'", function() {
+      var opts = {
+        allowEmbeddedKey: true
+      };
+      var p;
+      var vfy = JWS.createVerify(JWK.createKeyStore());
+      p = vfy.verify(signature, opts);
+      p = p.then(function(result) {
+        assert.deepEqual(result.payload, payload);
+      });
+      return p;
+    });
+    it("verifies a JWS using an embedded 'x5c' with createVerify configuration", function() {
+      var opts = {
+        allowEmbeddedKey: true
+      };
+      var p;
+      var vfy = JWS.createVerify(JWK.createKeyStore(), opts);
       p = vfy.verify(signature);
       p = p.then(function(result) {
         assert.deepEqual(result.payload, payload);
