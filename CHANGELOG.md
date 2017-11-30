@@ -1,3 +1,19 @@
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/cisco/node-jose/compare/0.10.0...0.11.0) (2017-11-30)
+
+**NOTICE** This release includes a potentially breaking change.  The default of `jose.JWS.Verifier.verify()` before `0.11.0` was to successfully verify if an embedded key was present and verification succeeds.  Now the default is to instead fail verification.   Applications that rely on embedded keys for JWS verification now must provide an `opts` Object to either `jose.JWS.createVerify()` or `jose.JWS.Verifier.verify()`, with the member `allowEmbeddedKeys` set to `true`.
+
+### Update
+
+* configure if embedded keys can be used for signature verification; contributed by Fraser Winterborn of BlackBerry's Security Research Group  ([959a61d707ed2c8cf6582139a5605119283e4acb](https://github.com/cisco/node-jose/commit/959a61d707ed2c8cf6582139a5605119283e4acb))
+* configure option for allowed algorithm ([9a86dd6dac3687ab58c806dfed6deca5a7d73dbb](https://github.com/cisco/node-jose/commit/9a86dd6dac3687ab58c806dfed6deca5a7d73dbb))
+
+### Doc
+
+* Enable syntax highlighting on code areas in README  ([be18233154544cd160c185077cfaf77abea27507](https://github.com/cisco/node-jose/commit/be18233154544cd160c185077cfaf77abea27507))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/cisco/node-jose/compare/0.9.5...0.10.0) (2017-09-29)
 
