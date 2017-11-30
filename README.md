@@ -23,11 +23,13 @@ A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for
   - [Keys Used for Signing and Verifying](#keys-used-for-signing-and-verifying)
   - [Signing Content](#signing-content)
   - [Verifying a JWS](#verifying-a-jws)
+    - [Allowing (or Disallowing) Signature Algorithms](#allowing-or-disallowing-signature-algorithms)
     - [Handling `crit` Header Members](#handling-crit-header-members)
 - [Encryption](#encryption)
   - [Keys Used for Encrypting and Decrypting](#keys-used-for-encrypting-and-decrypting)
   - [Encrypting Content](#encrypting-content)
   - [Decrypting a JWE](#decrypting-a-jwe)
+    - [Allowing (or Disallowing) Encryption Algorithms](#allowing-or-disallowing-encryption-algorithms)
     - [Handling `crit` Header Members](#handling-crit-header-members-1)
 - [Useful Utilities](#useful-utilities)
   - [Converting to Buffer](#converting-to-buffer)
@@ -443,6 +445,43 @@ The key can be embedded using either 'jwk' or 'x5c', and can be located in eithe
 
 **NOTE:** `verify()` will use the embedded key (if found and permitted) instead of any other key.
 
+#### Allowing (or Disallowing) Signature Algorithms ###
+
+To restrict what signature algorithms are allowed when verifying, add the `allowAlgs` member to the `options` Object.  The `allowAlgs` member is either a string or an array of strings, where the string value(s) can be one of the following:
+
+* `"*"`: accept all supported algorithms
+* **`<alg name>`** (e.g., `"PS256"`): accept the specific algorithm (can have a single '*' to match a range of algorithms)
+* **`!<alg name>`** (e.g., `"!RS256"`): *do not* accept the specific algorithm (can have a single '*' to match a range of algorithms)
+
+The negation is intended to be used with the wildcard accept string, and disallow takes precedence over allowed.
+
+To only accept RSA-PSS sigatures:
+
+```javascript
+var opts = {
+  algorithms: ["PS*"]
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To accept any algorithm, but disallow HMAC-based signatures:
+
+```javascript
+var opts = {
+  algorithms: ["*", "!HS*"]
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(input).
+        then(function(result) {
+          // ...
+        });
+```
+
 #### Handling `crit` Header Members ####
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
@@ -621,6 +660,43 @@ jose.JWE.createDecrypt(key).
         decrypt(input).
         then(function(result) {
           // ....
+        });
+```
+
+#### Allowing (or Disallowing) Encryption Algorithms ###
+
+To restrict what encryption algorithms are allowed when verifying, add the `allowAlgs` member to the `options` Object.  The `allowAlgs` member is either a string or an array of strings, where the string value(s) can be one of the following:
+
+* `"*"`: accept all supported algorithms
+* **`<alg name>`** (e.g., `"A128KW"`): accept the specific algorithm (can have a single '*' to match a range of similar algorithms)
+* **`!<alg name>`** (e.g., `"!RSA1_5"`): *do not* accept the specific algorithm (can have a single '*' to match a range of similar algorithms)
+
+The negation is intended to be used with the wildcard accept string, and disallow takes precedence over allowed.
+
+To only accept "dir" and AES-GCM encryption:
+
+```javascript
+var opts = {
+  algorithms: ["dir", "A*GCM"]
+};
+jose.JWE.createDecrypt(key, opts).
+        decrypt(input).
+        then(function(result) {
+          // ...
+        });
+```
+
+To accept any algorithm, but disallow RSA-based encryption:
+
+```javascript
+var opts = {
+  algorithms: ["*", "!RSA*"]
+};
+jose.JWS.createVerify(key, opts).
+        verify(input).
+        then(input).
+        then(function(result) {
+          // ...
         });
 ```
 
