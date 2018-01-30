@@ -650,14 +650,14 @@ describe("jwk/oct", function() {
 
       return keystore.add(jwk);
     }
-    function setupWrapKey() {
+    function setupWrapKey(keyval, alg) {
       var keystore = JWK.store.KeyStore.createKeyStore();
       var jwk = {
         kty: "oct",
         kid: "someid",
         use: "enc",
-        alg: "A128GCM",
-        k: util.base64url.encode("e98b72a9881a84ca6b76e0f43e68647a", "hex")
+        alg: alg || "A128GCM",
+        k: util.base64url.encode(keyval || "e98b72a9881a84ca6b76e0f43e68647a", "hex")
       };
       return keystore.add(jwk);
     }
@@ -798,18 +798,17 @@ describe("jwk/oct", function() {
       return promise;
     });
     it("wraps via JWK", function() {
-      var promise = setupWrapKey();
+      var promise = setupWrapKey("000102030405060708090a0b0c0d0e0f", "A128KW");
       promise = promise.then(function(jwk) {
         var props = {
           iv: new Buffer("8b23299fde174053f3d652ba", "hex")
         };
 
-        var pdata = new Buffer("28286a321293253c3e0aa2704a278032", "hex");
-        return jwk.wrap("A128GCMKW", pdata, props);
+        var pdata = new Buffer("00112233445566778899aabbccddeeff", "hex");
+        return jwk.wrap("A128KW", pdata, props);
       });
       promise = promise.then(function(result) {
-        assert.equal(result.data.toString("hex"), "5a3c1cf1985dbb8bed818036fdd5ab42");
-        assert.equal(result.tag.toString("hex"), "23c7ab0f952b7091cd324835043b5eb5");
+        assert.equal(result.data.toString("hex"), "1fa68b0a8112b447aef34bd8fb5a7b829d3e862371d2cfe5");
       });
 
       return promise;
