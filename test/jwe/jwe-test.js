@@ -20,7 +20,6 @@ var fixtures = {
   "5_4.key_agreement_with_key_wrapping_using_ecdh-es_and_aes-keywrap_with_aes-gcm": cloneDeep(require("jose-cookbook/jwe/5_4.key_agreement_with_key_wrapping_using_ecdh-es_and_aes-keywrap_with_aes-gcm.json")),
   "5_5.key_agreement_using_ecdh-es_with_aes-cbc-hmac-sha2": cloneDeep(require("jose-cookbook/jwe/5_5.key_agreement_using_ecdh-es_with_aes-cbc-hmac-sha2.json")),
   "5_6.direct_encryption_using_aes-gcm": cloneDeep(require("jose-cookbook/jwe/5_6.direct_encryption_using_aes-gcm.json")),
-  "5_7.key_wrap_using_aes-gcm_keywrap_with_aes-cbc-hmac-sha2": cloneDeep(require("jose-cookbook/jwe/5_7.key_wrap_using_aes-gcm_keywrap_with_aes-cbc-hmac-sha2.json")),
   "5_8.key_wrap_using_aes-keywrap_with_aes-gcm": cloneDeep(require("jose-cookbook/jwe/5_8.key_wrap_using_aes-keywrap_with_aes-gcm.json")),
   "5_9.compressed_content": cloneDeep(require("jose-cookbook/jwe/5_9.compressed_content.json")),
   "5_10.including_additional_authentication_data": cloneDeep(require("jose-cookbook/jwe/5_10.including_additional_authentication_data.json"))
