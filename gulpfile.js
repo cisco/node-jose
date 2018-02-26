@@ -162,14 +162,6 @@ var KARMA_CONFIG = {
     "test/**/*-test.js": ["webpack", "sourcemap"]
   },
   webpack: {
-    module: {
-      loaders: [
-        {
-          test: /\.json$/,
-          loader: "json-loader"
-        }
-      ]
-    },
     devtool: "inline-source-map"
   },
   webpackMiddleware: {
