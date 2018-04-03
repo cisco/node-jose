@@ -495,6 +495,18 @@ describe("jwk/keystore", function() {
         assert.equal(JWK.store.KeyStore.isKey(), false);
       });
     });
+    describe("KeyStore.createKey", function() {
+      it("creates a new Key", function() {
+        var p;
+        p = JWK.store.KeyStore.createKey("oct", 256);
+        p = p.then(function (result) {
+          assert.ok(JWK.store.KeyStore.isKey(result));
+          assert.strictEqual(result.kty, "oct");
+          assert.strictEqual(result.length, 256);
+        });
+        return p;
+      });
+    });
     describe("KeyStore.asKey", function() {
       var props = {
         kty: "oct",

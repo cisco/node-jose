@@ -238,6 +238,17 @@ keystore.remove(key);
 
 ### Importing and Exporting a Single Key ###
 
+To create a single "stand alone" key:
+
+```javascript
+jose.JWK.createKey("oct", 256, { alg: "A256GCM" }).
+         then(function(result) {
+           // {result} is a jose.JWK.Key
+           // {result.keystore} is a unique jose.JWK.KeyStore
+         });
+```
+
+
 To import a single Key:
 
 ```javascript
