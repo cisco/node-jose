@@ -506,9 +506,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["A128GCM"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
-      assert.deepEqual(algs, ["A128KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A128KW", "A128GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
       algs = JWK.OCTET.config.algorithms(keys, "unwrap");
-      assert.deepEqual(algs, ["A128KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A128KW", "A128GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
     });
     it("returns the suite for 192-bit", function() {
       var keys = generateKeys(192);
@@ -525,9 +525,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["A192GCM"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
-      assert.deepEqual(algs, ["A192KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A192KW", "A192GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
       algs = JWK.OCTET.config.algorithms(keys, "unwrap");
-      assert.deepEqual(algs, ["A192KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A192KW", "A192GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
     });
     it("returns the suite for 256-bit", function() {
       var keys = generateKeys(256);
@@ -544,9 +544,9 @@ describe("jwk/oct", function() {
       assert.deepEqual(algs, ["A256GCM", "A128CBC-HS256", "A128CBC+HS256"]);
 
       algs = JWK.OCTET.config.algorithms(keys, "wrap");
-      assert.deepEqual(algs, ["A256KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A256KW", "A256GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
       algs = JWK.OCTET.config.algorithms(keys, "unwrap");
-      assert.deepEqual(algs, ["A256KW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
+      assert.deepEqual(algs, ["A256KW", "A256GCMKW", "PBES2-HS256+A128KW", "PBES2-HS384+A192KW", "PBES2-HS512+A256KW", "dir"]);
     });
     it("returns the suite for 384-bit", function() {
       var keys = generateKeys(384);
