@@ -112,6 +112,8 @@ describe("algorithms/pbes2", function() {
       var promise = algorithms.encrypt(v.alg, key, pdata, props);
       promise = promise.then(function(result) {
         assert.equal(result.data.toString("hex"), cdata.toString("hex"));
+        assert.equal(result.header.p2s, util.base64url.encode(v.salt));
+        assert.equal(result.header.p2c, v.iterations);
       });
       return promise;
     };
@@ -125,5 +127,10 @@ describe("algorithms/pbes2", function() {
 
     it("performs " + v.alg + " (" + v.desc + ") encryption", encrunner);
     it("performs " + v.alg + " (" + v.desc + ") decryption", decrunner);
+  });
+
+  it("applies a default iteration count when missing", function() {
+  });
+  it("applies a valid salt when missing", function() {
   });
 });
