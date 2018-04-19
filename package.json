@@ -48,6 +48,7 @@
     "chai": "^4.0.1",
     "conventional-changelog": "^1.1.0",
     "del": "^3.0.0",
+    "eslint-plugin-mocha-no-only": "0.0.6",
     "gulp": "^3.8.10",
     "gulp-eslint": "^4.0.1",
     "gulp-istanbul": "^1.1.1",

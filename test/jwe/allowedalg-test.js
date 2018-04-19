@@ -58,7 +58,7 @@ describe("jwe/allowedalgs", function() {
     var p;
     p = JWE.createDecrypt(vector.key).
       decrypt(vector.encrypted, opts);
-    p = p.then(function (result) {
+    p = p.then(function () {
       assert.ok(false, "unexpected success");
     }, function (err) {
       assert.ok(err);
@@ -98,7 +98,6 @@ describe("jwe/allowedalgs", function() {
   });
 
   it("restricts on a an array of specific allowed algorithms", function() {
-    var pending = [];
     var opts = {
       algorithms: ["dir", "A256GCM"]
     };
@@ -111,7 +110,6 @@ describe("jwe/allowedalgs", function() {
     return Promise.all(pending);
   });
   it("restricts on a an array of specific allowed algorithm prefix patterns", function () {
-    var pending = [];
     var opts = {
       algorithms: ["dir", "A*"]
     };
@@ -124,7 +122,6 @@ describe("jwe/allowedalgs", function() {
     return Promise.all(pending);
   });
   it("restricts on a an array of specific allowed algorithm suffix patterns", function () {
-    var pending = [];
     var opts = {
       algorithms: ["dir", "ECDH-ES", "*GCM"]
     };
@@ -162,7 +159,6 @@ describe("jwe/allowedalgs", function() {
     return Promise.all(pending);
   });
   it("restricts on a a string of specific allowed algorithm suffix patterns", function () {
-    var pending = [];
     var opts = {
       algorithms: "dir ECDH-ES *GCM"
     };

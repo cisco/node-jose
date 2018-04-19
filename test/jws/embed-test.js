@@ -68,7 +68,7 @@ describe("jws/embedded", function() {
       var vfy = JWS.createVerify(JWK.createKeyStore());
       p = vfy.verify(signature);
       p = p.then(
-        function (result) {
+        function () {
           assert.ok(false, "unexpected success");
         },
         function (err) {
@@ -125,7 +125,7 @@ describe("jws/embedded", function() {
       var vfy = JWS.createVerify(JWK.createKeyStore());
       p = vfy.verify(signature);
       p = p.then(
-        function (result) {
+        function () {
           assert.ok(false, "unexpected success");
         },
         function (err) {
