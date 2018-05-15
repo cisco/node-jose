@@ -50,7 +50,7 @@ describe("jws/allowAlgs", function () {
   function verifyDisallowed(vector, opts) {
     var p;
     p = JWS.createVerify(vector.key).verify(vector.sig, opts);
-    p = p.then(function (result) {
+    p = p.then(function () {
       assert.ok(false, "unexpected success");
     }, function (err) {
       assert.ok(err);
@@ -103,7 +103,6 @@ describe("jws/allowAlgs", function () {
     return Promise.all(pending);
   });
   it("restricts on a string of prefix pattern alg is allowed algorithm", function () {
-    var pending = [];
     var opts = {
       algorithms: "HS*"
     };
@@ -116,7 +115,6 @@ describe("jws/allowAlgs", function () {
     return Promise.all(pending);
   });
   it("restricts on a string of suffix pattern alg is allowed algorithm", function () {
-    var pending = [];
     var opts = {
       algorithms: "*256"
     };
@@ -142,7 +140,6 @@ describe("jws/allowAlgs", function () {
     return Promise.all(pending);
   });
   it("restricts on an array of prefix pattern alg is allowed algorithm", function () {
-    var pending = [];
     var opts = {
       algorithms: ["HS*"]
     };
@@ -155,7 +152,6 @@ describe("jws/allowAlgs", function () {
     return Promise.all(pending);
   });
   it("restricts on an array of suffix pattern alg is allowed algorithm", function () {
-    var pending = [];
     var opts = {
       algorithms: ["*256"]
     };

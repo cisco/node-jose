@@ -371,6 +371,7 @@ describe("jwk/EC", function() {
       promise = promise.then(function(print) {
         assert.equal(print.toString("hex"), "c840ce5ed3b9c62facb05e82ac8e70b4fa4c47c456a5f98ae0cbe5a3e2ebcea5");
       });
+      return promise;
     });
   });
 });

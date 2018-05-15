@@ -20,7 +20,6 @@ describe("jwe/embedded", function() {
     }
     // TODO: RSA and EC key tests
   }
-  var payload = new Buffer("There and back again – A Hobbit's Tale, by Bilbo Baggins", "utf8");
 
   before(function() {
     var all = Object.keys(keys);

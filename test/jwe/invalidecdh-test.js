@@ -67,7 +67,7 @@ describe("jwe/ecdhinvalid", function() {
         //AND THAN CHINESE REMAINDER THEOREM FTW
         return jwe.decrypt(maliciousJWE1);
       });
-      promise = promise.then(function(result) {
+      promise = promise.then(function() {
         assert.ok(false, "unexpected success");
       }, function(err) {
         assert.ok(err);

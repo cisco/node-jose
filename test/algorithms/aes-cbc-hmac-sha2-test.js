@@ -73,7 +73,6 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
     it('should not pass verification (truncated tag)', function() {
       var tamperedTag = v.tag.substring(0, 6);
       var key = new Buffer(v.key, "hex"),
-      pdata = new Buffer(v.plaintext, "hex"),
       cdata = new Buffer(v.ciphertext, "hex"),
       props = {
         iv: new Buffer(v.iv, "hex"),
@@ -81,17 +80,17 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
         tag: new Buffer(tamperedTag, "hex")
       };
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
-      promise = promise.then(function(result) {
+      promise = promise.then(function() {
         assert(false, "unexpected success");
       });
       promise = promise.catch(function(err) {
         assert(err);
       });
+      return promise;
     })
     it('should not pass verification, (empty tag)', function() {
       var tamperedTag = "";
       var key = new Buffer(v.key, "hex"),
-      pdata = new Buffer(v.plaintext, "hex"),
       cdata = new Buffer(v.ciphertext, "hex"),
       props = {
         iv: new Buffer(v.iv, "hex"),
@@ -99,7 +98,7 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
         tag: new Buffer(tamperedTag, "hex")
       };
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
-      promise = promise.then(function(result) {
+      promise = promise.then(function() {
         assert(false, "unexpected success");
       });
       promise = promise.catch(function(err) {
