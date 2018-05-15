@@ -89,8 +89,8 @@ describe("algorithms/sha", function() {
 
   vectors.forEach(function(v) {
     var runner = function() {
-      var data = new Buffer(v.data, "hex"),
-          expected = new Buffer(v.digest, "hex");
+      var data = Buffer.from(v.data, "hex"),
+          expected = Buffer.from(v.digest, "hex");
 
       var promise = algorithms.digest(v.alg, data);
       promise = promise.then(function(result) {

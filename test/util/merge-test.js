@@ -15,7 +15,7 @@ describe("util/merge", function() {
   it("maintains node.js Buffer", function() {
     var expected = {
       foo: "bar",
-      bar: new Buffer([0x62, 0x61, 0x7a]),
+      bar: Buffer.from([0x62, 0x61, 0x7a]),
       baz: 42
     };
     var actual = {
@@ -23,7 +23,7 @@ describe("util/merge", function() {
     };
     actual = utils.merge(actual, {
       baz: 42,
-      bar: new Buffer([0x62, 0x61, 0x7a])
+      bar: Buffer.from([0x62, 0x61, 0x7a])
     });
     assert.deepEqual(actual, expected);
     assert.ok(Buffer.isBuffer(actual.bar));

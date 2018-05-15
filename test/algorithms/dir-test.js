@@ -30,7 +30,7 @@ describe("algorithms/dir", function() {
 
   vectors.forEach(function(v) {
     var encRunner = function() {
-      var key = new Buffer(v.key, "hex");
+      var key = Buffer.from(v.key, "hex");
 
       var promise = algorithms.encrypt("dir", key);
       promise = promise.then(function(result) {
@@ -41,7 +41,7 @@ describe("algorithms/dir", function() {
       return promise;
     };
     var decRunner = function() {
-      var key = new Buffer(v.key, "hex");
+      var key = Buffer.from(v.key, "hex");
 
       var promise = algorithms.decrypt("dir", key);
       promise = promise.then(function(result) {

@@ -22,7 +22,7 @@ describe("jwe/roundtrip", function() {
       },
       alg: "ECDH-ES",
       enc: "A128CBC-HS256",
-      plaintext: new Buffer("hello world", "utf8")
+      plaintext: Buffer.from("hello world", "utf8")
     },
     {
       desc: "ECDH-ES+A128KW + A128GCM",
@@ -36,7 +36,7 @@ describe("jwe/roundtrip", function() {
       },
       alg: "ECDH-ES+A128KW",
       enc: "A128GCM",
-      plaintext: new Buffer("hello world", "utf8")
+      plaintext: Buffer.from("hello world", "utf8")
     }
   ];
   forEach(vectors, function(v) {

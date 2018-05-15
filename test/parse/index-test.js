@@ -52,7 +52,7 @@ describe("parse", function() {
     });
     it("parses JWS Compact Serialization (as Buffer)", function() {
       var fix = fixtures.jws.basic;
-      var input = new Buffer(fix.output.compact, "ascii");
+      var input = Buffer.from(fix.output.compact, "ascii");
       var output = jose.parse(input);
       assert.strictEqual(output.type, "JWS");
       assert.strictEqual(output.format, "compact");
@@ -133,7 +133,7 @@ describe("parse", function() {
     });
     it("parses JWE Compact Serialization (as Buffer)", function() {
       var fix = fixtures.jwe.basic;
-      var input = new Buffer(fix.output.compact, "ascii");
+      var input = Buffer.from(fix.output.compact, "ascii");
       var output = jose.parse(input);
       assert.strictEqual(output.type, "JWE");
       assert.strictEqual(output.format, "compact");

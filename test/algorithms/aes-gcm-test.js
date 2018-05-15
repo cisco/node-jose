@@ -22,15 +22,15 @@ describe("algorithms/aes-gcm", function() {
       var runner = function() {
         var size = algSize(alg);
         var key,
-            iv = new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
-            tag = new Buffer("ffeeddccbbaa99887766554433221100", "hex"),
-            plaintext = new Buffer("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
+            iv = Buffer.from("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
+            tag = Buffer.from("ffeeddccbbaa99887766554433221100", "hex"),
+            plaintext = Buffer.from("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
 
         var promise = Promise.resolve();
 
         promise = promise.then(function() {
           // a bit too small
-          key = new Buffer(size - 1);
+          key = Buffer.alloc(size - 1);
           return algorithms[mode](alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -41,7 +41,7 @@ describe("algorithms/aes-gcm", function() {
 
         promise = promise.then(function() {
           // a bit too big
-          key = new Buffer(size + 1);
+          key = Buffer.alloc(size + 1);
           return algorithms[mode](alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -53,7 +53,7 @@ describe("algorithms/aes-gcm", function() {
         promise = promise.then(function() {
           // just right --- for another algorithm
           var size = algSize(fails[(pos + 1) % fails.length]);
-          key = new Buffer(size);
+          key = Buffer.alloc(size);
           return algorithms[mode](alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -70,16 +70,16 @@ describe("algorithms/aes-gcm", function() {
     var ivFailer = function(mode) {
       var runner = function() {
         var size = algSize(alg);
-        var key = new Buffer(size),
+        var key = Buffer.alloc(size),
             iv,
-            tag = new Buffer("ffeeddccbbaa99887766554433221100", "hex"),
-            plaintext = new Buffer("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
+            tag = Buffer.from("ffeeddccbbaa99887766554433221100", "hex"),
+            plaintext = Buffer.from("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
 
         var promise = Promise.resolve();
 
         promise = promise.then(function() {
           // a bit too small
-          iv = new Buffer(12 - 1);
+          iv = Buffer.alloc(12 - 1);
           return algorithms[mode](alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -90,7 +90,7 @@ describe("algorithms/aes-gcm", function() {
 
         promise = promise.then(function() {
           // a bit too big
-          iv = new Buffer(12 + 1);
+          iv = Buffer.alloc(12 + 1);
           return algorithms[mode](alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -118,16 +118,16 @@ describe("algorithms/aes-gcm", function() {
     var tagFailer = function() {
       var runner = function() {
         var size = algSize(alg);
-        var key = new Buffer(size),
-            iv = new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
+        var key = Buffer.alloc(size),
+            iv = Buffer.from("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
             tag,
-            plaintext = new Buffer("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
+            plaintext = Buffer.from("bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc", "hex");
 
         var promise = Promise.resolve();
 
         promise = promise.then(function() {
           // a bit too small
-          tag = new Buffer(16 - 1);
+          tag = Buffer.alloc(16 - 1);
           return algorithms.decrypt(alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -138,7 +138,7 @@ describe("algorithms/aes-gcm", function() {
 
         promise = promise.then(function() {
           // a bit too big
-          tag = new Buffer(16 + 1);
+          tag = Buffer.alloc(16 + 1);
           return algorithms.decrypt(alg, key, plaintext, { iv: iv, mac: tag });
         });
         promise = promise.then(function() {
@@ -166,10 +166,10 @@ describe("algorithms/aes-gcm", function() {
     var decryptFailer = function(){
       var runner = function() {
         var size = algSize(alg);
-        var key = new Buffer(size),
-            iv = new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
+        var key = Buffer.alloc(size),
+            iv = Buffer.from("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
             tag,
-            plaintext = new Buffer("00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff", "hex"),
+            plaintext = Buffer.from("00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff", "hex"),
             ciphertext;
 
         var promise = Promise.resolve();
@@ -181,7 +181,7 @@ describe("algorithms/aes-gcm", function() {
           tag = result.tag;
 
           // corrupted tag
-          var badTag = new Buffer(tag.length);
+          var badTag = Buffer.alloc(tag.length);
           tag.copy(badTag);
           for (var idx = 0; idx < badTag.length; idx++) {
             badTag[idx] = badTag[idx] ^ 0xa5;
@@ -282,13 +282,13 @@ describe("algorithms/aes-gcm", function() {
   ];
   vectors.forEach(function(v) {
     var encrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex"),
-          mac = new Buffer(v.tag, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex"),
+          mac = Buffer.from(v.tag, "hex"),
           props = {
-            iv: new Buffer(v.iv, "hex"),
-            aad: new Buffer(v.aad, "hex")
+            iv: Buffer.from(v.iv, "hex"),
+            aad: Buffer.from(v.aad, "hex")
           };
 
       var promise = algorithms.encrypt(v.alg, key, pdata, props);
@@ -299,13 +299,13 @@ describe("algorithms/aes-gcm", function() {
       return promise;
     };
     var decrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex"),
           props = {
-            iv: new Buffer(v.iv, "hex"),
-            aad: new Buffer(v.aad, "hex"),
-            tag: new Buffer(v.tag, "hex")
+            iv: Buffer.from(v.iv, "hex"),
+            aad: Buffer.from(v.aad, "hex"),
+            tag: Buffer.from(v.tag, "hex")
           };
 
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
@@ -320,9 +320,9 @@ describe("algorithms/aes-gcm", function() {
   });
 
   it("performs consistently with large data", function() {
-    var key = new Buffer("00000000000000000000000000000000", "hex"),
-        iv = new Buffer("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
-        plaintext = new Buffer(1024 * 1024 + 1);
+    var key = Buffer.from("00000000000000000000000000000000", "hex"),
+        iv = Buffer.from("a5a5a5a5a5a5a5a5a5a5a5a5", "hex"),
+        plaintext = Buffer.alloc(1024 * 1024 + 1);
 
     for (var idx = 0; idx < plaintext.length; idx++) {
       plaintext[idx] = idx % 256;

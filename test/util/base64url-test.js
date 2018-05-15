@@ -13,7 +13,7 @@ var utils = {
 
 describe("util/base64url", function() {
   it("should encode a node.js Buffer", function() {
-    var input = new Buffer("‹hello world!›", "utf8");
+    var input = Buffer.from("‹hello world!›", "utf8");
     var output = utils.base64url.encode(input);
     assert.equal(output, "4oC5aGVsbG8gd29ybGQh4oC6");
   });
@@ -80,7 +80,7 @@ describe("util/base64url", function() {
     input = "4oC5aGVsbG8gd29ybGQh4oC6";
     output = utils.base64url.decode(input);
 
-    var expected = new Buffer([226, 128, 185, 104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 226, 128, 186]);
+    var expected = Buffer.from([226, 128, 185, 104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33, 226, 128, 186]);
     assert.deepEqual(output, expected);
   });
 
