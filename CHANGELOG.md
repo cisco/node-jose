@@ -1,3 +1,16 @@
+# Release Notes
+
+<a name="0.11.1"></a>
+## [0.11.1](https://github.com/cisco/node-jose/compare/0.11.0...0.11.1) (2018-05-15)
+
+**NOTE:** This is a security patch, replacing `base64url` with `b64u` to address a [vulnerability in the previous dependency](https://hackerone.com/reports/321687).
+
+### Chore
+
+* replace base64url with b64u (#179) ([7f88049af5de3593adc00d886150bf2fa8f1ecd4](https://github.com/cisco/node-jose/commit/7f88049af5de3593adc00d886150bf2fa8f1ecd4)), closes [#179](https://github.com/cisco/node-jose/issues/179)
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/cisco/node-jose/compare/0.10.0...0.11.0) (2017-11-30)
 
@@ -32,8 +45,6 @@
 
 * exclude old browsers from SL tests  ([20fe41ee982368123173995ba667c053608ff0bb](https://github.com/cisco/node-jose/commit/20fe41ee982368123173995ba667c053608ff0bb))
 
-
-# Release Notes
 
 <a name="0.9.5"></a>
 ## [0.9.5](https://github.com/cisco/node-jose/compare/0.9.4...0.9.5) (2017-08-07)
