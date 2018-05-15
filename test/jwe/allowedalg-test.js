@@ -7,7 +7,7 @@ var JWE = require("../../lib/jwe"),
 
 var assert = chai.assert;
 
-describe.only("jwe/allowedalgs", function() {
+describe("jwe/allowedalgs", function() {
   var a256kw = {
     key: {
       "kty": "oct",
