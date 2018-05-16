@@ -68,7 +68,7 @@ describe("util/DataBuffer", function() {
   });
 
   it("creates a DataBuffer from nodejs Buffer", function() {
-    var input = new Buffer(31);
+    var input = Buffer.alloc(31);
     for (var idx = 0; idx < input.length; idx++) {
       input[idx] = idx % 256;
     }
@@ -191,7 +191,7 @@ describe("util/DataBuffer", function() {
   });
 
   it("creates a DataBuffer from nodejs Buffer with options", function() {
-    var input = new Buffer(31);
+    var input = Buffer.alloc(31);
     for (var idx = 0; idx < input.length; idx++) {
       input[idx] = idx % 256;
     }
@@ -370,14 +370,14 @@ describe("util/DataBuffer", function() {
     buffer.putInt32(w);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 4);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("fffefdfc", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("fffefdfc", "hex"));
 
     w = (129 << 24) | (128 << 16) | (127 << 8) | 126;
     buffer.read = 4;
     buffer.putInt32(w);
     assert.equal(buffer.read, 4);
     assert.equal(buffer.write, 8);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("81807f7e", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("81807f7e", "hex"));
   });
 
   it("reads a big-endian word at a time", function() {
@@ -399,19 +399,19 @@ describe("util/DataBuffer", function() {
     var buffer = new utils.DataBuffer(),
         expected;
 
-    expected = new Buffer("a5a5a5a5a5", "hex");
+    expected = Buffer.from("a5a5a5a5a5", "hex");
     buffer.fillWithByte(0xa5, 5);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 5);
     assertArrayEqual(buffer.data.slice(0, 5), expected);
 
-    expected = new Buffer("a5a5a5a5a5bcbcbc", "hex");
+    expected = Buffer.from("a5a5a5a5a5bcbcbc", "hex");
     buffer.fillWithByte(0xbc, 3);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 8);
     assertArrayEqual(buffer.data.slice(0, 8), expected);
 
-    expected = new Buffer("01010101010101010101010101010101", "hex");
+    expected = Buffer.from("01010101010101010101010101010101", "hex");
     buffer = new utils.DataBuffer();
     buffer.fillWithByte(0x01);
     assert.equal(buffer.read, 0);
@@ -422,72 +422,72 @@ describe("util/DataBuffer", function() {
   it("truncates a DataBuffer", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     assert.strictEqual(buffer.truncate(5), buffer);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 11);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("000102030405060708090a", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("0000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("000102030405060708090a", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("0000000000", "hex"));
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     assert.strictEqual(buffer.truncate(20), buffer);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 0);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("00000000000000000000000000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("00000000000000000000000000000000", "hex"));
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     buffer.read = 5;
     assert.strictEqual(buffer.truncate(5), buffer);
     assert.equal(buffer.read, 5);
     assert.equal(buffer.write, 11);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("05060708090a", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("0000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("05060708090a", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("0000000000", "hex"));
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     buffer.read = 5;
     assert.strictEqual(buffer.truncate(20), buffer);
     assert.equal(buffer.read, 5);
     assert.equal(buffer.write, 5);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("0000000000000000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("0000000000000000000000", "hex"));
   });
 
   it("compacts a DataBuffer", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     // does nothing
     assert.strictEqual(buffer.compact(), buffer);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 16);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
 
     buffer.read = 5;
     assert.strictEqual(buffer.compact(), buffer);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 11);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("05060708090a0b0c0d0e0f", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("0000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("05060708090a0b0c0d0e0f", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("0000000000", "hex"));
 
     buffer.read = buffer.write;
     assert.strictEqual(buffer.compact(), buffer);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 0);
-    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), new Buffer("", "hex"));
-    assertArrayEqual(buffer.data.slice(buffer.write), new Buffer("00000000000000000000000000000000", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.read, buffer.write), Buffer.from("", "hex"));
+    assertArrayEqual(buffer.data.slice(buffer.write), Buffer.from("00000000000000000000000000000000", "hex"));
   });
 
   it("returns a buffer (no changes)", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assertArrayEqual(buffer.buffer(), new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assertArrayEqual(buffer.buffer(), Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     assert.equal(buffer.length(), 16);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 16);
 
-    assertArrayEqual(buffer.buffer(4), new Buffer("00010203", "hex"));
+    assertArrayEqual(buffer.buffer(4), Buffer.from("00010203", "hex"));
     assert.equal(buffer.length(), 16);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 16);
@@ -496,14 +496,14 @@ describe("util/DataBuffer", function() {
   it("returns a buffer, consuming", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assertArrayEqual(buffer.getBuffer(), new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assertArrayEqual(buffer.getBuffer(), Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
     assert.equal(buffer.length(), 0);
     assert.equal(buffer.read, 16);
     assert.equal(buffer.write, 16);
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assertArrayEqual(buffer.getBuffer(4), new Buffer("00010203", "hex"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assertArrayEqual(buffer.getBuffer(4), Buffer.from("00010203", "hex"));
     assert.equal(buffer.length(), 12);
     assert.equal(buffer.read, 4);
     assert.equal(buffer.write, 16);
@@ -512,13 +512,13 @@ describe("util/DataBuffer", function() {
   it("returns bytes (no changes)", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assert.equal(buffer.bytes(), new Buffer("000102030405060708090a0b0c0d0e0f", "hex").toString("binary"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assert.equal(buffer.bytes(), Buffer.from("000102030405060708090a0b0c0d0e0f", "hex").toString("binary"));
     assert.equal(buffer.length(), 16);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 16);
 
-    assert.equal(buffer.bytes(4), new Buffer("00010203", "hex").toString("binary"));
+    assert.equal(buffer.bytes(4), Buffer.from("00010203", "hex").toString("binary"));
     assert.equal(buffer.length(), 16);
     assert.equal(buffer.read, 0);
     assert.equal(buffer.write, 16);
@@ -527,14 +527,14 @@ describe("util/DataBuffer", function() {
   it("returns bytes, consuming", function() {
     var buffer;
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assert.equal(buffer.getBytes(), new Buffer("000102030405060708090a0b0c0d0e0f", "hex").toString("binary"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assert.equal(buffer.getBytes(), Buffer.from("000102030405060708090a0b0c0d0e0f", "hex").toString("binary"));
     assert.equal(buffer.length(), 0);
     assert.equal(buffer.read, 16);
     assert.equal(buffer.write, 16);
 
-    buffer = new utils.DataBuffer(new Buffer("000102030405060708090a0b0c0d0e0f", "hex"));
-    assert.equal(buffer.getBytes(4), new Buffer("00010203", "hex").toString("binary"));
+    buffer = new utils.DataBuffer(Buffer.from("000102030405060708090a0b0c0d0e0f", "hex"));
+    assert.equal(buffer.getBytes(4), Buffer.from("00010203", "hex").toString("binary"));
     assert.equal(buffer.length(), 12);
     assert.equal(buffer.read, 4);
     assert.equal(buffer.write, 16);

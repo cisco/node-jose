@@ -34,13 +34,13 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
   ];
   vectors.forEach(function(v) {
     var encrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex"),
-          mac = new Buffer(v.tag, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex"),
+          mac = Buffer.from(v.tag, "hex"),
           props = {
-            iv: new Buffer(v.iv, "hex"),
-            aad: new Buffer(v.aad, "hex")
+            iv: Buffer.from(v.iv, "hex"),
+            aad: Buffer.from(v.aad, "hex")
           };
 
       var promise = algorithms.encrypt(v.alg, key, pdata, props);
@@ -51,13 +51,13 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
       return promise;
     };
     var decrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex"),
           props = {
-            iv: new Buffer(v.iv, "hex"),
-            aad: new Buffer(v.aad, "hex"),
-            tag: new Buffer(v.tag, "hex")
+            iv: Buffer.from(v.iv, "hex"),
+            aad: Buffer.from(v.aad, "hex"),
+            tag: Buffer.from(v.tag, "hex")
           };
 
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
@@ -72,12 +72,12 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
 
     it('should not pass verification (truncated tag)', function() {
       var tamperedTag = v.tag.substring(0, 6);
-      var key = new Buffer(v.key, "hex"),
-      cdata = new Buffer(v.ciphertext, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+      cdata = Buffer.from(v.ciphertext, "hex"),
       props = {
-        iv: new Buffer(v.iv, "hex"),
-        aad: new Buffer(v.aad, "hex"),
-        tag: new Buffer(tamperedTag, "hex")
+        iv: Buffer.from(v.iv, "hex"),
+        aad: Buffer.from(v.aad, "hex"),
+        tag: Buffer.from(tamperedTag, "hex")
       };
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
       promise = promise.then(function() {
@@ -90,12 +90,12 @@ describe("algorithms/aes-cbc-hmac-sha2", function() {
     })
     it('should not pass verification, (empty tag)', function() {
       var tamperedTag = "";
-      var key = new Buffer(v.key, "hex"),
-      cdata = new Buffer(v.ciphertext, "hex"),
+      var key = Buffer.from(v.key, "hex"),
+      cdata = Buffer.from(v.ciphertext, "hex"),
       props = {
-        iv: new Buffer(v.iv, "hex"),
-        aad: new Buffer(v.aad, "hex"),
-        tag: new Buffer(tamperedTag, "hex")
+        iv: Buffer.from(v.iv, "hex"),
+        aad: Buffer.from(v.aad, "hex"),
+        tag: Buffer.from(tamperedTag, "hex")
       };
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
       promise = promise.then(function() {

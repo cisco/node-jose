@@ -37,7 +37,7 @@ describe("util", function() {
       }
       output = UTIL.asBuffer(input);
       assert.equal(Buffer.isBuffer(output), true);
-      assert.deepEqual(output, new Buffer(input));
+      assert.deepEqual(output, Buffer.from(input));
     });
     it("returns a Buffer for an Uint8Array", function() {
       var input, output;
@@ -48,7 +48,7 @@ describe("util", function() {
       }
       output = UTIL.asBuffer(input);
       assert.equal(Buffer.isBuffer(output), true);
-      assert.deepEqual(output, new Buffer(input));
+      assert.deepEqual(output, Buffer.from(input));
     });
     it("returns a Buffer for an ArrayBuffer", function() {
       var input, output;
@@ -59,7 +59,7 @@ describe("util", function() {
       }
       output = UTIL.asBuffer(input.buffer);
       assert.equal(Buffer.isBuffer(output), true);
-      assert.deepEqual(output, new Buffer(input));
+      assert.deepEqual(output, Buffer.from(input));
     });
     it("returns a Buffer for some other TypedArray", function() {
       var input, output;
@@ -80,7 +80,7 @@ describe("util", function() {
       }
       output = UTIL.asBuffer(input.map(function(c) { return String.fromCharCode(c); }).join(""));
       assert.equal(Buffer.isBuffer(output), true);
-      assert.deepEqual(output, new Buffer(input));
+      assert.deepEqual(output, Buffer.from(input));
     });
     it("retuns a Buffer for a text string", function() {
       var input, output;
@@ -88,7 +88,7 @@ describe("util", function() {
       input = "hello there, world!";
       output = UTIL.asBuffer(input, "utf8");
       assert.equal(Buffer.isBuffer(output), true);
-      assert.deepEqual(output, new Buffer(input, "utf8"));
+      assert.deepEqual(output, Buffer.from(input, "utf8"));
     });
     it("returns a Buffer for a base64url string", function() {
       var input, output;

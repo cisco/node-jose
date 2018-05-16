@@ -43,9 +43,9 @@ describe("algorithms/aes-kw", function() {
 
   vectors.forEach(function(v) {
     var encrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex");
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex");
 
       var promise = algorithms.encrypt(v.alg, key, pdata);
       promise = promise.then(function(result) {
@@ -54,9 +54,9 @@ describe("algorithms/aes-kw", function() {
       return promise;
     };
     var decrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          pdata = new Buffer(v.plaintext, "hex"),
-          cdata = new Buffer(v.ciphertext, "hex");
+      var key = Buffer.from(v.key, "hex"),
+          pdata = Buffer.from(v.plaintext, "hex"),
+          cdata = Buffer.from(v.ciphertext, "hex");
 
       var promise = algorithms.decrypt(v.alg, key, cdata);
       promise = promise.then(function(result) {

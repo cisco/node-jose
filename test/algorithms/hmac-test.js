@@ -67,9 +67,9 @@ describe("algorithms/hmac", function() {
 
   vectors.forEach(function(v) {
     var signrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          msg = new Buffer(v.msg, "hex"),
-          mac = new Buffer(v.mac, "hex");
+      var key = Buffer.from(v.key, "hex"),
+          msg = Buffer.from(v.msg, "hex"),
+          mac = Buffer.from(v.mac, "hex");
 
       var promise = algorithms.sign(v.alg, key, msg);
       promise = promise.then(function(result) {
@@ -80,9 +80,9 @@ describe("algorithms/hmac", function() {
       return promise;
     };
     var vfyrunner = function() {
-      var key = new Buffer(v.key, "hex"),
-          msg = new Buffer(v.msg, "hex"),
-          mac = new Buffer(v.mac, "hex");
+      var key = Buffer.from(v.key, "hex"),
+          msg = Buffer.from(v.msg, "hex"),
+          mac = Buffer.from(v.mac, "hex");
 
       var promise = algorithms.verify(v.alg, key, msg, mac);
       promise = promise.then(function(result) {

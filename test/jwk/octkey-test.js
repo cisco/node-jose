@@ -483,7 +483,7 @@ describe("jwk/oct", function() {
   describe("#algorithms", function() {
     function generateKeys(size, props) {
       props = merge({}, props || {}, {
-        "k": new Buffer(forge.random.getBytes(size / 8), "binary")
+        "k": Buffer.from(forge.random.getBytes(size / 8), "binary")
       });
       var keys = {};
       keys.public = JWK.OCTET.config.publicKey(clone(props));
@@ -737,11 +737,11 @@ describe("jwk/oct", function() {
       var promise = setupEncKey();
       promise = promise.then(function(jwk) {
         var props = {
-          iv: new Buffer("32c367a3362613b27fc3e67e", "hex"),
-          aad: new Buffer("f2a30728ed874ee02983c294435d3c16", "hex")
+          iv: Buffer.from("32c367a3362613b27fc3e67e", "hex"),
+          aad: Buffer.from("f2a30728ed874ee02983c294435d3c16", "hex")
         };
 
-        var pdata = new Buffer("ecafe96c67a1646744f1c891f5e69427", "hex");
+        var pdata = Buffer.from("ecafe96c67a1646744f1c891f5e69427", "hex");
         return jwk.encrypt("A128GCM", pdata, props);
       });
       promise = promise.then(function(result) {
@@ -755,12 +755,12 @@ describe("jwk/oct", function() {
       var promise = setupEncKey();
       promise = promise.then(function(jwk) {
         var props = {
-          iv: new Buffer("32c367a3362613b27fc3e67e", "hex"),
-          aad: new Buffer("f2a30728ed874ee02983c294435d3c16", "hex"),
-          tag: new Buffer("ecaae9fc68276a45ab0ca3cb9dd9539f", "hex")
+          iv: Buffer.from("32c367a3362613b27fc3e67e", "hex"),
+          aad: Buffer.from("f2a30728ed874ee02983c294435d3c16", "hex"),
+          tag: Buffer.from("ecaae9fc68276a45ab0ca3cb9dd9539f", "hex")
         };
 
-        var cdata = new Buffer("552ebe012e7bcf90fcef712f8344e8f1", "hex");
+        var cdata = Buffer.from("552ebe012e7bcf90fcef712f8344e8f1", "hex");
         return jwk.decrypt("A128GCM", cdata, props);
       });
       promise = promise.then(function(result) {
@@ -772,7 +772,7 @@ describe("jwk/oct", function() {
     it("signs via JWK", function() {
       var promise = setupSigKey();
       promise = promise.then(function(jwk) {
-        var pdata = new Buffer("b1689c2591eaf3c9e66070f8a77954ffb81749f1b00346f9dfe0b2ee905dcc288baf4a92de3f4001dd9f44c468c3d07d6c6ee82faceafc97c2fc0fc0601719d2dcd0aa2aec92d1b0ae933c65eb06a03c9c935c2bad0459810241347ab87e9f11adb30415424c6c7f5f22a003b8ab8de54f6ded0e3ab9245fa79568451dfa258e", "hex");
+        var pdata = Buffer.from("b1689c2591eaf3c9e66070f8a77954ffb81749f1b00346f9dfe0b2ee905dcc288baf4a92de3f4001dd9f44c468c3d07d6c6ee82faceafc97c2fc0fc0601719d2dcd0aa2aec92d1b0ae933c65eb06a03c9c935c2bad0459810241347ab87e9f11adb30415424c6c7f5f22a003b8ab8de54f6ded0e3ab9245fa79568451dfa258e", "hex");
         return jwk.sign("HS256", pdata);
       });
       promise = promise.then(function(result) {
@@ -785,8 +785,8 @@ describe("jwk/oct", function() {
     it("verifies via JWK", function() {
       var promise = setupSigKey();
       promise = promise.then(function(jwk) {
-        var pdata = new Buffer("b1689c2591eaf3c9e66070f8a77954ffb81749f1b00346f9dfe0b2ee905dcc288baf4a92de3f4001dd9f44c468c3d07d6c6ee82faceafc97c2fc0fc0601719d2dcd0aa2aec92d1b0ae933c65eb06a03c9c935c2bad0459810241347ab87e9f11adb30415424c6c7f5f22a003b8ab8de54f6ded0e3ab9245fa79568451dfa258e", "hex");
-        var mac = new Buffer("769f00d3e6a6cc1fb426a14a4f76c6462e6149726e0dee0ec0cf97a16605ac8b", "hex");
+        var pdata = Buffer.from("b1689c2591eaf3c9e66070f8a77954ffb81749f1b00346f9dfe0b2ee905dcc288baf4a92de3f4001dd9f44c468c3d07d6c6ee82faceafc97c2fc0fc0601719d2dcd0aa2aec92d1b0ae933c65eb06a03c9c935c2bad0459810241347ab87e9f11adb30415424c6c7f5f22a003b8ab8de54f6ded0e3ab9245fa79568451dfa258e", "hex");
+        var mac = Buffer.from("769f00d3e6a6cc1fb426a14a4f76c6462e6149726e0dee0ec0cf97a16605ac8b", "hex");
         return jwk.verify("HS256", pdata, mac);
       });
       promise = promise.then(function(result) {
@@ -801,10 +801,10 @@ describe("jwk/oct", function() {
       var promise = setupWrapKey("000102030405060708090a0b0c0d0e0f", "A128KW");
       promise = promise.then(function(jwk) {
         var props = {
-          iv: new Buffer("8b23299fde174053f3d652ba", "hex")
+          iv: Buffer.from("8b23299fde174053f3d652ba", "hex")
         };
 
-        var pdata = new Buffer("00112233445566778899aabbccddeeff", "hex");
+        var pdata = Buffer.from("00112233445566778899aabbccddeeff", "hex");
         return jwk.wrap("A128KW", pdata, props);
       });
       promise = promise.then(function(result) {

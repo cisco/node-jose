@@ -29,7 +29,7 @@ describe("jwe/crit", function() {
       }
     };
     var jwe = JWE.createEncrypt(opts, key);
-    jwe.update(new Buffer("something that should fail"));
+    jwe.update(Buffer.from("something that should fail"));
     var p = jwe.final();
     p = p.then(function(jwe) {
       return JWE.createDecrypt(key).
@@ -54,7 +54,7 @@ describe("jwe/crit", function() {
       }
     };
     var jwe = JWE.createEncrypt(opts, key);
-    jwe.update(new Buffer("something that should not fail"));
+    jwe.update(Buffer.from("something that should not fail"));
     var p = jwe.final();
     p = p.then(function(jwe) {
       return JWE.createDecrypt(key).
@@ -79,7 +79,7 @@ describe("jwe/crit", function() {
       }
     };
     var jwe = JWE.createEncrypt(opts, key);
-    jwe.update(new Buffer("something that should not fail"));
+    jwe.update(Buffer.from("something that should not fail"));
     var p = jwe.final();
     p = p.then(function(jwe) {
       return JWE.createDecrypt(key).
@@ -117,7 +117,7 @@ describe("jwe/crit", function() {
       }
     };
     var jwe = JWE.createEncrypt(opts, key);
-    jwe.update(new Buffer("something that should not fail"));
+    jwe.update(Buffer.from("something that should not fail"));
     var p = jwe.final();
     p = p.then(function(jwe) {
       return JWE.createDecrypt(key).

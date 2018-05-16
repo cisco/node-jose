@@ -12,6 +12,7 @@
   ],
   "rules": {
     "mocha-no-only/mocha-no-only": ["warn"],
+    "no-buffer-constructor": ["error"],
     "no-shadow": ["off"],
     "no-underscore-dangle": ["off"],
     "strict": ["error", "global"],

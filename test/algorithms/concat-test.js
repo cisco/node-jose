@@ -24,12 +24,12 @@ describe("algorithms/concat", function() {
 
   vectors.forEach(function(v) {
     var deriverunner = function() {
-      var ikm = new Buffer(v.ikm, "hex"),
-          okm = new Buffer(v.okm, "hex");
+      var ikm = Buffer.from(v.ikm, "hex"),
+          okm = Buffer.from(v.okm, "hex");
 
       var props = {};
       if (v.otherInfo) {
-        props.otherInfo = new Buffer(v.otherInfo, "hex");
+        props.otherInfo = Buffer.from(v.otherInfo, "hex");
       }
       props.length = v.keyLength;
 
