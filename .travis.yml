@@ -22,8 +22,5 @@ matrix:
     addons:
       firefox: latest
       sauce_connect: true
-install:
-- npm install
-- npm rebuild
 script:
 - ./node_modules/.bin/gulp $TASKS
