@@ -7,6 +7,7 @@
 var cloneDeep = require("lodash.clonedeep");
 var forEach = require("lodash.foreach");
 var chai = require("chai");
+var bowser = require("bowser");
 
 var JWS = require("../../lib/jws");
 var JWK = require("../../lib/jwk");
@@ -55,6 +56,10 @@ describe("jws", function() {
   forEach(fixtures, function(fixture) {
     var input = fixture.input;
     var output = fixture.output;
+
+    if (bowser.safari && "P-521" === input.key.crv) {
+      return;
+    }
 
     // TODO figure out how to generate description from fixture values
     describe(fixture.title, function() {
