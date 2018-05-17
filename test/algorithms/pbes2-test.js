@@ -129,8 +129,78 @@ describe("algorithms/pbes2", function() {
     it("performs " + v.alg + " (" + v.desc + ") decryption", decrunner);
   });
 
-  it("applies a default iteration count when missing", function() {
-  });
-  it("applies a valid salt when missing", function() {
-  });
+  describe("defaults", function() {
+    var vectors = [
+      {
+        alg: "PBES2-HS256+A128KW",
+        desc: "Password-Based Encryption using HMAC-SHA-256 and AES-128-KW",
+        password: util.base64url.decode("ZW50cmFwX2_igJNwZXRlcl9sb25n4oCTY3JlZGl0X3R1bg"),
+        salt: "8Q1SzinasR3xchYz6ZZcHA",
+        iterations: 8192,
+        plaintext: util.base64url.decode("pqampqampqampqampqampg")
+      },
+      {
+        alg: "PBES2-HS512+A256KW",
+        desc: "Password-Based Encryption using HMAC-SHA-512 and AES-256-KW",
+        password: util.base64url.decode("ZW50cmFwX2_igJNwZXRlcl9sb25n4oCTY3JlZGl0X3R1bg"),
+        salt: "8Q1SzinasR3xchYz6ZZcHA",
+        iterations: 8192,
+        plaintext: util.base64url.decode("pqampqampqampqampqampqampqampqampqampqampqY")
+      }
+    ];
+
+    vectors.forEach(function(v) {
+      it("applies a default iteration count when missing from " + v.alg, function () {
+        var key = v.password,
+            props = {
+              p2s: v.salt
+            },
+            pdata = v.plaintext,
+            cdata;
+
+        var p = Promise.resolve();
+        p = p.then(function() {
+          return algorithms.encrypt(v.alg, key, pdata, props);
+        });
+        p = p.then(function(result) {
+          var header = result.header;
+          assert.ok(header);
+          assert.equal(header.p2s, v.salt);
+          assert.equal(header.p2c, 8192);
+          props = header;
+          cdata = result.data;
+        });
+        p = p.then(function() {
+          return algorithms.decrypt(v.alg, key, cdata, props);
+        });
+        return p;
+      });
+
+      it("applies a valid salt when missing from " + v.alg, function () {
+        var key = v.password,
+          props = {
+            p2c: v.iterations
+          },
+          pdata = v.plaintext,
+          cdata;
+
+        var p = Promise.resolve();
+        p = p.then(function () {
+          return algorithms.encrypt(v.alg, key, pdata, props);
+        });
+        p = p.then(function (result) {
+          var header = result.header;
+          assert.ok(header);
+          assert.typeOf(header.p2s, "string");
+          assert.equal(header.p2c, v.iterations);
+          props = header;
+          cdata = result.data;
+        });
+        p = p.then(function () {
+          return algorithms.decrypt(v.alg, key, cdata, props);
+        });
+        return p;
+      });
+    });
+  })
 });
