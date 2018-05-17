@@ -27,7 +27,7 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "b64u": "^2.0.0",
+    "base64url": "^3.0.0",
     "es6-promise": "^4.0.5",
     "lodash.assign": "^4.0.8",
     "lodash.clone": "^4.3.2",
