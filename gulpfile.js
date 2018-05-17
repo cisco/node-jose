@@ -178,28 +178,9 @@ var KARMA_CONFIG = {
       base: "SauceLabs",
       browserName: "firefox",
     },
-    "SL_Safari_8": {
+    "SL_Safari": {
       base: "SauceLabs",
-      platform: "OS X 10.10",
-      browserName: "safari",
-      version: "8"
-    },
-    "SL_Safari_9": {
-      base: "SauceLabs",
-      platform: "OS X 10.11",
-      browserName: "safari",
-      version: "9"
-    },
-    "SL_IE_10": {
-      base: "SauceLabs",
-      browserName: "internet explorer",
-      version: "10"
-    },
-    "SL_IE_11": {
-      base: "SauceLabs",
-      browserName: "internet explorer",
-      platform: "Windows 8.1",
-      version: "11"
+      browserName: "safari"
     },
     "SL_EDGE": {
       base: "SauceLabs",
@@ -216,11 +197,11 @@ var KARMA_CONFIG = {
 };
 var KARMA_BROWSERS = {
   local: ["Chrome", "Firefox"],
-  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari_9", "SL_IE_11", "SL_EDGE"]
+  saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari", "SL_EDGE"]
 };
-// allow for IE on windows
+// allow for Edge on windows
 if (/^win/.test(process.platform)) {
-  KARMA_BROWSERS.local.push("IE");
+  KARMA_BROWSERS.local.push("Edge");
 }
 // allow for Safari on Mac OS X
 if (/^darwin/.test(process.platform)) {

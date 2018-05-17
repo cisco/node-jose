@@ -8,7 +8,7 @@ var JWE = require("../../lib/jwe"),
 
 var assert = chai.assert;
 
-describe.only("jwe/alg-mismatch", function () {
+describe("jwe/alg-mismatch", function () {
   var a256kw = {
     key: {
       "kty": "oct",

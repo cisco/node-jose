@@ -44,6 +44,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "bowser": "^1.9.3",
     "browserify-istanbul": "^3.0.0",
     "chai": "^4.0.1",
     "conventional-changelog": "^1.1.0",

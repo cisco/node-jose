@@ -5,7 +5,8 @@
 "use strict";
 
 var omit = require("lodash.omit"),
-    chai = require("chai");
+    chai = require("chai"),
+    bowser = require("bowser");
 var assert = chai.assert;
 
 var algorithms = require("../../lib/algorithms/"),
@@ -342,6 +343,10 @@ describe("algorithms/ecdh", function() {
     }
   ];
   deriveVectors.forEach(function(v) {
+    if (bowser.safari && "P-521" === v.private.crv) {
+      return;
+    }
+
     var deriverunner = function() {
       var pubKey = v.public,
           privKey = v.private,
@@ -418,6 +423,10 @@ describe("algorithms/ecdh", function() {
     }
   ];
   encdecVectors.forEach(function(v) {
+    if (bowser.safari && "P-521" === v.local.crv) {
+      return;
+    }
+
     var encrunner = function() {
       var spk = omit(v.remote, "d"),
           epk = v.local,
