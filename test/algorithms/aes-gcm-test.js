@@ -7,7 +7,8 @@
 var chai = require("chai");
 var assert = chai.assert;
 
-var algorithms = require("../../lib/algorithms/");
+var algorithms = require("../../lib/algorithms/"),
+    util = require("../../lib/util");
 
 describe("algorithms/aes-gcm", function() {
   function algSize(alg) {
@@ -231,6 +232,17 @@ describe("algorithms/aes-gcm", function() {
       aad: "f2a30728ed874ee02983c294435d3c16",
       tag: "ecaae9fc68276a45ab0ca3cb9dd9539f"
     },
+    {
+      wrap: true,
+      alg: "A128GCMKW",
+      desc: "NIST-CAVP [128-bit key, 0-bit AAD, 96-bit IV, 128-bit TAG] for Key Wrapping",
+      key: "e98b72a9881a84ca6b76e0f43e68647a",
+      iv: "8b23299fde174053f3d652ba",
+      plaintext: "28286a321293253c3e0aa2704a278032",
+      ciphertext: "5a3c1cf1985dbb8bed818036fdd5ab42",
+      aad: "",
+      tag: "23c7ab0f952b7091cd324835043b5eb5"
+    },
 
     /*! NOT SUPPORTED ON CHROME
     // 192-bit key, 0-bit AAD
@@ -278,6 +290,17 @@ describe("algorithms/aes-gcm", function() {
       ciphertext: "426e0efc693b7be1f3018db7ddbb7e4d",
       aad: "7e968d71b50c1f11fd001f3fef49d045",
       tag: "ee8257795be6a1164d7e1d2d6cac77a7"
+    },
+    {
+      wrap: true,
+      alg: "A256GCMKW",
+      desc: "NIST-CAVP [256-bit key, 0-bit AAD, 96-bit IV, 128-bit TAG] for Key Wrapping",
+      key: "4c8ebfe1444ec1b2d503c6986659af2c94fafe945f72c1e8486a5acfedb8a0f8",
+      iv: "473360e0ad24889959858995",
+      plaintext: "7789b41cb3ee548814ca0b388c10b343",
+      ciphertext: "d2c78110ac7e8f107c0df0570bd7c90c",
+      aad: "",
+      tag: "c26a379b6d98ef2852ead8ce83a833a7"
     }
   ];
   vectors.forEach(function(v) {
@@ -293,8 +316,15 @@ describe("algorithms/aes-gcm", function() {
 
       var promise = algorithms.encrypt(v.alg, key, pdata, props);
       promise = promise.then(function(result) {
-        assert.equal(result.data.toString("binary"), cdata.toString("binary"));
-        assert.equal(result.tag.toString("binary"), mac.toString("binary"));
+        assert.deepEqual(result.data, cdata);
+
+        if (v.wrap) {
+          var header = result.header;
+          assert.deepEqual(header.iv, util.base64url.encode(props.iv));
+          assert.deepEqual(header.tag, util.base64url.encode(mac));
+        } else {
+          assert.deepEqual(result.tag, mac);
+        }
       });
       return promise;
     };
@@ -310,7 +340,7 @@ describe("algorithms/aes-gcm", function() {
 
       var promise = algorithms.decrypt(v.alg, key, cdata, props);
       promise = promise.then(function(result) {
-        assert.equal(result.toString("binary"), pdata.toString("binary"));
+        assert.deepEqual(result, pdata);
       });
       return promise;
     };
@@ -345,7 +375,7 @@ describe("algorithms/aes-gcm", function() {
       return algorithms.decrypt("A128GCM", key, cdata, props);
     });
     promise = promise.then(function(result) {
-      assert.equal(result.toString("binary"), plaintext.toString("binary"));
+      assert.deepEqual(result, plaintext);
     });
     return promise;
   });
