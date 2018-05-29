@@ -1,5 +1,30 @@
 # Release Notes
 
+<a name="1.0.0"></a>
+## [1.0.0](https://github.com/cisco/node-jose/compare/0.11.0...1.0.0) (2018-05-30)
+
+
+### Update
+
+* Create a Key without first creating a KeyStore (#170) ([d5971e46253b311ea8a8b1a1967133867f6f6deb](https://github.com/cisco/node-jose/commit/d5971e46253b311ea8a8b1a1967133867f6f6deb)), closes [#170](https://github.com/cisco/node-jose/issues/170)
+* support RSA-PSS in WebCrypto (#171) ([f47abe731796c061a80240706a0c21e35062d975](https://github.com/cisco/node-jose/commit/f47abe731796c061a80240706a0c21e35062d975)), closes [#171](https://github.com/cisco/node-jose/issues/171)
+* generate and apply header values when key wrapping (#189) ([370baa4aeee99dc3e4244fbe3cd92fcf4dff80d8](https://github.com/cisco/node-jose/commit/370baa4aeee99dc3e4244fbe3cd92fcf4dff80d8)), closes [#189](https://github.com/cisco/node-jose/issues/189)
+* use safe Buffer allocators instead of unsafe constructor (#184) ([0e066babef1d85bcd7066095ba20734b40898f1d](https://github.com/cisco/node-jose/commit/0e066babef1d85bcd7066095ba20734b40898f1d)), closes [#184](https://github.com/cisco/node-jose/issues/184)
+
+### Fix
+
+* better error when given key does not support requested algorithms (#186) ([70b0d76b48f8ae069c4357d65bb1b44f3a6d8e9a](https://github.com/cisco/node-jose/commit/70b0d76b48f8ae069c4357d65bb1b44f3a6d8e9a)), closes [#186](https://github.com/cisco/node-jose/issues/186)
+
+### Build
+
+* update supported test platforms (#188) ([da9a9f24edb8054c41b1d7090eb4e7003e12aed6](https://github.com/cisco/node-jose/commit/da9a9f24edb8054c41b1d7090eb4e7003e12aed6)), closes [#188](https://github.com/cisco/node-jose/issues/188)
+* use headless firefox for Travis (#156) ([2008bf46ee299d44d164c8a3147e65b5147384bb](https://github.com/cisco/node-jose/commit/2008bf46ee299d44d164c8a3147e65b5147384bb)), closes [#156](https://github.com/cisco/node-jose/issues/156)
+
+### Package
+
+* Fix wrong repository URL syntax (from @sschuberth) (#160) ([0e4dcbaef2cfa66a4520f4510c205c8c4b68707e](https://github.com/cisco/node-jose/commit/0e4dcbaef2cfa66a4520f4510c205c8c4b68707e)), closes [#160](https://github.com/cisco/node-jose/issues/160)
+
+
 <a name="0.11.1"></a>
 ## [0.11.1](https://github.com/cisco/node-jose/compare/0.11.0...0.11.1) (2018-05-15)
 
