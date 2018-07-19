@@ -36,8 +36,7 @@ describe("jwe/crit", function() {
              decrypt(jwe).
              then(function() {
                assert.ok(false, "unexpected success");
-             }).
-             catch(function(err) {
+             }, function(err) {
                assert.ok(err instanceof Error);
              });
     });
