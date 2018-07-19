@@ -35,8 +35,7 @@ describe("jws/crit", function() {
              verify(jws).
              then(function() {
                assert.ok(false, "unexpected success");
-             }).
-             catch(function(err) {
+             }, function(err) {
                assert.ok(err instanceof Error);
              });
     });
