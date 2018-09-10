@@ -6,17 +6,17 @@ addons:
     packages:
     - g++-4.8
 node_js:
-- '6'
-- '7'
-- '8'
-- '9'
-- '10'
+- 6.0.0 # min
+- lts/boron
+- 8.0.0
+- lts/carbon
+- stable
 env:
   matrix:
   - CXX=g++-4.8 TASKS=test:nodejs
 matrix:
   include:
-  - node_js: 10
+  - node_js: stable
     env:
     - CXX=g++-4.8 TASKS=travis:browser MOZ_HEADLESS=1
     addons:

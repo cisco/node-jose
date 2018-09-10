@@ -50,10 +50,7 @@ describe("algorithms/ecdsa", function() {
     }
   ];
 
-  vectors.forEach(function(v, idx) {
-    if (0 < idx) {
-      return;
-    }
+  vectors.forEach(function(v) {
     // NOTE: The best we can really do is consistency checks
     it("performs " + v.alg + " (" + v.desc + ") sign+verify consistency", function() {
         var key = v.key,
