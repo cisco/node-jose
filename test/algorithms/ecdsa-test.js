@@ -6,9 +6,18 @@
 
 var chai = require("chai");
 var assert = chai.assert;
+var isSafari = require("is-safari");
 
 var algorithms = require("../../lib/algorithms/"),
     util = require("../../lib/util");
+
+function shouldSkip(vector) {
+  if ("ES512" !== vector.alg) {
+    return false;
+  }
+
+  return isSafari;
+}
 
 describe("algorithms/ecdsa", function() {
   var vectors = [
@@ -51,6 +60,10 @@ describe("algorithms/ecdsa", function() {
   ];
 
   vectors.forEach(function(v) {
+    if (shouldSkip(v)) {
+      return;
+    }
+
     // NOTE: The best we can really do is consistency checks
     it("performs " + v.alg + " (" + v.desc + ") sign+verify consistency", function() {
         var key = v.key,
