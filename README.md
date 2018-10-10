@@ -500,8 +500,8 @@ To accept 'crit' field members, add the `handlers` member to the options Object.
 * `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWS if the member is present.
 * `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
 * `Object`: An object with the following `Function` members:
-  * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
-  * "complete" -- takes the JWE decrypt output (immediately after decrypting) and returns a Promise for the processing of the member.
+  * "prepare" -- takes the JWE decrypt output (just prior to verifying) and returns a Promise for the processing of the member.
+  * "complete" -- takes the JWE decrypt output (immediately after verifying) and returns a Promise for the processing of the member.
 
 **NOTE** If the handler function returns a promise, the fulfilled value is ignored.  It is expected these handler functions will modify the provided value directly.
 
