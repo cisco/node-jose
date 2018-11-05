@@ -1,27 +1,19 @@
 language: node_js
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
+script: gulp test:nodejs:single
 node_js:
-- 6.0.0 # min
-- lts/boron
-- 8.0.0
-- lts/carbon
-- lts/dubnium
-- stable
-env:
-  matrix:
-  - CXX=g++-4.8 TASKS=test:nodejs
-matrix:
+  - 6.0.0 # min
+  - lts/boron
+  - 8.0.0
+  - lts/carbon
+  - lts/dubnium
+  - stable
+jobs:
   include:
-  - node_js: lts/carbon
-    env:
-    - CXX=g++-4.8 TASKS=travis:browser MOZ_HEADLESS=1
-    addons:
-      firefox: latest
-      sauce_connect: true
-script:
-- ./node_modules/.bin/gulp $TASKS
+    - stage: Browser tests
+      script: gulp travis:browser
+      node_js: lts/carbon
+      addons:
+        sauce_connect: true
+    - stage: Lint
+      script: gulp test:lint
+      node_js: lts/carbon
