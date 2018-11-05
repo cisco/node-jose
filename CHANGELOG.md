@@ -1,5 +1,24 @@
 # Release Notes
 
+<a name="1.1.0"></a>
+## [1.1.0](https://github.com/cisco/node-jose/compare/1.0.0...1.1.0) (2018-11-05)
+
+
+### Bug Fixes
+
+* remove setImmediate/nextTick hack (fixes [#203](https://github.com/cisco/node-jose/issues/203)) ([4e24931](https://github.com/cisco/node-jose/commit/4e24931))
+* correct jws verify input validation check (fixes [#210](https://github.com/cisco/node-jose/issues/210)) ([be66519](https://github.com/cisco/node-jose/commit/be66519))
+* [node] use native crypto for RS signing (fixes [#202](https://github.com/cisco/node-jose/issues/202)) ([59636c3](https://github.com/cisco/node-jose/commit/59636c3))
+
+### Features
+
+* [node] use native crypto for AES-KW Key-Wrapping ([f18011f](https://github.com/cisco/node-jose/commit/f18011f))
+* [node] use native crypto for RSA-OAEP and RSA1_5 encryption ([bba0a13](https://github.com/cisco/node-jose/commit/bba0a13))
+* [node] use native crypto for RSA1_5 decryption ([2a9e48a](https://github.com/cisco/node-jose/commit/2a9e48a))
+* [node] use native crypto for RSA-PSS ([8a05f35](https://github.com/cisco/node-jose/commit/8a05f35))
+* [node] use native crypto for ECDSA ([aa5a48d](https://github.com/cisco/node-jose/commit/aa5a48d))
+
+
 <a name="1.0.0"></a>
 ## [1.0.0](https://github.com/cisco/node-jose/compare/0.11.0...1.0.0) (2018-05-30)
 
