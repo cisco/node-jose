@@ -10,6 +10,7 @@ node_js:
 - lts/boron
 - 8.0.0
 - lts/carbon
+- lts/dubnium
 - stable
 env:
   matrix:
