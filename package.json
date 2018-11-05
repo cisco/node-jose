@@ -2,22 +2,19 @@
   "name": "node-jose",
   "version": "1.0.0",
   "description": "A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "gulp test:nodejs"
-  },
+  "keywords": [
+    "crypto",
+    "jose",
+    "jwa",
+    "jwe",
+    "jwk",
+    "jws"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/cisco/node-jose.git"
   },
-  "keywords": [
-    "crypto",
-    "jose",
-    "jwk",
-    "jws",
-    "jwe",
-    "jwa"
-  ],
+  "license": "Apache-2.0",
   "author": "Cisco Systems, Inc. <https://www.cisco.com>",
   "contributors": [
     "Matthew A. Miller <linuxwolf@outer-planes.net>",
@@ -25,23 +22,29 @@
     "Joe Hildebrand <joe-github@cursive.net>",
     "Filip Skokan <panva.ip@gmail.com>"
   ],
-  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "gulp test:nodejs"
+  },
+  "browser": {
+    "crypto": false
+  },
   "dependencies": {
     "base64url": "^3.0.0",
-    "es6-promise": "^4.0.5",
-    "lodash.assign": "^4.0.8",
-    "lodash.clone": "^4.3.2",
-    "lodash.fill": "^3.2.2",
-    "lodash.flatten": "^4.2.0",
-    "lodash.intersection": "^4.1.2",
-    "lodash.merge": "^4.3.5",
-    "lodash.omit": "^4.2.1",
-    "lodash.partialright": "^4.1.3",
-    "lodash.pick": "^4.2.0",
-    "lodash.uniq": "^4.2.1",
+    "es6-promise": "^4.2.5",
+    "lodash.assign": "^4.2.0",
+    "lodash.clone": "^4.5.0",
+    "lodash.fill": "^3.4.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.intersection": "^4.4.0",
+    "lodash.merge": "^4.6.1",
+    "lodash.omit": "^4.5.0",
+    "lodash.partialright": "^4.2.1",
+    "lodash.pick": "^4.4.0",
+    "lodash.uniq": "^4.5.0",
     "long": "^4.0.0",
     "node-forge": "^0.7.6",
-    "uuid": "^3.0.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "bowser": "^1.9.3",
@@ -81,8 +84,5 @@
     "webpack": "^4.8.3",
     "webpack-stream": "^4.0.0",
     "yargs": "^11.1.0"
-  },
-  "browser": {
-    "crypto": false
   }
 }

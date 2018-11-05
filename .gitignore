@@ -3,5 +3,7 @@ node_modules
 coverage/
 dist/
 old/
-package-lock.json
+node_modules
 yarn.lock
+npm-shrinkwrap.json
+package-lock.json
