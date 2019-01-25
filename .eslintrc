@@ -16,6 +16,8 @@
     "no-shadow": ["off"],
     "no-underscore-dangle": ["off"],
     "strict": ["error", "global"],
-    "yoda": ["off"]
+    "yoda": ["off"],
+    "quotes": ["error", "double"],
+    "comma-dangle": ["error", "never"]
   }
 }

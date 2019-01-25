@@ -105,7 +105,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptDisallowed(ecdhes, opts),
       decryptDisallowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });
@@ -117,7 +117,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptDisallowed(ecdhes, opts),
       decryptAllowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });
@@ -129,7 +129,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptAllowed(ecdhes, opts),
       decryptDisallowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });
@@ -142,7 +142,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptDisallowed(ecdhes, opts),
       decryptDisallowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });
@@ -154,7 +154,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptDisallowed(ecdhes, opts),
       decryptAllowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });
@@ -166,7 +166,7 @@ describe("jwe/allowedalgs", function() {
     var pending = [
       decryptAllowed(ecdhes, opts),
       decryptDisallowed(a256kw, opts),
-      decryptAllowed(a256gcm, opts),
+      decryptAllowed(a256gcm, opts)
     ];
     return Promise.all(pending);
   });

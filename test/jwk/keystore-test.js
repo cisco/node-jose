@@ -391,11 +391,11 @@ describe("jwk/keystore", function() {
       var promise = JWK.store.KeyStore.asKeyStore({
         keys: [
           {
-             kty: 'RSA',
-             alg: 'RS256',
-             use: 'sig',
-             n: 'zi9ox5mVK1nS6rASj5VwTqsozmyoHcqOuf2LLvuNzijPx7ybASzUerP-QZCYL3EC66TtmO2T2fxEyfrK0r7OpsJ3QYlZZ4rHm7s_mFc9upxjnTZ-ElJJsAxWhuBZyZTpzfXT7lTm4QN0QZgy3ydmv4W4RFh2tzAZ4wKc4ruoI-SIVSiZZZ_R3-zhu6zu2JfRc6Vt6MapLfgNtaVuzKWeuCC-42-4vngf2TYqJLlRvrywNJ1qtf-dUpB5UutJUIPBeDrVmoJPC7H8cdbOxSV3b4y8cvn0aQQouO3vQGyNg-LA0D-NGuSW-nEOyfuUR0skcUh6VIhEpcw8iF8nJ1X7yQ',
-             e: 'AQAB',
+             kty: "RSA",
+             alg: "RS256",
+             use: "sig",
+             n: "zi9ox5mVK1nS6rASj5VwTqsozmyoHcqOuf2LLvuNzijPx7ybASzUerP-QZCYL3EC66TtmO2T2fxEyfrK0r7OpsJ3QYlZZ4rHm7s_mFc9upxjnTZ-ElJJsAxWhuBZyZTpzfXT7lTm4QN0QZgy3ydmv4W4RFh2tzAZ4wKc4ruoI-SIVSiZZZ_R3-zhu6zu2JfRc6Vt6MapLfgNtaVuzKWeuCC-42-4vngf2TYqJLlRvrywNJ1qtf-dUpB5UutJUIPBeDrVmoJPC7H8cdbOxSV3b4y8cvn0aQQouO3vQGyNg-LA0D-NGuSW-nEOyfuUR0skcUh6VIhEpcw8iF8nJ1X7yQ",
+             e: "AQAB",
              kid: 1
            }
         ]
