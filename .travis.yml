@@ -11,9 +11,9 @@ jobs:
   include:
     - stage: Browser tests
       script: gulp travis:browser
-      node_js: lts/carbon
+      node_js: lts/dubnium
       addons:
         sauce_connect: true
     - stage: Lint
       script: gulp test:lint
-      node_js: lts/carbon
+      node_js: lts/dubnium

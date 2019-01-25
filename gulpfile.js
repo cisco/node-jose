@@ -26,15 +26,11 @@ var ARGV = require("yargs").
     argv;
 
 var webpack = require("webpack-stream"),
-    clone = require("lodash.clone"),
     gulp = require("gulp"),
-    gutil = require("gulp-util"),
-    karma = require("karma"),
     merge = require("lodash.merge"),
     mocha = require("gulp-mocha"),
     istanbul = require("gulp-istanbul"),
-    del = require("del"),
-    runSequence = require("run-sequence");
+    del = require("del");
 
 // ### 'CONSTANTS' ###
 var SOURCES = ["./lib/**/*.js", "!(./lib/old/**/*.js)"],
@@ -70,23 +66,22 @@ gulp.task("test:lint", function() {
 
 // ### CLEAN TASKS ###
 gulp.task("clean:coverage:nodejs", function() {
-  del("coverage/nodejs");
+  return del("coverage/nodejs");
 });
 gulp.task("clean:coverage:browser", function() {
-  del("coverage/browser");
+  return del("coverage/browser");
 });
 gulp.task("clean:coverage", function() {
-  del("coverage");
+  return del("coverage");
 });
 
 gulp.task("clean:dist", function() {
-  del("dist");
+  return del("dist");
 });
 
 // ### NODEJS TASKS ###
 function doTestsNodejs() {
-  return gulp.src(TESTS).
-              pipe(mocha(MOCHA_CONFIG));
+  return gulp.src(TESTS).pipe(mocha(MOCHA_CONFIG));
 }
 
 gulp.task("test:nodejs:single", function() {
@@ -113,44 +108,26 @@ gulp.task("test:nodejs:single", function() {
   return doTestsNodejs();
 });
 
-gulp.task("test:nodejs", function(cb) {
-  runSequence("test:lint",
-              "test:nodejs:single",
-              cb);
-});
+gulp.task("test:nodejs", gulp.series("test:lint", "test:nodejs:single"));
 
 // ### BROWSER TASKS ###
-function doBrowserify(suffix, plugins) {
+gulp.task("bundle", function() {
   var pkg = require("./package.json");
-
-  suffix = suffix || ".js";
-  plugins = plugins || [];
 
   return gulp.src(require("path").resolve(pkg.main)).
          pipe(webpack({
+           mode: "production",
            output: {
-             filename: pkg.name + suffix
+             filename: pkg.name + ".min.js"
            },
-           plugins: plugins,
            devtool: "source-map"
          })).
          pipe(gulp.dest("./dist"));
-}
-
-gulp.task("bundle", function() {
-  return doBrowserify();
-});
-
-gulp.task("minify", function() {
-  return doBrowserify(".min.js", [
-    new webpack.webpack.optimize.UglifyJsPlugin({
-      minimize: true
-    })
-  ]);
 });
 
 var KARMA_CONFIG = {
   frameworks: ["mocha"],
+  concurrency: 1,
   basePath: ".",
   browserDisconnectTolerance: 1,
   browserDisconnectTimeout: 600000,
@@ -176,7 +153,7 @@ var KARMA_CONFIG = {
     },
     "SL_Firefox": {
       base: "SauceLabs",
-      browserName: "firefox",
+      browserName: "firefox"
     },
     "SL_Safari": {
       base: "SauceLabs",
@@ -199,14 +176,6 @@ var KARMA_BROWSERS = {
   local: ["Chrome", "Firefox"],
   saucelabs: ["SL_Chrome", "SL_Firefox", "SL_Safari", "SL_EDGE"]
 };
-// allow for Edge on windows
-if (/^win/.test(process.platform)) {
-  KARMA_BROWSERS.local.push("Edge");
-}
-// allow for Safari on Mac OS X
-if (/^darwin/.test(process.platform)) {
-  KARMA_BROWSERS.local.push("Safari");
-}
 
 gulp.task("test:browser:single", function(done) {
   var browsers = ARGV.browsers.split(/\s*,\s*/g).
@@ -255,36 +224,16 @@ gulp.task("test:browser:single", function(done) {
     };
   }
 
+  var karma = require("karma");
   var server = new karma.Server(config, done);
   server.start();
 });
 
-gulp.task("test:browser:watch", function(done) {
-  var config = clone(KARMA_CONFIG);
-
-  var server = new karma.Server(config, done);
-  server.start();
-});
-
-gulp.task("test:browser", function(cb) {
-  runSequence("test:lint",
-              "test:browser:single",
-              cb);
-});
+gulp.task("test:browser", gulp.series("test:lint", "test:browser:single"));
 
 // ## TRAVIS-CI TASKS ###
-gulp.task("travis:browser", function(cb) {
-  if ("true" !== process.env.TRAVIS) {
-    gutil.log("travis-ci environment not detected");
-    cb();
-    return;
-  }
-
-  gutil.log("pull request: ", process.env.TRAVIS_PULL_REQUEST);
-  gutil.log("job number:   ", process.env.TRAVIS_JOB_NUMBER);
-  if (process.env.SAUCE_USERNAME &&
-      process.env.SAUCE_ACCESS_KEY &&
-      "false" === process.env.TRAVIS_PULL_REQUEST) {
+gulp.task("travis:browser", gulp.series(function(cb) {
+  if (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
     ARGV.sauce = true;
     merge(KARMA_CONFIG.sauceLabs, {
       startConnect: false,
@@ -294,30 +243,13 @@ gulp.task("travis:browser", function(cb) {
     ARGV.sauce = false;
     ARGV.browsers="Firefox";
   }
-
-  runSequence("test:browser", cb);
-});
+  cb()
+}, "test:browser"));
 
 // ### MAIN TASKS ###
-gulp.task("test", function(cb) {
-  runSequence("test:lint",
-              "test:browser:single",
-              "test:nodejs:single",
-              cb);
-});
-gulp.task("clean", ["clean:coverage", "clean:dist"]);
-gulp.task("dist", function(cb) {
-  runSequence("clean:dist",
-              "test:lint",
-              "test:browser",
-              ["bundle", "minify"],
-              cb);
-});
-
-// ### MAIN WATCHERS ###
-gulp.task("watch:test", ["test"], function() {
-  return gulp.watch([SOURCES, TESTS], ["test:nodejs", "test:browser"]);
-});
+gulp.task("test", gulp.series("test:lint", "test:browser:single", "test:nodejs:single"));
+gulp.task("clean", gulp.parallel("clean:coverage", "clean:dist"));
+gulp.task("dist", gulp.series("clean:dist", "test:lint", "test:browser", "bundle"));
 
 // ### DEFAULT ###
-gulp.task("default", ["test"]);
+gulp.task("default", gulp.series("test"));
