@@ -458,7 +458,7 @@ The key can be embedded using either 'jwk' or 'x5c', and can be located in eithe
 
 #### Allowing (or Disallowing) Signature Algorithms ###
 
-To restrict what signature algorithms are allowed when verifying, add the `allowAlgs` member to the `options` Object.  The `allowAlgs` member is either a string or an array of strings, where the string value(s) can be one of the following:
+To restrict what signature algorithms are allowed when verifying, add the `algorithms` member to the `options` Object.  The `algorithms` member is either a string or an array of strings, where the string value(s) can be one of the following:
 
 * `"*"`: accept all supported algorithms
 * **`<alg name>`** (e.g., `"PS256"`): accept the specific algorithm (can have a single '*' to match a range of algorithms)
@@ -676,7 +676,7 @@ jose.JWE.createDecrypt(key).
 
 #### Allowing (or Disallowing) Encryption Algorithms ###
 
-To restrict what encryption algorithms are allowed when verifying, add the `allowAlgs` member to the `options` Object.  The `allowAlgs` member is either a string or an array of strings, where the string value(s) can be one of the following:
+To restrict what encryption algorithms are allowed when verifying, add the `algorithms` member to the `options` Object.  The `algorithms` member is either a string or an array of strings, where the string value(s) can be one of the following:
 
 * `"*"`: accept all supported algorithms
 * **`<alg name>`** (e.g., `"A128KW"`): accept the specific algorithm (can have a single '*' to match a range of similar algorithms)
