@@ -43,7 +43,7 @@
     "lodash.pick": "^4.4.0",
     "lodash.uniq": "^4.5.0",
     "long": "^4.0.0",
-    "node-forge": "^0.7.6",
+    "node-forge": "^0.8.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
