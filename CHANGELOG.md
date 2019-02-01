@@ -1,5 +1,10 @@
 # Release Notes
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/cisco/node-jose/compare/1.1.0...1.1.1) (2019-02-01)
+
+* Update node-forge ([6b0bc94](https://github.com/cisco/node-jose/commit/6b0bc94))
+
 <a name="1.1.0"></a>
 ## [1.1.0](https://github.com/cisco/node-jose/compare/1.0.0...1.1.0) (2018-11-05)
 
