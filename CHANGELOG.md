@@ -1,5 +1,10 @@
 # Release Notes
 
+<a name="1.1.2"></a>
+## [1.1.1](https://github.com/cisco/node-jose/compare/1.1.1...1.1.2) (2019-02-28)
+
+* replaced outdated vulnerable lodash dependencies ([b9c4f0e](https://github.com/cisco/node-jose/commit/b9c4f0e))
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/cisco/node-jose/compare/1.1.0...1.1.1) (2019-02-01)
 

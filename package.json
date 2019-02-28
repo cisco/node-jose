@@ -1,6 +1,6 @@
 {
   "name": "node-jose",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers",
   "keywords": [
     "crypto",
