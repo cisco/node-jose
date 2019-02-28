@@ -26,16 +26,17 @@ var ARGV = require("yargs").
     argv;
 
 var webpack = require("webpack-stream"),
-    clone = require("lodash.clone"),
+    lodash = require("lodash"),
     gulp = require("gulp"),
     gutil = require("gulp-util"),
     karma = require("karma"),
-    merge = require("lodash.merge"),
     mocha = require("gulp-mocha"),
     istanbul = require("gulp-istanbul"),
     del = require("del"),
     runSequence = require("run-sequence");
 
+var clone = lodash.clone;
+var merge = lodash.merge;
 // ### 'CONSTANTS' ###
 var SOURCES = ["./lib/**/*.js", "!(./lib/old/**/*.js)"],
     TESTS = "./test/**/*-test.js";
@@ -176,7 +177,7 @@ var KARMA_CONFIG = {
     },
     "SL_Firefox": {
       base: "SauceLabs",
-      browserName: "firefox",
+      browserName: "firefox"
     },
     "SL_Safari": {
       base: "SauceLabs",

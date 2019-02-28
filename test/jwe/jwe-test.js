@@ -4,8 +4,8 @@
  */
 "use strict";
 
-var cloneDeep = require("lodash.clonedeep");
-var forEach = require("lodash.foreach");
+var cloneDeep = require("lodash").cloneDeep;
+var forEach = require("lodash").forEach;
 var chai = require("chai");
 
 var JWE = require("../../lib/jwe"),
