@@ -1,7 +1,12 @@
 # Release Notes
 
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/cisco/node-jose/compare/1.1.2...1.1.3) (2019-03-18)
+
+* fail to verify PS signatures with incorrect padding in node ([93399b6](https://github.com/cisco/node-jose/commit/93399b6))
+
 <a name="1.1.2"></a>
-## [1.1.1](https://github.com/cisco/node-jose/compare/1.1.1...1.1.2) (2019-02-28)
+## [1.1.2](https://github.com/cisco/node-jose/compare/1.1.1...1.1.2) (2019-02-28)
 
 * replaced outdated vulnerable lodash dependencies ([b9c4f0e](https://github.com/cisco/node-jose/commit/b9c4f0e))
 
