@@ -497,28 +497,12 @@ jose.JWS.createVerify(key, opts).
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
 
-* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWS if the member is present.
 * `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
 * `Object`: An object with the following `Function` members:
   * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
   * "complete" -- takes the JWE decrypt output (immediately after decrypting) and returns a Promise for the processing of the member.
 
 **NOTE** If the handler function returns a promise, the fulfilled value is ignored.  It is expected these handler functions will modify the provided value directly.
-
-To simply accept a `crit` header member:
-
-```javascript
-var opts = {
-  handlers: {
-    "exp": true
-  }
-};
-jose.JWS.createVerify(key, opts).
-        verify(input).
-        then(function(result) {
-          // ...
-        });
-```
 
 To perform additional (pre-verify) processing on a `crit` header member:
 
@@ -715,28 +699,12 @@ jose.JWS.createVerify(key, opts).
 
 To accept 'crit' field members, add the `handlers` member to the options Object.  The `handlers` member is itself an Object, where its member names are the `crit` header member, and the value is one of:
 
-* `Boolean`: accepts (if `true`) -- or rejects (if `false`) -- the JWE if the member is present.
 * `Function`: takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
 * `Object`: An object with the following `Function` members:
   * "prepare" -- takes the JWE decrypt output (just prior to decrypting) and returns a Promise for the processing of the member.
   * "complete" -- takes the JWE decrypt output (immediately after decrypting) and returns a Promise for the processing of the member.
 
 **NOTE** If the handler function returns a promise, the fulfilled value is ignored.  It is expected these handler functions will modify the provided value directly.
-
-To simply accept a `crit` header member:
-
-```javascript
-var opts = {
-  handlers: {
-    "exp": true
-  }
-};
-jose.JWE.createDecrypt(key, opts).
-        decrypt(input).
-        then(function(result) {
-          // ...
-        });
-```
 
 To perform additional (pre-decrypt) processing on a `crit` header member:
 
