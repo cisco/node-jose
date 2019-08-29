@@ -1,7 +1,7 @@
 {
-  "name": "node-jose-browserify",
-  "version": "1.1.9",
-  "description": "Emulates Cisco's node-jose module for the browser.",
+  "name": "node-jose",
+  "version": "1.1.4",
+  "description": "A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers",
   "keywords": [
     "crypto",
     "jose",
@@ -12,10 +12,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/NewtonJoshua/node-jose-browserify"
+    "url": "https://github.com/cisco/node-jose.git"
   },
   "license": "Apache-2.0",
-  "author": "Newton Joshua, Inc. <https://www.newtonjoshua.com>",
+  "author": "Cisco Systems, Inc. <https://www.cisco.com>",
   "contributors": [
     "Matthew A. Miller <linuxwolf@outer-planes.net>",
     "Ian W. Remmel <design@ianwremmel.com>",
@@ -31,14 +31,10 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "browserify-zlib": "^0.2.0",
-    "buffer": "^5.4.2",
     "es6-promise": "^4.2.6",
     "lodash": "^4.17.11",
     "long": "^4.0.0",
     "node-forge": "^0.8.1",
-    "process": "^0.11.10",
-    "stream-browserify": "^2.0.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
