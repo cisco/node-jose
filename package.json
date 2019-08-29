@@ -31,10 +31,14 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^5.4.2",
     "es6-promise": "^4.2.6",
     "lodash": "^4.17.11",
     "long": "^4.0.0",
     "node-forge": "^0.8.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^2.0.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
