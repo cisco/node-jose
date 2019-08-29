@@ -1,6 +1,6 @@
 {
   "name": "node-jose-browserify",
-  "version": "1.1.5",
+  "version": "1.1.9",
   "description": "Emulates Cisco's node-jose module for the browser.",
   "keywords": [
     "crypto",
