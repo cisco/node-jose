@@ -266,10 +266,9 @@ gulp.task("test:browser", gulp.series("test:lint",
               "test:browser:single"));
 
 // ## TRAVIS-CI TASKS ###
-gulp.task("travis:browser", gulp.series(function(cb) {
+gulp.task("travis:browser", gulp.series(function() {
   if ("true" !== process.env.TRAVIS) {
     gutil.log("travis-ci environment not detected");
-    cb();
     return;
   }
 
