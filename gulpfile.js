@@ -159,7 +159,7 @@ var KARMA_CONFIG = {
   },
   webpack: {
     mode: "development",
-    devtool: "inline-source-map"
+    devtool: ("true" === process.env.TRAVIS) ? false : "inline-source-map"
   },
   webpackMiddleware: {
     noInfo: true
@@ -266,7 +266,7 @@ gulp.task("test:browser", gulp.series("test:lint",
               "test:browser:single"));
 
 // ## TRAVIS-CI TASKS ###
-gulp.task("travis:browser", gulp.series(function(cb) {
+gulp.task("travis:browser", function(cb) {
   if ("true" !== process.env.TRAVIS) {
     gutil.log("travis-ci environment not detected");
     cb();
@@ -287,8 +287,8 @@ gulp.task("travis:browser", gulp.series(function(cb) {
     ARGV.sauce = false;
     ARGV.browsers="Firefox";
   }
-  cb();
-}, "test:browser"));
+  gulp.series("test:browser")(cb());
+});
 
 // ### MAIN TASKS ###
 gulp.task("test", gulp.series("test:lint",
