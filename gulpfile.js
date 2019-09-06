@@ -32,8 +32,7 @@ var webpack = require("webpack-stream"),
     karma = require("karma"),
     mocha = require("gulp-mocha"),
     istanbul = require("gulp-istanbul"),
-    del = require("del"),
-    runSequence = require("run-sequence");
+    del = require("del");
 
 var clone = lodash.clone;
 var merge = lodash.merge;
@@ -114,11 +113,7 @@ gulp.task("test:nodejs:single", function() {
   return doTestsNodejs();
 });
 
-gulp.task("test:nodejs", function(cb) {
-  runSequence("test:lint",
-              "test:nodejs:single",
-              cb);
-});
+gulp.task("test:nodejs", gulp.series("test:lint", "test:nodejs:single"));
 
 // ### BROWSER TASKS ###
 function doBrowserify(suffix, plugins) {
@@ -164,7 +159,7 @@ var KARMA_CONFIG = {
   },
   webpack: {
     mode: "development",
-    devtool: "inline-source-map"
+    devtool: ("true" === process.env.TRAVIS) ? false : "inline-source-map"
   },
   webpackMiddleware: {
     noInfo: true
@@ -267,11 +262,8 @@ gulp.task("test:browser:watch", function(done) {
   server.start();
 });
 
-gulp.task("test:browser", function(cb) {
-  runSequence("test:lint",
-              "test:browser:single",
-              cb);
-});
+gulp.task("test:browser", gulp.series("test:lint",
+              "test:browser:single"));
 
 // ## TRAVIS-CI TASKS ###
 gulp.task("travis:browser", function(cb) {
@@ -295,30 +287,24 @@ gulp.task("travis:browser", function(cb) {
     ARGV.sauce = false;
     ARGV.browsers="Firefox";
   }
-
-  runSequence("test:browser", cb);
+  gulp.series("test:browser")(cb());
 });
 
 // ### MAIN TASKS ###
-gulp.task("test", function(cb) {
-  runSequence("test:lint",
+gulp.task("test", gulp.series("test:lint",
               "test:browser:single",
-              "test:nodejs:single",
-              cb);
-});
-gulp.task("clean", ["clean:coverage", "clean:dist"]);
-gulp.task("dist", function(cb) {
-  runSequence("clean:dist",
+              "test:nodejs:single"));
+gulp.task("clean", gulp.parallel("clean:coverage", "clean:dist"));
+gulp.task("dist", gulp.series("clean:dist",
               "test:lint",
               "test:browser",
-              ["bundle", "minify"],
-              cb);
-});
+              gulp.parallel("bundle", "minify"))
+);
 
 // ### MAIN WATCHERS ###
-gulp.task("watch:test", ["test"], function() {
-  return gulp.watch([SOURCES, TESTS], ["test:nodejs", "test:browser"]);
-});
+gulp.task("watch:test", gulp.series("test", function() {
+  return gulp.watch([SOURCES, TESTS], gulp.series("test:nodejs", "test:browser"));
+}));
 
 // ### DEFAULT ###
-gulp.task("default", ["test"]);
+gulp.task("default", gulp.series("test"));
