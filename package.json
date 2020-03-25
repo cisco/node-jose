@@ -30,6 +30,10 @@
     "crypto": false,
     "zlib": "browserify-zlib"
   },
+  "react-native": {
+    "crypto": false,
+    "zlib": "react-zlib-js"
+  },
   "dependencies": {
     "base64url": "^3.0.1",
     "browserify-zlib": "^0.2.0",
@@ -39,6 +43,7 @@
     "long": "^4.0.0",
     "node-forge": "^0.8.5",
     "process": "^0.11.10",
+    "react-zlib-js": "^1.0.4",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
