@@ -1,5 +1,19 @@
 # Release Notes
 
+## [1.1.4](https://github.com/cisco/node-jose/compare/1.1.3...1.1.4) (2020-03-26)
+
+
+### Bug Fixes
+
+* fixed issues when used in `react-native` ([8126622](https://github.com/cisco/node-jose/commit/81266229bd966e37433433c0d84d79c2b9d37ee3))
+* fixed incorrect usage of `node-forge` buffers ([7e46c1f](https://github.com/cisco/node-jose/commit/7e46c1fa090e7bd09bad420f3c3537429da5cdaa)) ([4014f5c](https://github.com/cisco/node-jose/commit/4014f5c2ceb7bae8b516749f6a329132a115bc24))
+* updated dependencies.
+
+### Style
+
+* avoid using var shorthands for UglifyJS's sake ([44edb0a](https://github.com/cisco/node-jose/commit/44edb0a1c53fa5ee80ca34317f47498da3204ee6))
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/cisco/node-jose/compare/1.1.2...1.1.3) (2019-03-18)
 
