@@ -9,7 +9,7 @@
 * fixed incorrect usage of `node-forge` buffers ([7e46c1f](https://github.com/cisco/node-jose/commit/7e46c1fa090e7bd09bad420f3c3537429da5cdaa)) ([4014f5c](https://github.com/cisco/node-jose/commit/4014f5c2ceb7bae8b516749f6a329132a115bc24))
 * updated dependencies.
 
-### style
+### Style
 
 * avoid using var shorthands for UglifyJS's sake ([44edb0a](https://github.com/cisco/node-jose/commit/44edb0a1c53fa5ee80ca34317f47498da3204ee6))
 
