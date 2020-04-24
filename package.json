@@ -28,22 +28,21 @@
   },
   "browser": {
     "crypto": false,
-    "zlib": "browserify-zlib"
+    "zlib": "pako"
   },
   "react-native": {
     "crypto": false,
-    "zlib": "react-zlib-js"
+    "zlib": "pako"
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "browserify-zlib": "^0.2.0",
     "buffer": "^5.5.0",
     "es6-promise": "^4.2.8",
     "lodash": "^4.17.15",
     "long": "^4.0.0",
     "node-forge": "^0.8.5",
+    "pako": "^1.0.11",
     "process": "^0.11.10",
-    "react-zlib-js": "^1.0.4",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
