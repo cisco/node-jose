@@ -4,7 +4,7 @@
  */
 "use strict";
 
-var omit = require("lodash").omit,
+var omit = require("lodash/omit"),
     chai = require("chai"),
     bowser = require("bowser");
 var assert = chai.assert;

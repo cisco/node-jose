@@ -26,7 +26,6 @@ var ARGV = require("yargs").
     argv;
 
 var webpack = require("webpack-stream"),
-    lodash = require("lodash"),
     gulp = require("gulp"),
     gutil = require("gulp-util"),
     karma = require("karma"),
@@ -34,8 +33,8 @@ var webpack = require("webpack-stream"),
     istanbul = require("gulp-istanbul"),
     del = require("del");
 
-var clone = lodash.clone;
-var merge = lodash.merge;
+var clone = require("lodash/clone");
+var merge = require("lodash/merge");
 // ### 'CONSTANTS' ###
 var SOURCES = ["./lib/**/*.js", "!(./lib/old/**/*.js)"],
     TESTS = "./test/**/*-test.js";

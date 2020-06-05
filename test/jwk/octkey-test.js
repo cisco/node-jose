@@ -6,7 +6,7 @@
 
 var chai = require("chai"),
     forge = require("node-forge"),
-    clone = require("lodash").clone,
+    clone = require("lodash/clone"),
     merge = require("../../lib/util/merge");
 var assert = chai.assert;
 
