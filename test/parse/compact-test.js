@@ -7,7 +7,7 @@
 var chai = require("chai");
 var assert = chai.assert;
 
-var cloneDeep = require("lodash").cloneDeep;
+var cloneDeep = require("lodash/cloneDeep");
 var parseCompact = require("../../lib/parse/compact");
 var jose = {
   JWK: require("../../lib/jwk")

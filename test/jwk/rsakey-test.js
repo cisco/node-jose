@@ -5,11 +5,11 @@
 "use strict";
 
 var chai = require("chai");
-var bind = require("lodash").bind;
-var clone = require("lodash").clone;
+var bind = require("lodash/bind");
+var clone = require("lodash/clone");
 var merge = require("../../lib/util/merge");
-var omit = require("lodash").omit;
-var pick = require("lodash").pick;
+var omit = require("lodash/omit");
+var pick = require("lodash/pick");
 var assert = chai.assert;
 
 var JWK = {

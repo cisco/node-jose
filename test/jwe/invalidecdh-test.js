@@ -5,7 +5,7 @@
 
 "use strict";
 
-var forEach = require("lodash").forEach;
+var forEach = require("lodash/forEach")
 var chai = require("chai");
 
 var JWE = require("../../lib/jwe"),
