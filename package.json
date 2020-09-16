@@ -78,6 +78,6 @@
     "watchify": "^3.11.1",
     "webpack": "^4.39.3",
     "webpack-stream": "^6.1.0",
-    "yargs": "^16.0.3"
+    "yargs": "^11.1.1"
   }
 }

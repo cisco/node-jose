@@ -2,7 +2,7 @@ language: node_js
 script: gulp test:nodejs:single
 node_js:
   - 6.0.0 # min
-  - lts/boron
+  - lts/boron # min
   - 8.0.0
   - lts/carbon
   - lts/dubnium
