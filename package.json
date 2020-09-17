@@ -62,22 +62,22 @@
     "istanbul": "^0.4.0",
     "jose-cookbook": "git+https://github.com/ietf-jose/cookbook.git",
     "json-loader": "^0.5.4",
-    "karma": "^2.0.0",
+    "karma": "^5.2.2",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.2.0",
     "karma-ie-launcher": "^1.0.0",
-    "karma-mocha": "^1.3.0",
+    "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.0.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-sauce-launcher": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
-    "mocha": "^5.0.0",
+    "mocha": "^8.1.3",
     "run-sequence": "^2.0.0",
     "watchify": "^3.11.1",
     "webpack": "^4.39.3",
-    "webpack-stream": "^4.0.0",
-    "yargs": "^11.1.0"
+    "webpack-stream": "^6.1.0",
+    "yargs": "^16.0.3"
   }
 }
