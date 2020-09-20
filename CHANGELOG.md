@@ -6,6 +6,7 @@ While all of the changes in this release are only dependency updates and otherwi
 
 ### Update
 
+* switch to `karma-safari-applescript-launcher` for improved local Safari testing ([a0db723](https://github.com/cisco/node-jose/commit/a0db7230205d8bb6bfd8d06b7a1ffb4b036700fd))
 * update dependencies for `karma`, `karma-mocha`, `mocha`, `webpack-stream`, and `yargs` ([96ee8ff](https://github.com/cisco/node-jose/commit/96ee8ff70dc9fbf08309cf4f5240f3affbffb16d))
 * update `node-forge` to latest (shahar-h)([277aab5](https://github.com/cisco/node-jose/commit/277aab5c4c1c5b6b6c3923663d40aa9412f9f49d))
 * cherry-pick `lodash` modules to effect smaller footprint (tychenjianjun)([003ef1c](https://github.com/cisco/node-jose/commit/003ef1c1488c5006976e4ead72bf40f63c4b098d))
