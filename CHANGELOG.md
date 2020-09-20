@@ -1,5 +1,16 @@
 # Release Notes
 
+## [2.0.0](https://github.com/cisco/node-jose/compare/1.1.4...2.0.0) (2020-09-20)
+
+While all of the changes in this release are only dependency updates and otherwise patch-level changes, it does break compatibility with versions of node.js older than version 10.
+
+### Update
+
+* update dependencies for `karma`, `karma-mocha`, `mocha`, `webpack-stream`, and `yargs` ([96ee8ff](https://github.com/cisco/node-jose/commit/96ee8ff70dc9fbf08309cf4f5240f3affbffb16d))
+* update `node-forge` to latest (shahar-h)([277aab5](https://github.com/cisco/node-jose/commit/277aab5c4c1c5b6b6c3923663d40aa9412f9f49d))
+* cherry-pick `lodash` modules to effect smaller footprint (tychenjianjun)([003ef1c](https://github.com/cisco/node-jose/commit/003ef1c1488c5006976e4ead72bf40f63c4b098d))
+*  replace `browserify-zlib` with `pako` (taymoork2)([85610d6](https://github.com/cisco/node-jose/commit/85610d6fdf411c72f58d15197e6f935e0b20a695))
+
 ## [1.1.4](https://github.com/cisco/node-jose/compare/1.1.3...1.1.4) (2020-03-26)
 
 
