@@ -27,12 +27,10 @@
     "test": "gulp test:nodejs"
   },
   "browser": {
-    "crypto": false,
-    "zlib": "pako"
+    "crypto": false
   },
   "react-native": {
-    "crypto": false,
-    "zlib": "pako"
+    "crypto": false
   },
   "dependencies": {
     "base64url": "^3.0.1",
