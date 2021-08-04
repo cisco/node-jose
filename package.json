@@ -1,21 +1,22 @@
 {
-  "name": "node-jose",
-  "version": "2.0.0",
-  "description": "A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers",
+  "name": "node-jose-icon",
+  "version": "0.0.1",
+  "description": "Node-jose modified version for ICON pds. forked from cisco/node-jose",
   "keywords": [
     "crypto",
     "jose",
     "jwa",
     "jwe",
     "jwk",
-    "jws"
+    "jws",
+    "icon"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cisco/node-jose.git"
+    "url": "https://github.com/iconloop/node-jose-icon.git"
   },
   "license": "Apache-2.0",
-  "author": "Cisco Systems, Inc. <https://www.cisco.com>",
+  "author": "ICONLOOP Inc. <https://www.iconloop.com/>",
   "contributors": [
     "Matthew A. Miller <linuxwolf@outer-planes.net>",
     "Ian W. Remmel <design@ianwremmel.com>",
@@ -33,6 +34,9 @@
     "crypto": false
   },
   "dependencies": {
+    "request": "^2.88.2",
+    "jwk-to-pem": "^2.0.5",
+    "config": "^3.3.6",
     "base64url": "^3.0.1",
     "buffer": "^5.5.0",
     "es6-promise": "^4.2.8",

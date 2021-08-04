@@ -6,3 +6,4 @@ old/
 node_modules
 yarn.lock
 npm-shrinkwrap.json
+*.iml
