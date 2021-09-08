@@ -487,7 +487,6 @@ var opts = {
 };
 jose.JWS.createVerify(key, opts).
         verify(input).
-        then(input).
         then(function(result) {
           // ...
         });
@@ -689,7 +688,6 @@ var opts = {
 };
 jose.JWS.createVerify(key, opts).
         verify(input).
-        then(input).
         then(function(result) {
           // ...
         });
