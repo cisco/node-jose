@@ -1,5 +1,18 @@
 # Release Notes
 
+## [2.0.1](https://github.com/cisco/node-jose/compare/2.0.0...2.0.1) (2021-11-15)
+
+The changes in this release are only dependency updates. 
+
+### Update
+
+* update dependencies using minor releases for `buffer`, and `lodash`
+* updated devDependencies using minor releases for `bowser`, `browserify-istanbul`, `chai`, `gulp-eslint`, `gulp-istanbul`, `gulp-rename`, `json-loader`, `karma`, 
+`karma-chrome-launcher`, `karma-coverage`, `karma-firefox-launcher`, `karma-mocha-reporter`, `karma-safari-applescript-launcher`, `karma-sauce-launcher`,
+`karma-sourcemap-loader`, `mocha`, `run-sequence`, `webpack-stream`, and `yargs` 
+* updated devDependencies use major release for `webpack`, and `karma-webpack`
+
+
 ## [2.0.0](https://github.com/cisco/node-jose/compare/1.1.4...2.0.0) (2020-09-20)
 
 While all of the changes in this release are only dependency updates and otherwise patch-level changes, it does break compatibility with versions of node.js older than version 10.
