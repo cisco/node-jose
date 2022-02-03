@@ -27,7 +27,7 @@ var ARGV = require("yargs").
 
 var webpack = require("webpack-stream"),
     gulp = require("gulp"),
-    gutil = require("gulp-util"),
+    log = require("fancy-log"),
     karma = require("karma"),
     mocha = require("gulp-mocha"),
     istanbul = require("gulp-istanbul"),
@@ -267,13 +267,13 @@ gulp.task("test:browser", gulp.series("test:lint",
 // ## TRAVIS-CI TASKS ###
 gulp.task("travis:browser", function(cb) {
   if ("true" !== process.env.TRAVIS) {
-    gutil.log("travis-ci environment not detected");
+    log("travis-ci environment not detected");
     cb();
     return;
   }
 
-  gutil.log("pull request: ", process.env.TRAVIS_PULL_REQUEST);
-  gutil.log("job number:   ", process.env.TRAVIS_JOB_NUMBER);
+  log("pull request: ", process.env.TRAVIS_PULL_REQUEST);
+  log("job number:   ", process.env.TRAVIS_JOB_NUMBER);
   if (process.env.SAUCE_USERNAME &&
       process.env.SAUCE_ACCESS_KEY &&
       "false" === process.env.TRAVIS_PULL_REQUEST) {
