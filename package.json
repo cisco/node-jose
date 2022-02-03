@@ -34,14 +34,14 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "buffer": "^5.7.1",
+    "buffer": "^6.0.3",
     "es6-promise": "^4.2.8",
     "lodash": "^4.17.21",
-    "long": "^4.0.0",
+    "long": "^5.2.0",
     "node-forge": "^1.2.1",
-    "pako": "^1.0.11",
+    "pako": "^2.0.4",
     "process": "^0.11.10",
-    "uuid": "^3.3.3"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "bowser": "^1.9.4",
