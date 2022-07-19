@@ -72,7 +72,7 @@
     "karma-sauce-launcher": "^4.3.6",
     "karma-sourcemap-loader": "^0.3.8",
     "karma-webpack": "^5.0.0",
-    "mocha": "^9.2.0",
+    "mocha": "^10.0.0",
     "run-sequence": "^2.2.1",
     "watchify": "^4.0.0",
     "webpack": "^5.64.0",
