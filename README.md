@@ -360,7 +360,7 @@ jose.JWS.createSign({ format: 'compact' }, key).
 
 To create a JWS using a specific algorithm:
 ```javascript
-jose.JWS.createSign({ alg: 'PS256' }, key).
+jose.JWS.createSign({ fields: { alg: 'PS256' } }, key).
         update(input).
         final().
         then(function(result) {
