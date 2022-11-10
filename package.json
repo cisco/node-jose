@@ -47,6 +47,7 @@
   "devDependencies": {
     "bowser": "^2.11.0",
     "chai": "^4.3.7",
+    "is-safari": "^1.0.0",
     "mocha": "^10.1.0"
   },
   "bugs": {
