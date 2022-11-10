@@ -25,7 +25,7 @@
   ],
   "main": "lib/index.js",
   "scripts": {
-    "test": "gulp test:nodejs"
+    "test": "mocha"
   },
   "browser": {
     "crypto": false
