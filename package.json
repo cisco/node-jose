@@ -48,7 +48,7 @@
     "bowser": "^2.11.0",
     "browserify-istanbul": "^3.0.1",
     "chai": "^4.3.4",
-    "del": "^6.0.0",
+    "del": "^7.0.0",
     "eslint-plugin-mocha-no-only": "^1.1.1",
     "fancy-log": "^2.0.0",
     "gulp": "^4.0.2",
