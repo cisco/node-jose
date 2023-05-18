@@ -10,19 +10,6 @@
     "jwk",
     "jws"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cisco/node-jose.git"
-  },
-  "license": "Apache-2.0",
-  "author": "Cisco Systems, Inc. <https://www.cisco.com>",
-  "contributors": [
-    "Stephen Augustus <foo@auggie.dev>",
-    "Matthew A. Miller <linuxwolf@outer-planes.net>",
-    "Ian W. Remmel <design@ianwremmel.com>",
-    "Joe Hildebrand <joe-github@cursive.net>",
-    "Filip Skokan <panva.ip@gmail.com>"
-  ],
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha './test/**/*-test.js'"
@@ -52,10 +39,6 @@
     "jose-cookbook": "git+https://github.com/ietf-jose/cookbook.git",
     "mocha": "^10.1.0"
   },
-  "bugs": {
-    "url": "https://github.com/cisco/node-jose/issues"
-  },
-  "homepage": "https://github.com/cisco/node-jose#readme",
   "directories": {
     "lib": "lib",
     "test": "test"
