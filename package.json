@@ -1,5 +1,5 @@
 {
-  "name": "node-jose",
+  "name": "node-jose-crypto-browserify",
   "version": "2.2.0",
   "description": "A JavaScript implementation of the JSON Object Signing and Encryption (JOSE) for current web browsers and node.js-based servers",
   "keywords": [
