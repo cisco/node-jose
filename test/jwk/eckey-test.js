@@ -230,7 +230,7 @@ describe("jwk/EC", function() {
       assert.deepEqual(algs, []);
 
       algs = JWK.EC.config.algorithms(keys, "verify");
-      assert.deepEqual(algs, ["ES256"]);
+      assert.deepEqual(algs, ["ES256", "BP256R1"]);
     });
     it("returns suite for private key", function() {
       var keys = pick(keyPair, "private");
@@ -248,7 +248,7 @@ describe("jwk/EC", function() {
       assert.deepEqual(algs, ["ECDH-ES", "ECDH-ES+A128KW", "ECDH-ES+A192KW", "ECDH-ES+A256KW"]);
 
       algs = JWK.EC.config.algorithms(keys, "sign");
-      assert.deepEqual(algs, ["ES256"]);
+      assert.deepEqual(algs, ["ES256", "BP256R1"]);
 
       algs = JWK.EC.config.algorithms(keys, "verify");
       assert.deepEqual(algs, []);
