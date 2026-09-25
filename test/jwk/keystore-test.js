@@ -569,7 +569,9 @@ describe("jwk/keystore", function() {
               rawPrivate: "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIJDUxX9BJpsF49W9TKPofckq2npNlYXRhsM+PApuYxdcoAoGCCqGSM49\nAwEHoUQDQgAEWVXns1zCDbbGWVnXQRUvT4342FNEzAiTy1tDz5mfhJqzbqR5D8qy\njjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END EC PRIVATE KEY-----\n",
               spki: "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWVXns1zCDbbGWVnXQRUvT4342FNE\nzAiTy1tDz5mfhJqzbqR5D8qyjjBPkCnLhLn6HNRD3zz3EGCcLFvYhjSpCg==\n-----END PUBLIC KEY-----\n",
               pkcs8: "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkNTFf0EmmwXj1b1M\no+h9ySraek2VhdGGwz48Cm5jF1yhRANCAARZVeezXMINtsZZWddBFS9PjfjYU0TM\nCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc1EPfPPcQYJwsW9iGNKkK\n-----END PRIVATE KEY-----\n",
-              cert: "-----BEGIN CERTIFICATE-----\nMIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYT\nAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQK\nDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1r\nbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjEL\nMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIx\nHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAU\nBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZ\nVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc\n1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3\nu5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB\n/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9m\ndCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7\n-----END CERTIFICATE-----\n"
+              cert: "-----BEGIN CERTIFICATE-----\nMIICMzCCAdmgAwIBAgIJAMwo6FDPY28LMAoGCCqGSM49BAMCMHYxCzAJBgNVBAYT\nAlVTMREwDwYDVQQIDAhDb2xvcmFkbzEPMA0GA1UEBwwGRGVudmVyMRwwGgYDVQQK\nDBNDaXNjbyBTeXN0ZW1zLCBJbmMuMQ0wCwYDVQQLDARDQ1RHMRYwFAYDVQQDDA1r\nbXMuY2lzY28uY29tMB4XDTE1MDkzMDE5MzgxMloXDTE2MDkyOTE5MzgxMlowdjEL\nMAkGA1UEBhMCVVMxETAPBgNVBAgMCENvbG9yYWRvMQ8wDQYDVQQHDAZEZW52ZXIx\nHDAaBgNVBAoME0Npc2NvIFN5c3RlbXMsIEluYy4xDTALBgNVBAsMBENDVEcxFjAU\nBgNVBAMMDWttcy5jaXNjby5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARZ\nVeezXMINtsZZWddBFS9PjfjYU0TMCJPLW0PPmZ+EmrNupHkPyrKOME+QKcuEufoc\n1EPfPPcQYJwsW9iGNKkKo1AwTjAdBgNVHQ4EFgQUNmIbQpQISpglBzdUyLLg5zR3\nu5swHwYDVR0jBBgwFoAUNmIbQpQISpglBzdUyLLg5zR3u5swDAYDVR0TBAUwAwEB\n/zAKBggqhkjOPQQDAgNIADBFAiAvkFO6ok2tadxhXjCCJ99+P1MhQ3FPUav1cs9m\ndCjkUgIhAKZGQ118RwlQpMX8B1nVsI7wP8c6iGfKwTkRwoKrSFr7\n-----END CERTIFICATE-----\n",
+              trickyPkcs8: "-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgGhxHIBRF78CETf2Y\n4naT6iLT5UJVgy9Pa7TMEMSRCSehRANCAAQ/Idg7BVShuglkq7uV5gN9Bo4tCJIi\nZLAWMdYCKfsfhGk0SRwGKO8WejalYv8YhudHIrwakIcLY0DkkeBAPyOw\n-----END PRIVATE KEY-----\n",
+              trickySpki: "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEPyHYOwVUoboJZKu7leYDfQaOLQiS\nImSwFjHWAin7H4RpNEkcBijvFno2pWL/GIbnRyK8GpCHC2NA5JHgQD8jsA==\n-----END PUBLIC KEY-----\n"
             };
         it("coerces Private String to JWK.Key istance", function() {
           var promise = JWK.store.KeyStore.asKey(rawPrivate, "private");
@@ -636,6 +638,32 @@ describe("jwk/keystore", function() {
           var promise = JWK.store.KeyStore.asKey(pem.pkcs8, "pem");
           promise = promise.then(function(jwk) {
             assert.ok(JWK.store.KeyStore.asKey(jwk));
+          });
+
+          return promise;
+        });
+        it("coerces a PKCS8 EC PEM whose point looks like ASN.1", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.trickyPkcs8, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.isKey(jwk));
+            assert.strictEqual(jwk.kty, "EC");
+            var json = jwk.toJSON(true);
+            assert.strictEqual(json.crv, "P-256");
+            assert.strictEqual(json.x, "PyHYOwVUoboJZKu7leYDfQaOLQiSImSwFjHWAin7H4Q");
+            assert.strictEqual(json.y, "aTRJHAYo7xZ6NqVi_xiG50civBqQhwtjQOSR4EA_I7A");
+            assert.strictEqual(json.d, "GhxHIBRF78CETf2Y4naT6iLT5UJVgy9Pa7TMEMSRCSc");
+          });
+
+          return promise;
+        });
+        it("coerces an EC SPKI PEM whose point looks like ASN.1", function() {
+          var promise = JWK.store.KeyStore.asKey(pem.trickySpki, "pem");
+          promise = promise.then(function(jwk) {
+            assert.ok(JWK.store.KeyStore.isKey(jwk));
+            var json = jwk.toJSON();
+            assert.strictEqual(json.crv, "P-256");
+            assert.strictEqual(json.x, "PyHYOwVUoboJZKu7leYDfQaOLQiSImSwFjHWAin7H4Q");
+            assert.strictEqual(json.y, "aTRJHAYo7xZ6NqVi_xiG50civBqQhwtjQOSR4EA_I7A");
           });
 
           return promise;
